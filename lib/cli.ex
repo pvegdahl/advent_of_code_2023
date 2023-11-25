@@ -1,7 +1,7 @@
 defmodule AdventOfCode2023.Cli do
   def run_day(day_number) do
     get_day_module(day_number)
-    |> run_all_functions(day_number)
+    |> run_all_functions()
   end
 
   defp get_day_module(day_number) do
@@ -9,19 +9,26 @@ defmodule AdventOfCode2023.Cli do
     |> String.to_existing_atom()
   end
 
-  defp run_all_functions(day_module, day_number) do
+  defp run_all_functions(day_module) do
     day_module.__info__(:functions)
     |> Enum.filter(fn {_function_atom, arity} -> arity == 0 end)
     |> Enum.map(fn {function_atom, _arity} -> function_atom end)
     |> Enum.sort()
-    |> Enum.map(&run_function(day_module, day_number, &1))
+    |> Enum.map(&run_function(day_module, &1))
     |> Enum.join("\n")
-
   end
 
-  defp run_function(day_module, day_number, function_atom) do
-    "___Day" <>
-      day_number <>
+  defp run_function(day_module, function_atom) do
+    day_name = get_day_name_from_module(day_module)
+
+    "___" <>
+      day_name <>
       "-" <> Atom.to_string(function_atom) <> "___\n" <> Function.capture(day_module, function_atom, 0).() <> "\n"
+  end
+
+  defp get_day_name_from_module(day_module) do
+    day_module
+    |> Atom.to_string()
+    |> String.replace_prefix("Elixir.AdventOfCode2023.", "")
   end
 end
