@@ -5,7 +5,7 @@ defmodule AdventOfCode2023.CliTest do
 
   test "Run the proper day's code" do
     assert Cli.run_day("0") == """
-           ___Day0___
+           ___Day0-a___
            day0 part_a
            """
   end
