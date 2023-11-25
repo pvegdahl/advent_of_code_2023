@@ -1,11 +1,13 @@
 defmodule AdventOfCode2023.Cli do
+  @module_prefix "Elixir.AdventOfCode2023.Day"
+
   def run_day(day_number) do
     get_day_module(day_number)
     |> run_all_functions()
   end
 
   defp get_day_module(day_number) do
-    ("Elixir.AdventOfCode2023.Day" <> day_number)
+    (@module_prefix <> day_number)
     |> String.to_existing_atom()
   end
 
@@ -29,6 +31,6 @@ defmodule AdventOfCode2023.Cli do
   defp get_day_name_from_module(day_module) do
     day_module
     |> Atom.to_string()
-    |> String.replace_prefix("Elixir.AdventOfCode2023.", "")
+    |> String.replace_prefix(@module_prefix, "Day")
   end
 end
