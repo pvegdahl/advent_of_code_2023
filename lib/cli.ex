@@ -7,7 +7,7 @@ defmodule AdventOfCode2023.Cli do
     functions = day_module.__info__(:functions)
 
     if Enum.member?(functions, {:a, 0}) do
-      Function.capture(day_module, :a, 0).()
+      "___Day" <> day_number <> "___\n" <> Function.capture(day_module, :a, 0).() <> "\n"
     else
       nil
     end

@@ -4,6 +4,9 @@ defmodule AdventOfCode2023.CliTest do
   alias AdventOfCode2023.Cli
 
   test "Run the proper day's code" do
-    assert Cli.run_day("0") == "day0 part_a"
+    assert Cli.run_day("0") == """
+           ___Day0___
+           day0 part_a
+           """
   end
 end
