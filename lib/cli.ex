@@ -10,20 +10,18 @@ defmodule AdventOfCode2023.Cli do
   end
 
   defp run_a(day_module, day_number) do
-    functions = day_module.__info__(:functions)
-
-    if Enum.member?(functions, {:a, 0}) do
-      "___Day" <> day_number <> "-a___\n" <> Function.capture(day_module, :a, 0).() <> "\n"
-    else
-      nil
-    end
+    run_function(day_module, day_number, :a)
   end
 
   defp run_b(day_module, day_number) do
+    run_function(day_module, day_number, :b)
+  end
+
+  defp run_function(day_module, day_number, function_atom) do
     functions = day_module.__info__(:functions)
 
-    if Enum.member?(functions, {:b, 0}) do
-      "___Day" <> day_number <> "-b___\n" <> Function.capture(day_module, :b, 0).() <> "\n"
+    if Enum.member?(functions, {function_atom, 0}) do
+      "___Day" <> day_number <> "-" <> Atom.to_string(function_atom) <> "___\n" <> Function.capture(day_module, function_atom, 0).() <> "\n"
     else
       nil
     end
