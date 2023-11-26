@@ -21,11 +21,10 @@ defmodule AdventOfCode2023.Cli do
   end
 
   defp run_function(day_module, function_atom) do
+    function_output = Function.capture(day_module, function_atom, 0).()
     day_name = get_day_name_from_module(day_module)
 
-    "___" <>
-      day_name <>
-      "-" <> Atom.to_string(function_atom) <> "___\n" <> Function.capture(day_module, function_atom, 0).() <> "\n"
+    "___#{day_name}-#{Atom.to_string(function_atom)}___\n#{function_output}\n"
   end
 
   defp get_day_name_from_module(day_module) do
