@@ -11,11 +11,11 @@ defmodule AdventOfCode2023.CliTest do
   end
 
   test "Run parts A and B when they both exist" do
-    assert Cli.run_day("1") == """
-           ___Day1-a___
+    assert Cli.run_day("00") == """
+           ___Day00-a___
            AAA
 
-           ___Day1-b___
+           ___Day00-b___
            BBB
            """
   end
