@@ -3,7 +3,12 @@ defmodule Mix.Tasks.Advent do
   use Mix.Task
 
   @shortdoc "For now, just outputs a test string"
-  def run(_) do
-    IO.puts("It works!")
+  def run(days) do
+    Enum.each(days, &run_and_print_day/1)
+  end
+
+  defp run_and_print_day(day) do
+    AdventOfCode2023.Cli.run_day(day)
+    |> IO.puts()
   end
 end
