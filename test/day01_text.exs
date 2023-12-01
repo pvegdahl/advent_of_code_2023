@@ -29,11 +29,14 @@ defmodule AdventOfCode2023.Day01Test do
 
   test "Sorted word matches" do
     assert Day01.sorted_word_matches("eightwothree") == ["eight", "two", "three"]
-
   end
 
   test "Word replacement happens in order" do
     assert Day01.filter_line_with_number_words("eightwothree") == 83
+  end
+
+  test "Word replacement happens in order with multiple interacting conflicts" do
+    assert Day01.filter_line_with_number_words("threeighthreeight") == 33
   end
 
   test "AoC example B" do

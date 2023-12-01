@@ -36,9 +36,13 @@ defmodule AdventOfCode2023.Day01 do
   end
 
   defp replace_number_word_with_number(line) do
-    sorted_word_matches(line)
-    |> Enum.map(&{Regex.compile!(&1), Map.get(@number_word_to_number, &1)})
-    |> Enum.reduce(line, fn {regex, replacement}, acc -> Regex.replace(regex, acc, replacement, global: false) end)
+    new_line = do_one_replacement(line)
+
+    if new_line == line do
+      new_line
+    else
+      replace_number_word_with_number(new_line)
+    end
   end
 
   def add_lines_with_number_words(lines) do
@@ -52,14 +56,32 @@ defmodule AdventOfCode2023.Day01 do
     |> Stream.map(&String.trim/1)
   end
 
+  defp do_one_replacement(line) do
+    first_match = get_first_match(line)
+
+    if first_match != nil do
+      regex = Regex.compile!(first_match)
+      replacement = Map.get(@number_word_to_number, first_match)
+
+      Regex.replace(regex, line, replacement, global: false)
+    else
+      line
+    end
+  end
+
+  defp get_first_match(line) do
+    line
+    |> sorted_word_matches()
+    |> List.first()
+  end
+
   def sorted_word_matches(line) do
     @number_word_to_number
     |> Map.keys()
     |> Enum.flat_map(fn word -> find_indexes_of_match(line, word) end)
-    |> Enum.sort_by(&(elem(&1, 0)))
+    |> Enum.sort_by(&elem(&1, 0))
     |> Enum.map(&elem(&1, 1))
   end
-
 
   defp find_indexes_of_match(line, word) do
     Regex.compile!(word)
@@ -70,5 +92,10 @@ defmodule AdventOfCode2023.Day01 do
   def a() do
     file_to_lines("inputs/day01.txt")
     |> add_lines()
+  end
+
+  def b() do
+    file_to_lines("inputs/day01.txt")
+    |> add_lines_with_number_words()
   end
 end
