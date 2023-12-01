@@ -16,11 +16,11 @@ defmodule AdventOfCode2023.Day01Test do
   end
 
   test "Process and add multiple lines" do
-    assert Day01.add_lines(["34", "9345", "a8b6c"]) == 215
+    assert Day01.part_a(["34", "9345", "a8b6c"]) == 215
   end
 
   test "AoC example A" do
-    assert Day01.add_lines(["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"]) == 142
+    assert Day01.part_a(["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"]) == 142
   end
 
   test "One line with number words" do
@@ -31,16 +31,8 @@ defmodule AdventOfCode2023.Day01Test do
     assert Day01.sorted_word_matches("eightwothree") == ["eight", "two", "three"]
   end
 
-  test "Word replacement happens in order" do
-    assert Day01.filter_line_with_number_words("eightwothree") == 83
-  end
-
-  test "Word replacement happens in order with multiple interacting conflicts" do
-    assert Day01.filter_line_with_number_words("threeighthreeight") == 33
-  end
-
   test "AoC example B" do
-    assert Day01.add_lines_with_number_words([
+    assert Day01.part_b([
              "two1nine",
              "eightwothree",
              "abcone2threexyz",
