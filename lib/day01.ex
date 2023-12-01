@@ -17,4 +17,13 @@ defmodule AdventOfCode2023.Day01 do
     |> Enum.sum()
   end
 
+  defp file_to_lines(filename) do
+    File.stream!(filename, [:utf8])
+    |> Stream.map(&String.trim/1)
+  end
+
+  def a() do
+    file_to_lines("inputs/day01.txt")
+    |> add_lines()
+  end
 end

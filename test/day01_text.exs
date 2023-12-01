@@ -18,4 +18,9 @@ defmodule AdventOfCode2023.Day01Test do
   test "Process and add multiple lines" do
     assert Day01.add_lines(["34", "9345", "a8b6c"]) == 215
   end
+
+  test "AoC example" do
+
+    assert Day01.add_lines(["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"]) == 142
+  end
 end
