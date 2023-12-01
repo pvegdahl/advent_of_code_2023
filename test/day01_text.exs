@@ -19,7 +19,32 @@ defmodule AdventOfCode2023.Day01Test do
     assert Day01.add_lines(["34", "9345", "a8b6c"]) == 215
   end
 
-  test "AoC example" do
+  test "AoC example A" do
     assert Day01.add_lines(["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"]) == 142
+  end
+
+  test "One line with number words" do
+    assert Day01.filter_line_with_number_words("abcone2threexyz") == 13
+  end
+
+  test "Sorted word matches" do
+    assert Day01.sorted_word_matches("eightwothree") == ["eight", "two", "three"]
+
+  end
+
+  test "Word replacement happens in order" do
+    assert Day01.filter_line_with_number_words("eightwothree") == 83
+  end
+
+  test "AoC example B" do
+    assert Day01.add_lines_with_number_words([
+             "two1nine",
+             "eightwothree",
+             "abcone2threexyz",
+             "xtwone3four",
+             "4nineeightseven2",
+             "zoneight234",
+             "7pqrstsixteen"
+           ]) == 281
   end
 end
