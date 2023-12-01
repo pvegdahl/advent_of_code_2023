@@ -10,4 +10,8 @@ defmodule AdventOfCode2023.Day01Test do
   test "An input line with just extra digits returns the outer digits as a number" do
     assert Day01.filter_line_to_number("9345") == 95
   end
+
+  test "Filter out non-numbers to get the number" do
+    assert Day01.filter_line_to_number("a8b6c") == 86
+  end
 end
