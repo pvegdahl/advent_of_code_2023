@@ -20,7 +20,6 @@ defmodule AdventOfCode2023.Day01Test do
   end
 
   test "AoC example" do
-
     assert Day01.add_lines(["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"]) == 142
   end
 end
