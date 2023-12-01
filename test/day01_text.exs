@@ -14,4 +14,8 @@ defmodule AdventOfCode2023.Day01Test do
   test "Filter out non-numbers to get the number" do
     assert Day01.filter_line_to_number("a8b6c") == 86
   end
+
+  test "Process and add multiple lines" do
+    assert Day01.add_lines(["34", "9345", "a8b6c"]) == 215
+  end
 end
