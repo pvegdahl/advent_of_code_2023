@@ -1,4 +1,6 @@
 defmodule AdventOfCode2023.Day01 do
+  alias AdventOfCode2023.Helpers
+
   @number_mappings %{
     "one" => 1,
     "two" => 2,
@@ -53,11 +55,6 @@ defmodule AdventOfCode2023.Day01 do
     |> Integer.undigits()
   end
 
-  defp file_to_lines(filename) do
-    File.stream!(filename, [:utf8])
-    |> Stream.map(&String.trim/1)
-  end
-
   def sorted_word_matches(line) do
     @number_mappings
     |> Map.keys()
@@ -73,12 +70,12 @@ defmodule AdventOfCode2023.Day01 do
   end
 
   def a() do
-    file_to_lines("inputs/day01.txt")
+    Helpers.file_to_lines!("inputs/day01.txt")
     |> part_a()
   end
 
   def b() do
-    file_to_lines("inputs/day01.txt")
+    Helpers.file_to_lines!("inputs/day01.txt")
     |> part_b()
   end
 end
