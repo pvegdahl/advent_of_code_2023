@@ -78,7 +78,13 @@ defmodule AdventOfCode2023.Day02 do
     |> ColorCubes.strictly_lte(@part_a_target)
   end
 
-  def part_b(_lines) do
+  def part_b(lines) do
+    lines
+    |> Stream.map(&ColorCubes.parse_line/1)
+    |> Stream.map(&elem(&1, 1))
+    |> Stream.map(&ColorCubes.max_by_color/1)
+    |> Stream.map(&ColorCubes.power/1)
+    |> Enum.sum()
   end
 
   def a() do
