@@ -1,7 +1,7 @@
 defmodule AdventOfCode2023.Day02Test do
   use ExUnit.Case, async: true
 
-  alias AdventOfCode2023.Day02
+#  alias AdventOfCode2023.Day02
 end
 
 defmodule AdventOfCode2023.ColorCubesTest do
@@ -33,5 +33,15 @@ defmodule AdventOfCode2023.ColorCubesTest do
                 %ColorCubes{red: 1, green: 2, blue: 6},
                 %ColorCubes{green: 2}
               ]}
+  end
+
+  test "Find the max of each color across multiple ColorCubes" do
+    color_cubes = [
+      %ColorCubes{red: 1, green: 2, blue: 3},
+      %ColorCubes{red: 11, green: 12, blue: 0},
+      %ColorCubes{red: 1, green: 2, blue: 30},
+      %ColorCubes{red: 7, green: 200, blue: 3},
+    ]
+    assert ColorCubes.max_by_color(color_cubes) == %ColorCubes{red: 11, green: 200, blue: 30}
   end
 end

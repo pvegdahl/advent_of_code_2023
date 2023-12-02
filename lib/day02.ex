@@ -37,6 +37,14 @@ defmodule AdventOfCode2023.ColorCubes do
     struct(__MODULE__, args)
   end
 
+  def max_by_color(cubes) do
+    max_red = cubes |> Enum.map(fn cube -> cube.red end) |> Enum.max()
+    max_green = cubes |> Enum.map(fn cube -> cube.green end) |> Enum.max()
+    max_blue = cubes |> Enum.map(fn cube -> cube.blue end) |> Enum.max()
+
+    %__MODULE__{red: max_red, green: max_green, blue: max_blue}
+  end
+
   defp parse_color(text) do
     case String.split(text, " ") do
       [count, color] -> {String.to_existing_atom(color), String.to_integer(count)}
