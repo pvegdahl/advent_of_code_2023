@@ -45,6 +45,10 @@ defmodule AdventOfCode2023.ColorCubes do
     struct(__MODULE__, args)
   end
 
+  def strictly_lte(%__MODULE__{red: r0, green: g0, blue: b0}, %__MODULE__{red: r1, green: g1, blue: b1}) do
+    r0 <= r1 && g0 <= g1 && b0 <= b1
+  end
+
   defp max_of_color(cubes, color) do
     cubes
     |> Enum.map(&Map.get(&1, color))

@@ -45,4 +45,24 @@ defmodule AdventOfCode2023.ColorCubesTest do
 
     assert ColorCubes.max_by_color(color_cubes) == %ColorCubes{red: 11, green: 200, blue: 30}
   end
+
+  test "One ColorCubes is strictly lte than itself" do
+    cubes = %ColorCubes{red: 1, green: 2, blue: 3}
+
+    assert ColorCubes.strictly_lte(cubes, cubes)
+  end
+
+  test "One ColorCubes is not strictly lte to another with mixed lte status" do
+    cubes_a = %ColorCubes{red: 1, green: 3, blue: 1}
+    cubes_b = %ColorCubes{red: 1, green: 2, blue: 3}
+
+    assert not ColorCubes.strictly_lte(cubes_a, cubes_b)
+  end
+
+  test "One ColorCubes is strictly lte to another, different one that is lte across colors" do
+    cubes_a = %ColorCubes{red: 1, green: 3, blue: 9}
+    cubes_b = %ColorCubes{red: 4, green: 3, blue: 10}
+
+    assert ColorCubes.strictly_lte(cubes_a, cubes_b)
+  end
 end
