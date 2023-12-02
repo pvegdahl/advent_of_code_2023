@@ -38,11 +38,18 @@ defmodule AdventOfCode2023.ColorCubes do
   end
 
   def max_by_color(cubes) do
-    max_red = cubes |> Enum.map(fn cube -> cube.red end) |> Enum.max()
-    max_green = cubes |> Enum.map(fn cube -> cube.green end) |> Enum.max()
-    max_blue = cubes |> Enum.map(fn cube -> cube.blue end) |> Enum.max()
+    max_red = max_of_color(cubes, :red)
+    max_green = max_of_color(cubes, :green)
+    max_blue = max_of_color(cubes, :blue)
 
     %__MODULE__{red: max_red, green: max_green, blue: max_blue}
+  end
+
+  defp max_of_color(cubes, color) do
+    cubes
+    |> Enum.map(&Map.get(&1, color))
+    |> Enum.max()
+
   end
 
   defp parse_color(text) do
