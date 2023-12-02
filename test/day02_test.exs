@@ -12,6 +12,10 @@ defmodule AdventOfCode2023.ColorCubesTest do
   alias AdventOfCode2023.ColorCubes
 
   test "Parse red cubes from text" do
-    assert ColorCubes.from_text("3 red") == %ColorCubes{red: 3}
+    assert ColorCubes.from_text("3 red") == %ColorCubes{red: 3, green: 0}
+  end
+
+  test "Parse green cubes from text" do
+    assert ColorCubes.from_text("45 green") == %ColorCubes{red: 0, green: 45}
   end
 end

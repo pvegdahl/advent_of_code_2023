@@ -19,15 +19,16 @@ defmodule AdventOfCode2023.Day02 do
 end
 
 defmodule AdventOfCode2023.ColorCubes do
-  defstruct [:red]
+  defstruct red: 0, green: 0
 
   def from_text(text) do
-    %__MODULE__{red: parse_red(text)}
+    {color, count} = parse_color(text)
+    struct(__MODULE__, [{color, count}])
   end
 
-  defp parse_red(text) do
-    case Regex.run(~r/(\d+) red/, text) do
-      [_, count] -> String.to_integer(count)
+  defp parse_color(text) do
+    case String.split(text, " ") do
+      [count, color] -> {String.to_existing_atom(color), String.to_integer(count)}
     end
   end
 end
