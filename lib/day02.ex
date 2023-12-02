@@ -19,7 +19,7 @@ defmodule AdventOfCode2023.Day02 do
 end
 
 defmodule AdventOfCode2023.ColorCubes do
-  defstruct red: 0, green: 0
+  defstruct red: 0, green: 0, blue: 0
 
   def from_text(text) do
     {color, count} = parse_color(text)
