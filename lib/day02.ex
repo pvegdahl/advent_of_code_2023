@@ -19,12 +19,10 @@ defmodule AdventOfCode2023.Day02 do
 end
 
 defmodule AdventOfCode2023.ColorCubes do
-  alias AdventOfCode2023.ColorCubes
-
   defstruct [:red]
 
   def from_text(text) do
-    %ColorCubes{red: parse_red(text)}
+    %__MODULE__{red: parse_red(text)}
   end
 
   defp parse_red(text) do
