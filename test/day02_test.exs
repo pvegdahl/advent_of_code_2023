@@ -24,4 +24,14 @@ defmodule AdventOfCode2023.ColorCubesTest do
   test "Parse all colors from text" do
     assert ColorCubes.from_text("1 blue, 2 green, 3 red") == %ColorCubes{red: 3, green: 2, blue: 1}
   end
+
+  test "Parse a whole line" do
+    assert ColorCubes.parse_line("Game 18: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green") ==
+             {18,
+              [
+                %ColorCubes{blue: 3, red: 4},
+                %ColorCubes{red: 1, green: 2, blue: 6},
+                %ColorCubes{green: 2}
+              ]}
+  end
 end

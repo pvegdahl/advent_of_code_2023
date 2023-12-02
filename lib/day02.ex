@@ -21,6 +21,12 @@ end
 defmodule AdventOfCode2023.ColorCubes do
   defstruct red: 0, green: 0, blue: 0
 
+  def parse_line(line) do
+    [game_text, cube_text] = String.split(line, ":")
+
+    {parse_game_number(game_text), parse_cubes(cube_text)}
+  end
+
   def from_text(text) do
     args =
       text
@@ -35,5 +41,19 @@ defmodule AdventOfCode2023.ColorCubes do
     case String.split(text, " ") do
       [count, color] -> {String.to_existing_atom(color), String.to_integer(count)}
     end
+  end
+
+  defp parse_cubes(cube_text) do
+    cube_text
+    |> String.split(";")
+    |> Enum.map(&String.trim/1)
+    |> Enum.map(&from_text/1)
+  end
+
+  defp parse_game_number(game_text) do
+    game_text
+    |> String.split(" ")
+    |> Enum.at(1)
+    |> String.to_integer()
   end
 end
