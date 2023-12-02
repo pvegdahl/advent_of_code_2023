@@ -17,3 +17,19 @@ defmodule AdventOfCode2023.Day02 do
     |> part_b()
   end
 end
+
+defmodule AdventOfCode2023.ColorCubes do
+  alias AdventOfCode2023.ColorCubes
+
+  defstruct [:red]
+
+  def from_text(text) do
+    %ColorCubes{red: parse_red(text)}
+  end
+
+  defp parse_red(text) do
+    case Regex.run(~r/(\d+) red/, text) do
+      [_, count] -> String.to_integer(count)
+    end
+  end
+end
