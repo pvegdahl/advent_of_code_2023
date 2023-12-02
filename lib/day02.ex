@@ -29,6 +29,8 @@ defmodule AdventOfCode2023.ColorCubes do
     r0 <= r1 && g0 <= g1 && b0 <= b1
   end
 
+  def power(%__MODULE__{red: red, green: green, blue: blue}), do: red * green * blue
+
   defp max_of_color(cubes, color) do
     cubes
     |> Enum.map(&Map.get(&1, color))
@@ -89,4 +91,3 @@ defmodule AdventOfCode2023.Day02 do
     |> part_b()
   end
 end
-

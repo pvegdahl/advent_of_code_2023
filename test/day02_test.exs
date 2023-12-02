@@ -77,4 +77,8 @@ defmodule AdventOfCode2023.ColorCubesTest do
 
     assert ColorCubes.strictly_lte(cubes_a, cubes_b)
   end
+
+  test "Cube power is the multiplier of the cube values" do
+    assert ColorCubes.power(%ColorCubes{red: 4, green: 3, blue: 10}) == 120
+  end
 end
