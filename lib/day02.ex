@@ -1,23 +1,3 @@
-defmodule AdventOfCode2023.Day02 do
-  alias AdventOfCode2023.Helpers
-
-  def part_a(_lines) do
-  end
-
-  def part_b(_lines) do
-  end
-
-  def a() do
-    Helpers.file_to_lines!("inputs/day02.txt")
-    |> part_a()
-  end
-
-  def b() do
-    Helpers.file_to_lines!("inputs/day02.txt")
-    |> part_b()
-  end
-end
-
 defmodule AdventOfCode2023.ColorCubes do
   defstruct red: 0, green: 0, blue: 0
 
@@ -75,3 +55,38 @@ defmodule AdventOfCode2023.ColorCubes do
     |> String.to_integer()
   end
 end
+
+defmodule AdventOfCode2023.Day02 do
+  alias AdventOfCode2023.Helpers
+  alias AdventOfCode2023.ColorCubes
+
+  @part_a_target %ColorCubes{red: 12, green: 13, blue: 14}
+
+  def part_a(lines) do
+    lines
+    |> Stream.map(&ColorCubes.parse_line/1)
+    |> Stream.filter(fn {_game_number, cubes} -> game_passes?(cubes) end)
+    |> Stream.map(&elem(&1, 0))
+    |> Enum.sum()
+  end
+
+  defp game_passes?(cubes) do
+    cubes
+    |> ColorCubes.max_by_color()
+    |> ColorCubes.strictly_lte(@part_a_target)
+  end
+
+  def part_b(_lines) do
+  end
+
+  def a() do
+    Helpers.file_to_lines!("inputs/day02.txt")
+    |> part_a()
+  end
+
+  def b() do
+    Helpers.file_to_lines!("inputs/day02.txt")
+    |> part_b()
+  end
+end
+
