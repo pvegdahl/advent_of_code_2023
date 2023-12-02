@@ -22,8 +22,12 @@ defmodule AdventOfCode2023.ColorCubes do
   defstruct red: 0, green: 0, blue: 0
 
   def from_text(text) do
-    {color, count} = parse_color(text)
-    struct(__MODULE__, [{color, count}])
+    args = text
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.map(&parse_color/1)
+
+    struct(__MODULE__, args)
   end
 
   defp parse_color(text) do
