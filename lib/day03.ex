@@ -8,8 +8,8 @@ defmodule AdventOfCode2023.Day03 do
     "*"
     |> Regex.escape()
     |> Regex.compile!()
-    |> Regex.run(line, return: :index)
-    |> Enum.map(fn {col_index, _length} -> {{col_index, row_index}, "*"} end)
+    |> Regex.scan(line, return: :index)
+    |> Enum.map(fn [{col_index, _length}] -> {{col_index, row_index}, "*"} end)
     |> Enum.into(%{})
   end
 
