@@ -22,7 +22,7 @@ defmodule AdventOfCode2023.Day03Test do
     assert Day03.get_all_symbol_locations(example_lines()) == %{
              {2, 1} => "*",
              {5, 3} => "#",
-             {2, 4} => "*",
+             {3, 4} => "*",
              {4, 5} => "+",
              {3, 8} => "$",
              {5, 8} => "*"
@@ -35,7 +35,7 @@ defmodule AdventOfCode2023.Day03Test do
       "..*......",
       ".35..633.",
       ".....#...",
-      "17*......",
+      "617*.....",
       "....+.58.",
       ".592.....",
       ".....755.",
@@ -96,7 +96,6 @@ defmodule AdventOfCode2023.Day03Test do
              ])
   end
 
-  @tag :skip
   test "Part A example input" do
     assert Day03.part_a(example_lines()) == 4361
   end

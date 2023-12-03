@@ -1,9 +1,17 @@
 defmodule AdventOfCode2023.Day03 do
   alias AdventOfCode2023.Helpers
 
-  def part_a(_lines) do
-    #    symbols_locations = get_all_symbol_locations(lines)
-    #    {coordinate_mappings, coordinate_number_mappings} = get_all_number_locations(lines)
+  def part_a(lines) do
+    {coordinate_mappings, coordinate_number_mappings} = get_all_number_locations(lines)
+
+    get_all_symbol_locations(lines)
+    |> Map.keys()
+    |> get_neighbors()
+    |> Enum.map(&Map.get(coordinate_mappings, &1))
+    |> Enum.reject(&(&1 == nil))
+    |> Enum.uniq()
+    |> Enum.map(&Map.get(coordinate_number_mappings, &1))
+    |> Enum.sum()
   end
 
   def get_all_symbol_locations(lines) do
@@ -91,7 +99,7 @@ defmodule AdventOfCode2023.Day03 do
     |> MapSet.difference(MapSet.new(points))
   end
 
-  defp get_neighbors_of_one_point({x, y} = point) do
+  defp get_neighbors_of_one_point({x, y}) do
     for xx <- (x - 1)..(x + 1), yy <- (y - 1)..(y + 1) do
       {xx, yy}
     end
