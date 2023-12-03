@@ -17,4 +17,30 @@ defmodule AdventOfCode2023.Day03Test do
     line = "%.$#.*"
     assert Day03.get_symbol_locations(line, 7) == %{{0, 7} => "%", {2, 7} => "$", {3, 7} => "#", {5, 7} => "*"}
   end
+
+  test "Get all symbol locations across the whole example input" do
+    assert Day03.get_all_symbol_locations(example_lines()) == %{
+             {2, 1} => "*",
+             {5, 3} => "#",
+             {2, 4} => "*",
+             {4, 5} => "+",
+             {3, 8} => "$",
+             {5, 8} => "*"
+           }
+  end
+
+  defp example_lines() do
+    [
+      "467..114..",
+      "..*......",
+      ".35..633.",
+      ".....#...",
+      "17*......",
+      "....+.58.",
+      ".592.....",
+      ".....755.",
+      "...$.*....",
+      ".664.598.."
+    ]
+  end
 end

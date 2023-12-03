@@ -4,6 +4,13 @@ defmodule AdventOfCode2023.Day03 do
   def part_a(_lines) do
   end
 
+  def get_all_symbol_locations(lines) do
+    lines
+    |> Enum.with_index()
+    |> Enum.map(fn {line, row_index} -> get_symbol_locations(line, row_index) end)
+    |> Enum.reduce(&Map.merge/2)
+  end
+
   def get_symbol_locations(line, row_index) do
     get_symbols(line)
     |> Enum.flat_map(&get_specific_symbol_locations(line, &1, row_index))
