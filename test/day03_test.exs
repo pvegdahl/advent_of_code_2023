@@ -3,7 +3,8 @@ defmodule AdventOfCode2023.Day03Test do
 
   alias AdventOfCode2023.Day03
 
-  test "Placeholder" do
-    assert Day03.part_a("") == nil
+  test "Get a * symbol location from a line" do
+    line = "...*..."
+    assert Day03.get_symbol_locations(line, 14) == %{{3, 14} => "*"}
   end
 end
