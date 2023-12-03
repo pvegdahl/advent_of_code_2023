@@ -98,14 +98,19 @@ defmodule AdventOfCode2023.Day03Test do
 
   test "Find the gears" do
     symbol_map = %{
-               {2, 1} => "*",
-               {5, 3} => "#",
-               {3, 4} => "*",
-               {4, 5} => "+",
-               {3, 8} => "$",
-               {5, 8} => "*"
-             }
-    assert Day03.find_gears(symbol_map) == MapSet.new([ {2, 1}, {3, 4}, {5, 8} ])
+      {2, 1} => "*",
+      {5, 3} => "#",
+      {3, 4} => "*",
+      {4, 5} => "+",
+      {3, 8} => "$",
+      {5, 8} => "*"
+    }
+
+    assert Day03.find_gears(symbol_map) == MapSet.new([{2, 1}, {3, 4}, {5, 8}])
+  end
+
+  test "Find the neighbor pairs of gears on the example input" do
+    assert Day03.neighbor_pairs(example_lines()) == [[35, 467], [598, 755]]
   end
 
   test "Part A example input" do
@@ -114,6 +119,6 @@ defmodule AdventOfCode2023.Day03Test do
 
   @tag :skip
   test "Part B example input" do
-    assert Day03.part_b(example_lines()) == 467835
+    assert Day03.part_b(example_lines()) == 467_835
   end
 end

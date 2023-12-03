@@ -118,6 +118,30 @@ defmodule AdventOfCode2023.Day03 do
   defp is_gear?({_key, "*"}), do: true
   defp is_gear?(_), do: false
 
+  def neighbor_pairs(lines) do
+    lines
+    |> neighbors_of_gears()
+    |> Enum.filter(&(Enum.count(&1) == 2))
+  end
+
+  defp neighbors_of_gears(lines) do
+    {coordinate_mappings, coordinate_number_mappings} = get_all_number_locations(lines)
+    lines
+    |> get_all_symbol_locations()
+    |> find_gears()
+    |> Enum.map(&neighbor_numbers_of_point(&1, coordinate_mappings, coordinate_number_mappings))
+  end
+
+  defp neighbor_numbers_of_point(point, coordinate_mappings, coordinate_number_mappings)  do
+    point
+    |> get_neighbors_of_one_point()
+    |> Enum.map(&Map.get(coordinate_mappings, &1))
+    |> Enum.reject(&(&1 == nil))
+    |> Enum.uniq()
+    |> Enum.map(&Map.get(coordinate_number_mappings, &1))
+    |> Enum.sort()
+  end
+
   def a() do
     Helpers.file_to_lines!("inputs/day03.txt")
     |> part_a()
