@@ -15,11 +15,15 @@ defmodule AdventOfCode2023.Day03 do
     |> Regex.escape()
     |> Regex.compile!()
     |> Regex.scan(line, return: :index)
-    |> Enum.map(fn [{col_index, _length}] -> {{col_index, row_index}, "*"} end)
+    |> Enum.map(fn [{col_index, _length}] -> {{col_index, row_index}, symbol} end)
   end
 
-  defp get_symbols(_line) do
-    ["*"]
+  defp get_symbols(line) do
+    line
+    |> String.graphemes()
+    |> Enum.reject(&(&1 == "."))
+    |> Enum.filter(&(Integer.parse(&1) == :error))
+    |> Enum.uniq()
   end
 
   def part_b(_lines) do
