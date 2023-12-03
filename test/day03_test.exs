@@ -64,4 +64,8 @@ defmodule AdventOfCode2023.Day03Test do
              %{{0, 5} => 86, {4, 5} => 99}
            }
   end
+
+  test "Handles a line with no numbers" do
+    assert Day03.get_number_locations(".#..$..%.*", 11) == {%{}, %{}}
+  end
 end
