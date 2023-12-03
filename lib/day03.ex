@@ -105,7 +105,11 @@ defmodule AdventOfCode2023.Day03 do
     end
   end
 
-  def part_b(_lines) do
+  def part_b(lines) do
+    lines
+    |> neighbor_pairs()
+    |> Enum.map(fn [a, b] -> a * b end)
+    |> Enum.sum()
   end
 
   def find_gears(symbol_map) do
@@ -126,13 +130,14 @@ defmodule AdventOfCode2023.Day03 do
 
   defp neighbors_of_gears(lines) do
     {coordinate_mappings, coordinate_number_mappings} = get_all_number_locations(lines)
+
     lines
     |> get_all_symbol_locations()
     |> find_gears()
     |> Enum.map(&neighbor_numbers_of_point(&1, coordinate_mappings, coordinate_number_mappings))
   end
 
-  defp neighbor_numbers_of_point(point, coordinate_mappings, coordinate_number_mappings)  do
+  defp neighbor_numbers_of_point(point, coordinate_mappings, coordinate_number_mappings) do
     point
     |> get_neighbors_of_one_point()
     |> Enum.map(&Map.get(coordinate_mappings, &1))

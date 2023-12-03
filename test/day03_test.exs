@@ -117,7 +117,6 @@ defmodule AdventOfCode2023.Day03Test do
     assert Day03.part_a(example_lines()) == 4361
   end
 
-  @tag :skip
   test "Part B example input" do
     assert Day03.part_b(example_lines()) == 467_835
   end
