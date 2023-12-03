@@ -12,4 +12,9 @@ defmodule AdventOfCode2023.Day03Test do
     line = "*.*.*.*"
     assert Day03.get_symbol_locations(line, 3) == %{{0, 3} => "*", {2, 3} => "*", {4, 3} => "*", {6, 3} => "*"}
   end
+
+  test "Get all symbols, even if we don't know the symbol types ahead of time" do
+    line = "%.$#.*"
+    assert Day03.get_symbol_locations(line, 7) == %{{0, 7} => "%", {2, 7} => "$", {3, 7} => "#", {5, 7} => "*"}
+  end
 end
