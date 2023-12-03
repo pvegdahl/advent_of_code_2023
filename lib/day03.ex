@@ -1,7 +1,8 @@
 defmodule AdventOfCode2023.Day03 do
   alias AdventOfCode2023.Helpers
 
-  def part_a(_lines) do
+  def part_a(lines) do
+    symbols_locations = get_all_symbol_locations(lines)
   end
 
   def get_all_symbol_locations(lines) do
@@ -31,6 +32,17 @@ defmodule AdventOfCode2023.Day03 do
     |> Enum.reject(&(&1 == "."))
     |> Enum.filter(&(Integer.parse(&1) == :error))
     |> Enum.uniq()
+  end
+
+  def get_all_number_locations(lines) do
+    lines
+    |> Enum.with_index()
+    |> Enum.map(fn {line, row_index} -> get_number_locations(line, row_index) end)
+    |> Enum.map(&Tuple.to_list/1)
+    |> Enum.zip()
+    |> Enum.map(&Tuple.to_list/1)
+    |> Enum.map(fn list_of_maps -> Enum.reduce(list_of_maps, &Map.merge/2) end)
+    |> List.to_tuple()
   end
 
   def get_number_locations(line, row_index) do

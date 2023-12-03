@@ -68,4 +68,16 @@ defmodule AdventOfCode2023.Day03Test do
   test "Handles a line with no numbers" do
     assert Day03.get_number_locations(".#..$..%.*", 11) == {%{}, %{}}
   end
+
+  test "Get numbers from multiple lines" do
+    assert Day03.get_all_number_locations(["..3.", "12.*"]) == {
+             %{{2, 0} => {2, 0}, {0, 1} => {0, 1}, {1, 1} => {0, 1}},
+             %{{2, 0} => 3, {0, 1} => 12}
+           }
+  end
+
+  @tag :skip
+  test "Part A example input" do
+    assert Day03.part_a(example_lines()) == 4361
+  end
 end
