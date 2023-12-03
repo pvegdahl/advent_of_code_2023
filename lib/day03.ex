@@ -33,6 +33,18 @@ defmodule AdventOfCode2023.Day03 do
     |> Enum.uniq()
   end
 
+  def get_number_locations(line, row_index) do
+    [{col_index, length}] = Regex.run(~r/\d+/, line, return: :index)
+
+    number = String.slice(line, col_index, length) |> String.to_integer()
+    coordinates = {col_index, row_index}
+
+    {
+      %{coordinates => coordinates},
+      %{coordinates => number}
+    }
+  end
+
   def part_b(_lines) do
   end
 

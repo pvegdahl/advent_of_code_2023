@@ -43,4 +43,11 @@ defmodule AdventOfCode2023.Day03Test do
       ".664.598.."
     ]
   end
+
+  test "Get a single digit number and location from a line" do
+    assert Day03.get_number_locations("..7...", 4) == {
+             %{{2, 4} => {2, 4}},
+             %{{2, 4} => 7}
+           }
+  end
 end
