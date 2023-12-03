@@ -96,7 +96,24 @@ defmodule AdventOfCode2023.Day03Test do
              ])
   end
 
+  test "Find the gears" do
+    symbol_map = %{
+               {2, 1} => "*",
+               {5, 3} => "#",
+               {3, 4} => "*",
+               {4, 5} => "+",
+               {3, 8} => "$",
+               {5, 8} => "*"
+             }
+    assert Day03.find_gears(symbol_map) == MapSet.new([ {2, 1}, {3, 4}, {5, 8} ])
+  end
+
   test "Part A example input" do
     assert Day03.part_a(example_lines()) == 4361
+  end
+
+  @tag :skip
+  test "Part B example input" do
+    assert Day03.part_b(example_lines()) == 467835
   end
 end

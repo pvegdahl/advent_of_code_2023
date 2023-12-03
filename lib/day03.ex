@@ -108,6 +108,16 @@ defmodule AdventOfCode2023.Day03 do
   def part_b(_lines) do
   end
 
+  def find_gears(symbol_map) do
+    symbol_map
+    |> Map.filter(&is_gear?/1)
+    |> Map.keys()
+    |> MapSet.new()
+  end
+
+  defp is_gear?({_key, "*"}), do: true
+  defp is_gear?(_), do: false
+
   def a() do
     Helpers.file_to_lines!("inputs/day03.txt")
     |> part_a()
