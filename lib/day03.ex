@@ -1,8 +1,9 @@
 defmodule AdventOfCode2023.Day03 do
   alias AdventOfCode2023.Helpers
 
-  def part_a(lines) do
-    symbols_locations = get_all_symbol_locations(lines)
+  def part_a(_lines) do
+    #    symbols_locations = get_all_symbol_locations(lines)
+    #    {coordinate_mappings, coordinate_number_mappings} = get_all_number_locations(lines)
   end
 
   def get_all_symbol_locations(lines) do
@@ -81,6 +82,19 @@ defmodule AdventOfCode2023.Day03 do
     number = String.slice(line, col_index, length) |> String.to_integer()
 
     {coordinates, number}
+  end
+
+  def get_neighbors(points) do
+    points
+    |> Enum.flat_map(&get_neighbors_of_one_point/1)
+    |> MapSet.new()
+    |> MapSet.difference(MapSet.new(points))
+  end
+
+  defp get_neighbors_of_one_point({x, y} = point) do
+    for xx <- (x - 1)..(x + 1), yy <- (y - 1)..(y + 1) do
+      {xx, yy}
+    end
   end
 
   def part_b(_lines) do

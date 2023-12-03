@@ -76,6 +76,26 @@ defmodule AdventOfCode2023.Day03Test do
            }
   end
 
+  test "Get neighbors of coordinates" do
+    assert Day03.get_neighbors([{1, 1}, {3, 2}]) ==
+             MapSet.new([
+               {0, 0},
+               {0, 1},
+               {0, 2},
+               {1, 0},
+               {1, 2},
+               {2, 0},
+               {2, 1},
+               {2, 2},
+               {2, 3},
+               {3, 1},
+               {3, 3},
+               {4, 1},
+               {4, 2},
+               {4, 3}
+             ])
+  end
+
   @tag :skip
   test "Part A example input" do
     assert Day03.part_a(example_lines()) == 4361
