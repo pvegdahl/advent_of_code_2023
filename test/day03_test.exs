@@ -57,6 +57,11 @@ defmodule AdventOfCode2023.Day03Test do
              %{{1, 9} => 123}
            }
   end
-end
 
-# TODO: Multiple numbers in one line
+  test "Get multiple numbers and locations from a line" do
+    assert Day03.get_number_locations("86..99", 5) == {
+             %{{0, 5} => {0, 5}, {1, 5} => {0, 5}, {4, 5} => {4, 5}, {5, 5} => {4, 5}},
+             %{{0, 5} => 86, {4, 5} => 99}
+           }
+  end
+end

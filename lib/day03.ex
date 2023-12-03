@@ -34,19 +34,21 @@ defmodule AdventOfCode2023.Day03 do
   end
 
   def get_number_locations(line, row_index) do
-    [{col_index, length}] = Regex.run(~r/\d+/, line, return: :index)
+    matches = Regex.scan(~r/\d+/, line, return: :index)
 
-    number = String.slice(line, col_index, length) |> String.to_integer()
-    coordinates = {col_index, row_index}
-
-    coordinate_mapping =
-      get_coordinate_mapping(col_index, row_index, length)
-      |> Enum.into(%{})
+    all_coordinate_mappings = get_all_coordinate_mappings(matches, row_index)
+    all_coordinate_number_mappings = get_all_coordinate_number_mappings(matches, row_index, line)
 
     {
-      coordinate_mapping,
-      %{coordinates => number}
+      all_coordinate_mappings,
+      all_coordinate_number_mappings
     }
+  end
+
+  defp get_all_coordinate_mappings(matches, row_index) do
+    matches
+    |> Enum.flat_map(fn [{col_index, length}] -> get_coordinate_mapping(col_index, row_index, length) end)
+    |> Enum.into(%{})
   end
 
   defp get_coordinate_mapping(col_index, row_index, length) do
@@ -54,6 +56,19 @@ defmodule AdventOfCode2023.Day03 do
 
     col_index..(col_index + length - 1)
     |> Enum.map(&{{&1, row_index}, start_coordinates})
+  end
+
+  defp get_all_coordinate_number_mappings(matches, row_index, line) do
+    matches
+    |> Enum.map(&one_match_to_coordinate_number(&1, row_index, line))
+    |> Enum.into(%{})
+  end
+
+  defp one_match_to_coordinate_number([{col_index, length}], row_index, line) do
+    coordinates = {col_index, row_index}
+    number = String.slice(line, col_index, length) |> String.to_integer()
+
+    {coordinates, number}
   end
 
   def part_b(_lines) do
