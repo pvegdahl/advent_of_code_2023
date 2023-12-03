@@ -39,10 +39,21 @@ defmodule AdventOfCode2023.Day03 do
     number = String.slice(line, col_index, length) |> String.to_integer()
     coordinates = {col_index, row_index}
 
+    coordinate_mapping =
+      get_coordinate_mapping(col_index, row_index, length)
+      |> Enum.into(%{})
+
     {
-      %{coordinates => coordinates},
+      coordinate_mapping,
       %{coordinates => number}
     }
+  end
+
+  defp get_coordinate_mapping(col_index, row_index, length) do
+    start_coordinates = {col_index, row_index}
+
+    col_index..(col_index + length - 1)
+    |> Enum.map(&{{&1, row_index}, start_coordinates})
   end
 
   def part_b(_lines) do
