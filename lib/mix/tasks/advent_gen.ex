@@ -5,8 +5,17 @@ defmodule Mix.Tasks.Advent.Gen do
   alias AdventOfCode2023.TemplateGenerator
 
   @shortdoc "Generate a source and test file for a new day"
-  def run([day]) do
-    File.write!(TemplateGenerator.source_file_path(day), TemplateGenerator.source(day))
-    File.write!(TemplateGenerator.test_file_path(day), TemplateGenerator.test(day))
+  def run(days) do
+    Enum.each(days, &one_day/1)
+  end
+
+  defp one_day(day) do
+    write_file!(TemplateGenerator.source_file_path(day), TemplateGenerator.source(day))
+    write_file!(TemplateGenerator.test_file_path(day), TemplateGenerator.test(day))
+  end
+
+  defp write_file!(path, content) do
+    IO.puts("Creating #{path}")
+    File.write!(path, content)
   end
 end
