@@ -22,4 +22,18 @@ defmodule AdventOfCode2023.TemplateGenerator do
     end
     """
   end
+
+  def test(day) do
+    """
+    defmodule AdventOfCode2023.Day#{day}Test do
+      use ExUnit.Case, async: true
+
+      alias AdventOfCode2023.Day#{day}
+
+      test "Placeholder" do
+        assert Day#{day}.part_a("") == nil
+      end
+    end
+    """
+  end
 end

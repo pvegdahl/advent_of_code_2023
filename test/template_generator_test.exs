@@ -3,7 +3,7 @@ defmodule AdventOfCode2023.TemplateGenerator.Test do
 
   alias AdventOfCode2023.TemplateGenerator
 
-  test "generate a source template" do
+  test "Generate a source template" do
     assert TemplateGenerator.source("42") == """
            defmodule AdventOfCode2023.Day42 do
              alias AdventOfCode2023.Helpers
@@ -22,6 +22,20 @@ defmodule AdventOfCode2023.TemplateGenerator.Test do
              def b() do
                Helpers.file_to_lines!("inputs/day42.txt")
                |> part_b()
+             end
+           end
+           """
+  end
+
+  test "Generate a test template" do
+    assert TemplateGenerator.test("47") == """
+           defmodule AdventOfCode2023.Day47Test do
+             use ExUnit.Case, async: true
+
+             alias AdventOfCode2023.Day47
+
+             test "Placeholder" do
+               assert Day47.part_a("") == nil
              end
            end
            """
