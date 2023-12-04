@@ -36,4 +36,8 @@ defmodule AdventOfCode2023.Day04Test do
   test "Parse into a list of match counts" do
     assert Day04.parse_to_counts(example_input()) == [4, 2, 2, 1, 0, 0]
   end
+
+  test "Given a simple match counts of zero, return the correct number of cards" do
+    assert Day04.matches_to_card_counts([0, 0, 0, 0, 0]) == 5
+  end
 end
