@@ -40,4 +40,8 @@ defmodule AdventOfCode2023.Day04Test do
   test "Given a simple match counts of zero, return the correct number of cards" do
     assert Day04.matches_to_card_counts([0, 0, 0, 0, 0]) == 5
   end
+
+  test "Given some with matches, but no cascades, return the correct number of cards" do
+    assert Day04.matches_to_card_counts([1, 0, 2, 0, 0]) == 8
+  end
 end

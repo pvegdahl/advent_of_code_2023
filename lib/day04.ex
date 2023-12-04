@@ -41,7 +41,7 @@ defmodule AdventOfCode2023.Day04 do
 
   def parse_to_counts(lines), do: Enum.map(lines, &match_count/1)
 
-  def matches_to_card_counts(matches), do: Enum.count(matches)
+  def matches_to_card_counts(matches), do: Enum.count(matches) + Enum.sum(matches)
 
   def a() do
     Helpers.file_to_lines!("inputs/day04.txt")
