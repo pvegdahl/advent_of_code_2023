@@ -17,7 +17,6 @@ defmodule AdventOfCode2023.Day04Test do
     assert Day04.score_line("Card 42: 41 48 83 86 17 | 1 2 3 4 5 6 7 8 9") == 0
   end
 
-  @tag :skip
   test "Part A example" do
     lines = [
       "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53",
