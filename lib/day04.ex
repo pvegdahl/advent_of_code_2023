@@ -8,17 +8,18 @@ defmodule AdventOfCode2023.Day04 do
   end
 
   def score_line(line) do
-    match_count =
-      line
-      |> parse_line()
-      |> Enum.map(&MapSet.new/1)
-      |> Enum.reduce(&MapSet.intersection/2)
-      |> MapSet.size()
-
-    case match_count do
+    case match_count(line) do
       0 -> 0
       pos_number -> Integer.pow(2, pos_number - 1)
     end
+  end
+
+  defp match_count(line) do
+    line
+    |> parse_line()
+    |> Enum.map(&MapSet.new/1)
+    |> Enum.reduce(&MapSet.intersection/2)
+    |> MapSet.size()
   end
 
   def parse_line(line) do
@@ -37,6 +38,8 @@ defmodule AdventOfCode2023.Day04 do
 
   def part_b(_lines) do
   end
+
+  def parse_to_counts(lines), do: Enum.map(lines, &match_count/1)
 
   def a() do
     Helpers.file_to_lines!("inputs/day04.txt")
