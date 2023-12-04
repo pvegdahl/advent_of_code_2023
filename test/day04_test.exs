@@ -52,4 +52,12 @@ defmodule AdventOfCode2023.Day04Test do
   test "A simple cascade" do
     assert Day04.matches_to_card_counts([1, 1, 0, 0, 0]) == 8
   end
+
+  test "A complex cascade" do
+    assert Day04.matches_to_card_counts([4, 2, 2, 1, 0, 0]) == 30
+  end
+
+  test "Part B with example input" do
+    assert Day04.part_b(example_input()) == 30
+  end
 end

@@ -36,7 +36,10 @@ defmodule AdventOfCode2023.Day04 do
     |> Enum.map(&String.to_integer/1)
   end
 
-  def part_b(_lines) do
+  def part_b(lines) do
+    lines
+    |> parse_to_counts()
+    |> matches_to_card_counts()
   end
 
   def parse_to_counts(lines), do: Enum.map(lines, &match_count/1)
