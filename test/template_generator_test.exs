@@ -42,10 +42,10 @@ defmodule AdventOfCode2023.TemplateGenerator.Test do
   end
 
   test "Create a filename for a source file" do
-    assert TemplateGenerator.source_file_name("86") == "day86.ex"
+    assert TemplateGenerator.source_file_path("86") == "lib/day86.ex"
   end
 
   test "Create a filename for a test file" do
-    assert TemplateGenerator.test_file_name("99") == "day99_test.exs"
+    assert TemplateGenerator.test_file_path("99") == "test/day99_test.exs"
   end
 end

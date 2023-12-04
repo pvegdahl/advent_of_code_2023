@@ -37,7 +37,7 @@ defmodule AdventOfCode2023.TemplateGenerator do
     """
   end
 
-  def source_file_name(day), do: "day#{day}.ex"
+  def source_file_path(day), do: "lib/day#{day}.ex"
 
-  def test_file_name(day), do: "day#{day}_test.exs"
+  def test_file_path(day), do: "test/day#{day}_test.exs"
 end
