@@ -48,4 +48,8 @@ defmodule AdventOfCode2023.Day04Test do
   test "Matches at the end do not count " do
     assert Day04.matches_to_card_counts([0, 0, 0, 0, 9]) == 5
   end
+
+  test "A simple cascade" do
+    assert Day04.matches_to_card_counts([1, 1, 0, 0, 0]) == 8
+  end
 end
