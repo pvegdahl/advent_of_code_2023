@@ -51,6 +51,12 @@ defmodule AdventOfCode2023.RangeSet do
   end
 
   def shift(range_set, amount), do: Enum.map(range_set, &Range.shift(&1, amount))
+
+  def shift_overlapping(range_set, comparison, amount) do
+    {overlapping, non_overlapping} = split_overlapping(range_set, comparison)
+    shifted = shift(overlapping, amount)
+    Enum.concat(shifted, non_overlapping)
+  end
 end
 
 defmodule AdventOfCode2023.OneMapping do
