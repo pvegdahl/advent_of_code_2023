@@ -1,9 +1,20 @@
 defmodule AdventOfCode2023.OneMapping do
-  defstruct [:source, :destination]
+  defstruct [:source, :destination, :mapping]
 
-  def new(source, destination, _), do: %__MODULE__{source: source, destination: destination}
+  def new(source, destination, mappings) do
+    %__MODULE__{source: source, destination: destination, mapping: build_mappings(mappings)}
+  end
 
-  def next(%__MODULE__{source: source, destination: destination}, source, source_num), do: {destination, source_num}
+  defp build_mappings([]), do: %{}
+  defp build_mappings([{dest_start, source_start, _}]) do
+    %{source_start => dest_start}
+  end
+
+  def next(%__MODULE__{source: source, destination: destination, mapping: mapping}, source, source_num) do
+    result = Map.get(mapping, source_num, source_num)
+    {destination, result}
+    end
+
   def next(_one_mapping, _source, _source_num), do: :error
 end
 

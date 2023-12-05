@@ -36,4 +36,10 @@ defmodule AdventOfCode2023.OneMappingTest do
 
     assert OneMapping.next(mapping, :temperature, 13) == :error
   end
+
+  test "The simplest mapping works" do
+    mapping = OneMapping.new(:seed, :soil, [{47, 42, 1}])
+
+    assert OneMapping.next(mapping, :seed, 42) == {:soil, 47}
+  end
 end
