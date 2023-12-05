@@ -134,7 +134,7 @@ defmodule AdventOfCode2023.Day05 do
   def part_b(lines) do
     {seed_enumerables, seed_mapping} = parse_input(lines, &parse_seeds_line_b/1)
 
-    Task.async_stream(seed_enumerables, &find_min_location(&1, seed_mapping), timeout: 300000)
+    Task.async_stream(seed_enumerables, &find_min_location(&1, seed_mapping), timeout: 300_000)
     |> Enum.map(fn {:ok, num} -> num end)
     |> Enum.min()
   end
@@ -147,7 +147,7 @@ defmodule AdventOfCode2023.Day05 do
     |> String.split(" ")
     |> Enum.map(&String.to_integer/1)
     |> Enum.chunk_every(2)
-    |> Enum.map(fn [start, length] -> start..(start+length-1) end)
+    |> Enum.map(fn [start, length] -> start..(start + length - 1) end)
   end
 
   def a() do
