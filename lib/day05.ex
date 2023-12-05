@@ -5,17 +5,25 @@ defmodule AdventOfCode2023.RangeSet do
 
   def split_overlapping(ranges, _comparison), do: {ranges, nil}
 
-  defp split_one_overlapping(range_start..range_end = range, comparison_start..comparison_end) do
+  defp split_one_overlapping(range_start..range_end = range, comparison_start..comparison_end = comparison_range) do
     start_location = relative_location(range, comparison_start)
     end_location = relative_location(range, comparison_end)
 
     cond do
-      no_overlap?(start_location, end_location) -> {[], [range]}
-      full_overlap?(start_location, end_location) -> {[range], []}
-      start_at_start?(start_location) -> {[range_start..comparison_end], [(comparison_end+1)..range_end]}
-      end_at_end?(end_location) -> {[comparison_start..range_end], [range_start..(comparison_start-1)]}
+      no_overlap?(start_location, end_location) ->
+        {[], [range]}
 
-      true -> :wat
+      full_overlap?(start_location, end_location) ->
+        {[range], []}
+
+      start_at_start?(start_location) ->
+        {[range_start..comparison_end], [(comparison_end + 1)..range_end]}
+
+      end_at_end?(end_location) ->
+        {[comparison_start..range_end], [range_start..(comparison_start - 1)]}
+
+      middle_split?(start_location, end_location) ->
+        {[comparison_range], [range_start..(comparison_start - 1), (comparison_end + 1)..range_end]}
     end
   end
 
@@ -27,13 +35,15 @@ defmodule AdventOfCode2023.RangeSet do
 
   defp end_at_end?(end_location), do: end_location == :after or end_location == :end
 
+  defp middle_split?(start_location, end_location), do: start_location == :middle and end_location == :middle
+
   defp relative_location(range_start..range_end, x) do
     cond do
       x < range_start -> :before
       x > range_end -> :after
       x == range_start -> :start
       x == range_end -> :end
-      true -> :in
+      true -> :middle
     end
   end
 end

@@ -164,4 +164,8 @@ defmodule AdventOfCode2023.RangeSetTest do
   test "Split overlapping half match at end -- exact end match" do
     assert RangeSet.split_overlapping([1..10], 5..10) == {[5..10], [1..4]}
   end
+
+  test "Split overlapping middle split" do
+    assert RangeSet.split_overlapping([17..34], 20..30) == {[20..30], [17..19, 31..34]}
+  end
 end
