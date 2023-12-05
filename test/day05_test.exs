@@ -139,7 +139,9 @@ defmodule AdventOfCode2023.RangeSetTest do
 
   test "Split overlapping without overlap" do
     assert RangeSet.split_overlapping([1..10], 15..20) == {[1..10], nil}
-
   end
 
+  test "Split overlapping with exact match" do
+    assert RangeSet.split_overlapping([1..10], 1..10) == {nil, [1..10]}
+  end
 end

@@ -1,4 +1,5 @@
 defmodule AdventOfCode2023.RangeSet do
+  def split_overlapping([comparison], comparison), do: {nil, [comparison]}
   def split_overlapping(ranges, comparison), do: {ranges, nil}
 end
 
