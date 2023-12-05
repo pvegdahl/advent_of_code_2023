@@ -30,4 +30,10 @@ defmodule AdventOfCode2023.OneMappingTest do
 
     assert OneMapping.next(mapping, :seed, 42) == {:soil, 42}
   end
+
+  test "Return an error if we pass the wrong source type into the OneMapping" do
+    mapping = OneMapping.new(:seed, :soil, [])
+
+    assert OneMapping.next(mapping, :temperature, 13) == :error
+  end
 end

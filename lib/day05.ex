@@ -1,9 +1,10 @@
 defmodule AdventOfCode2023.OneMapping do
-  defstruct [:destination]
+  defstruct [:source, :destination]
 
-  def new(_source, destination, _), do: %__MODULE__{destination: destination}
+  def new(source, destination, _), do: %__MODULE__{source: source, destination: destination}
 
-  def next(%__MODULE__{destination: destination}, _source, source_num), do: {destination, source_num}
+  def next(%__MODULE__{source: source, destination: destination}, source, source_num), do: {destination, source_num}
+  def next(_one_mapping, _source, _source_num), do: :error
 end
 
 defmodule AdventOfCode2023.SeedMapping do
