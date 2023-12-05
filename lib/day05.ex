@@ -71,7 +71,7 @@ defmodule AdventOfCode2023.Day05 do
   alias AdventOfCode2023.{Helpers, OneMapping, SeedMapping}
 
   def part_a(lines) do
-    {seeds, seed_mapping} = parse_input_a(lines)
+    {seeds, seed_mapping} = parse_input(lines, &parse_seeds_line_a/1)
 
     find_min_location(seeds, seed_mapping)
   end
@@ -83,10 +83,10 @@ defmodule AdventOfCode2023.Day05 do
     |> Enum.min()
   end
 
-  defp parse_input_a(lines) do
+  defp parse_input(lines, parse_seed_function) do
     {seeds_line, mapping_groups} = split_input(lines)
 
-    seeds = parse_seeds_line(seeds_line)
+    seeds = parse_seed_function.(seeds_line)
     seed_mappings = Enum.map(mapping_groups, &parse_mapping_groups/1) |> AdventOfCode2023.SeedMapping.new()
 
     {seeds, seed_mappings}
@@ -101,7 +101,7 @@ defmodule AdventOfCode2023.Day05 do
     {seeds_line, Enum.drop_every(mapping_lines, 2)}
   end
 
-  defp parse_seeds_line(seeds_line) do
+  defp parse_seeds_line_a(seeds_line) do
     seeds_line
     |> String.split(":")
     |> Enum.at(1)
@@ -136,7 +136,22 @@ defmodule AdventOfCode2023.Day05 do
     |> List.to_tuple()
   end
 
-  def part_b(_lines) do
+  def part_b(lines) do
+    {seeds, seed_mapping} = parse_input(lines, &parse_seeds_line_b/1)
+
+    find_min_location(seeds, seed_mapping)
+  end
+
+  defp parse_seeds_line_b(seeds_line) do
+    seeds_line
+    |> String.split(":")
+    |> Enum.at(1)
+    |> String.trim()
+    |> String.split(" ")
+    |> Enum.map(&String.to_integer/1)
+    |> Enum.chunk_every(2)
+    |> Enum.map(fn [start, length] -> start..(start+length-1) end)
+    |> Stream.concat()
   end
 
   def a() do

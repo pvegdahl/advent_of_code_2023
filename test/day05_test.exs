@@ -3,7 +3,7 @@ defmodule AdventOfCode2023.Day05Test do
 
   alias AdventOfCode2023.Day05
 
-  test "AoC example part 1" do
+  test "AoC example part A" do
     assert Day05.part_a(example_input()) == 35
   end
 
@@ -43,6 +43,10 @@ defmodule AdventOfCode2023.Day05Test do
       "60 56 37",
       "56 93 4"
     ]
+  end
+
+  test "AoC example part B" do
+    assert Day05.part_b(example_input()) == 46
   end
 end
 
