@@ -48,4 +48,10 @@ defmodule AdventOfCode2023.OneMappingTest do
 
     assert OneMapping.next(mapping, :seed, 101) == {:soil, 88}
   end
+
+  test "Out of range" do
+    mapping = OneMapping.new(:seed, :soil, [{86, 99, 10}])
+
+    assert OneMapping.next(mapping, :seed, 44) == {:soil, 44}
+  end
 end
