@@ -1,6 +1,30 @@
 defmodule AdventOfCode2023.RangeSet do
-  def split_overlapping([comparison], comparison), do: {nil, [comparison]}
-  def split_overlapping(ranges, comparison), do: {ranges, nil}
+  def split_overlapping([range], comparison) do
+    split_one_overlapping(range, comparison)
+  end
+
+  def split_overlapping(ranges, _comparison), do: {ranges, nil}
+
+  defp split_one_overlapping(range_start..range_end = range, comparison_start..comparison_end) do
+    start_location = relative_location(range, comparison_start)
+    end_location = relative_location(range, comparison_end)
+
+    cond do
+      start_location == :after or end_location == :before -> {[range], []}
+      start_location == :before and end_location == :after -> {[], [range]}
+      range_start == comparison_start and range_end == comparison_end -> {[], [range]}
+
+      true -> :wat
+    end
+  end
+
+  defp relative_location(range_start..range_end, x) do
+    cond do
+      x < range_start -> :before
+      x > range_end -> :after
+      true -> :in
+    end
+  end
 end
 
 defmodule AdventOfCode2023.OneMapping do
