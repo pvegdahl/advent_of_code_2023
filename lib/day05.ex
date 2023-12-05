@@ -38,9 +38,13 @@ defmodule AdventOfCode2023.OneMapping do
 end
 
 defmodule AdventOfCode2023.SeedMapping do
-  def new([]), do: nil
+  alias AdventOfCode2023.OneMapping
 
-  def seed_to_location(_seed_mapping, seed), do: seed
+  def new([]), do: nil
+  def new([mapping]), do: mapping
+
+  def seed_to_location(nil, seed_num), do: {:seed, seed_num}
+  def seed_to_location(mapping, seed_num), do: OneMapping.next(mapping, :seed, seed_num)
 end
 
 defmodule AdventOfCode2023.Day05 do

@@ -11,12 +11,18 @@ end
 defmodule AdventOfCode2023.SeedMappingTest do
   use ExUnit.Case, async: true
 
-  alias AdventOfCode2023.SeedMapping
+  alias AdventOfCode2023.{OneMapping, SeedMapping}
 
   test "A seed maps to the same number in the absense of any mappings" do
     seed_mapping = SeedMapping.new([])
 
-    assert SeedMapping.seed_to_location(seed_mapping, 6) == 6
+    assert SeedMapping.seed_to_location(seed_mapping, 6) == {:seed, 6}
+  end
+
+  test "Map a seed through one mapping" do
+    seed_mapping = SeedMapping.new([OneMapping.new(:seed, :soil, [{11, 6, 4}])])
+
+    assert SeedMapping.seed_to_location(seed_mapping, 8) == {:soil, 13}
   end
 end
 
