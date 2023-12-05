@@ -1,3 +1,9 @@
+defmodule AdventOfCode2023.OneMapping do
+  def new(_source, destination, _), do: destination
+
+  def next(mapping, _source, source_num), do: {mapping, source_num}
+end
+
 defmodule AdventOfCode2023.SeedMapping do
   def new(), do: nil
 

@@ -19,3 +19,15 @@ defmodule AdventOfCode2023.SeedMappingTest do
     assert SeedMapping.seed_to_location(seed_mapping, 6) == 6
   end
 end
+
+defmodule AdventOfCode2023.OneMappingTest do
+  use ExUnit.Case, async: true
+
+  alias AdventOfCode2023.OneMapping
+
+  test "A number maps to the same number in the absense of any mappings" do
+    mapping = OneMapping.new(:seed, :soil, [])
+
+    assert OneMapping.next(mapping, :seed, 42) == {:soil, 42}
+  end
+end
