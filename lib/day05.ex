@@ -35,11 +35,6 @@ defmodule AdventOfCode2023.OneMapping do
       {:cont, source_num}
     end
   end
-
-  def types() do
-    # Pre-defining the atoms to enable String.to_existing_atom().  I probably should have just used strings.  Oh well.
-    [:seed, :soil, :fertilizer, :water, :light, :temperature, :humidity, :location]
-  end
 end
 
 defmodule AdventOfCode2023.SeedMapping do
@@ -123,7 +118,7 @@ defmodule AdventOfCode2023.Day05 do
     |> String.split(" ")
     |> Enum.at(0)
     |> String.split("-to-")
-    |> Enum.map(&String.to_existing_atom/1)
+    |> Enum.map(&String.to_atom/1)
     |> List.to_tuple()
   end
 
