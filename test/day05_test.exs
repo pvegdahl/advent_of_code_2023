@@ -131,3 +131,15 @@ defmodule AdventOfCode2023.OneMappingTest do
     assert OneMapping.next(mapping, :seed, 36) == {:soil, 36}
   end
 end
+
+defmodule AdventOfCode2023.RangeSetTest do
+  use ExUnit.Case, async: true
+
+  alias AdventOfCode2023.RangeSet
+
+  test "Split overlapping without overlap" do
+    assert RangeSet.split_overlapping([1..10], 15..20) == {[1..10], nil}
+
+  end
+
+end

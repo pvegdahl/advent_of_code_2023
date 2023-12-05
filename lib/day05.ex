@@ -1,3 +1,7 @@
+defmodule AdventOfCode2023.RangeSet do
+  def split_overlapping(ranges, comparison), do: {ranges, nil}
+end
+
 defmodule AdventOfCode2023.OneMapping do
   defstruct [:source, :destination, :mapping]
 
