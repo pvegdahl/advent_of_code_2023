@@ -35,6 +35,11 @@ defmodule AdventOfCode2023.OneMapping do
       {:cont, source_num}
     end
   end
+
+  def types() do
+    # Pre-defining the atoms to enable String.to_existing_atom().  I probably should have just used strings.  Oh well.
+    [:seed, :soil, :fertilizer, :water, :light, :temperature, :humidity, :location]
+  end
 end
 
 defmodule AdventOfCode2023.SeedMapping do
@@ -52,7 +57,9 @@ defmodule AdventOfCode2023.SeedMapping do
 
   defp seed_to_location_helper(%{} = mappings, source, source_num) do
     case Map.get(mappings, source) do
-      nil -> {source, source_num}
+      nil ->
+        {source, source_num}
+
       one_mapping ->
         {destination, destination_num} = OneMapping.next(one_mapping, source, source_num)
         seed_to_location_helper(mappings, destination, destination_num)
@@ -61,9 +68,68 @@ defmodule AdventOfCode2023.SeedMapping do
 end
 
 defmodule AdventOfCode2023.Day05 do
-  alias AdventOfCode2023.Helpers
+  alias AdventOfCode2023.{Helpers, OneMapping, SeedMapping}
 
-  def part_a(_lines) do
+  def part_a(lines) do
+    {seeds, seed_mapping} = parse_input(lines)
+
+    seeds
+    |> Enum.map(fn seed -> SeedMapping.seed_to_location(seed_mapping, seed) end)
+    |> Enum.map(fn {:location, location_number} -> location_number end)
+    |> Enum.min()
+  end
+
+  defp parse_input(lines) do
+    {seeds_line, mapping_groups} = split_input(lines)
+
+    seeds = parse_seeds_line(seeds_line)
+    seed_mappings = Enum.map(mapping_groups, &parse_mapping_groups/1) |> AdventOfCode2023.SeedMapping.new()
+
+    {seeds, seed_mappings}
+  end
+
+  defp split_input(lines) do
+    {[[seeds_line]], mapping_lines} =
+      lines
+      |> Enum.chunk_by(&(&1 == ""))
+      |> Enum.split(1)
+
+    {seeds_line, Enum.drop_every(mapping_lines, 2)}
+  end
+
+  defp parse_seeds_line(seeds_line) do
+    seeds_line
+    |> String.split(":")
+    |> Enum.at(1)
+    |> String.trim()
+    |> String.split(" ")
+    |> Enum.map(&String.to_integer/1)
+  end
+
+  defp parse_mapping_groups(mapping_group) do
+    {[header], mapping_numbers} = Enum.split(mapping_group, 1)
+    {source, destination} = parse_header(header)
+    mapping_numbers = parse_mapping_numbers(mapping_numbers)
+
+    OneMapping.new(source, destination, mapping_numbers)
+  end
+
+  defp parse_header(header) do
+    header
+    |> String.split(" ")
+    |> Enum.at(0)
+    |> String.split("-to-")
+    |> Enum.map(&String.to_existing_atom/1)
+    |> List.to_tuple()
+  end
+
+  defp parse_mapping_numbers(lines), do: Enum.map(lines, &parse_one_line_of_mapping_numbers/1)
+
+  defp parse_one_line_of_mapping_numbers(line) do
+    line
+    |> String.split(" ")
+    |> Enum.map(&String.to_integer/1)
+    |> List.to_tuple()
   end
 
   def part_b(_lines) do

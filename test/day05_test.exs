@@ -3,8 +3,46 @@ defmodule AdventOfCode2023.Day05Test do
 
   alias AdventOfCode2023.Day05
 
-  test "Placeholder" do
-    assert Day05.part_a("") == nil
+  test "AoC example part 1" do
+    assert Day05.part_a(example_input()) == 35
+  end
+
+  defp example_input() do
+    [
+      "seeds: 79 14 55 13",
+      "",
+      "seed-to-soil map:",
+      "50 98 2",
+      "52 50 48",
+      "",
+      "soil-to-fertilizer map:",
+      "0 15 37",
+      "37 52 2",
+      "39 0 15",
+      "",
+      "fertilizer-to-water map:",
+      "49 53 8",
+      "0 11 42",
+      "42 0 7",
+      "57 7 4",
+      "",
+      "water-to-light map:",
+      "88 18 7",
+      "18 25 70",
+      "",
+      "light-to-temperature map:",
+      "45 77 23",
+      "81 45 19",
+      "68 64 13",
+      "",
+      "temperature-to-humidity map:",
+      "0 69 1",
+      "1 0 69",
+      "",
+      "humidity-to-location map:",
+      "60 56 37",
+      "56 93 4"
+    ]
   end
 end
 
@@ -26,10 +64,11 @@ defmodule AdventOfCode2023.SeedMappingTest do
   end
 
   test "Map a seed through multiple mappings" do
-    seed_mapping = SeedMapping.new([
-      OneMapping.new(:seed, :soil, [{11, 6, 4}]),
-      OneMapping.new(:soil, :fertilizer, [{40, 11, 4}]),
-    ])
+    seed_mapping =
+      SeedMapping.new([
+        OneMapping.new(:seed, :soil, [{11, 6, 4}]),
+        OneMapping.new(:soil, :fertilizer, [{40, 11, 4}])
+      ])
 
     assert SeedMapping.seed_to_location(seed_mapping, 8) == {:fertilizer, 42}
   end
