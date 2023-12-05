@@ -111,8 +111,8 @@ defmodule AdventOfCode2023.OneMapping do
   end
 
   defp shift_overlapping({source_range, diff}, {overlapping, non_overlapping}) do
-  {new_overlapping, still_non_overlapping} = RangeSet.shift_overlapping(non_overlapping, source_range, diff)
-  {Enum.concat(overlapping, new_overlapping), still_non_overlapping}
+    {new_overlapping, still_non_overlapping} = RangeSet.shift_overlapping(non_overlapping, source_range, diff)
+    {Enum.concat(overlapping, new_overlapping), still_non_overlapping}
   end
 end
 
@@ -142,19 +142,24 @@ defmodule AdventOfCode2023.SeedMapping do
 end
 
 defmodule AdventOfCode2023.Day05 do
-  alias AdventOfCode2023.{Helpers, OneMapping, SeedMapping}
+  alias AdventOfCode2023.{Helpers, OneMapping, RangeSet, SeedMapping}
 
   def part_a(lines) do
     {seeds, seed_mapping} = parse_input(lines, &parse_seeds_line_a/1)
 
-    find_min_location(seeds, seed_mapping)
+    find_min_location_a(seeds, seed_mapping)
   end
 
-  defp find_min_location(seeds, seed_mapping) do
+  defp find_min_location_a(seeds, seed_mapping) do
     seeds
     |> Stream.map(fn seed -> SeedMapping.seed_to_location(seed_mapping, seed) end)
     |> Stream.map(fn {:location, location_number} -> location_number end)
     |> Enum.min()
+  end
+
+  defp find_min_location_b(seeds_range_set, seed_mapping) do
+    {:location, result_range_set} = SeedMapping.seed_to_location(seed_mapping, seeds_range_set)
+    RangeSet.min(result_range_set)
   end
 
   defp parse_input(lines, parse_seed_function) do
@@ -211,11 +216,9 @@ defmodule AdventOfCode2023.Day05 do
   end
 
   def part_b(lines) do
-    {seed_enumerables, seed_mapping} = parse_input(lines, &parse_seeds_line_b/1)
+    {seed_range_set, seed_mapping} = parse_input(lines, &parse_seeds_line_b/1)
 
-    Task.async_stream(seed_enumerables, &find_min_location(&1, seed_mapping), timeout: 300_000)
-    |> Enum.map(fn {:ok, num} -> num end)
-    |> Enum.min()
+    find_min_location_b(seed_range_set, seed_mapping)
   end
 
   defp parse_seeds_line_b(seeds_line) do
