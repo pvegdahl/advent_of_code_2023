@@ -72,6 +72,4 @@ defmodule AdventOfCode2023.OneMappingTest do
 
     assert OneMapping.next(mapping, :seed, 36) == {:soil, 36}
   end
-
 end
-
