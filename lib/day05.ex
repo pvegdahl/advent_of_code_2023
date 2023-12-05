@@ -10,20 +10,29 @@ defmodule AdventOfCode2023.RangeSet do
     end_location = relative_location(range, comparison_end)
 
     cond do
-      start_location == :after or end_location == :before -> {[], [range]}
-      start_location == :before and end_location == :after -> {[range], []}
-      range_start == comparison_start and range_end == comparison_end -> {[range], []}
-      start_location == :before and end_location == :in -> {[range_start..comparison_end], [(comparison_end+1)..range_end]}
-      start_location == :in and end_location == :after -> {[comparison_start..range_end], [range_start..(comparison_start-1)]}
+      no_overlap?(start_location, end_location) -> {[], [range]}
+      full_overlap?(start_location, end_location) -> {[range], []}
+      start_at_start?(start_location) -> {[range_start..comparison_end], [(comparison_end+1)..range_end]}
+      end_at_end?(end_location) -> {[comparison_start..range_end], [range_start..(comparison_start-1)]}
 
       true -> :wat
     end
   end
 
+  defp no_overlap?(start_location, end_location), do: start_location == :after or end_location == :before
+
+  defp full_overlap?(start_location, end_location), do: start_at_start?(start_location) && end_at_end?(end_location)
+
+  defp start_at_start?(start_location), do: start_location == :before or start_location == :start
+
+  defp end_at_end?(end_location), do: end_location == :after or end_location == :end
+
   defp relative_location(range_start..range_end, x) do
     cond do
       x < range_start -> :before
       x > range_end -> :after
+      x == range_start -> :start
+      x == range_end -> :end
       true -> :in
     end
   end
