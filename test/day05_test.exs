@@ -184,4 +184,8 @@ defmodule AdventOfCode2023.RangeSetTest do
   test "Shift overlapping" do
     assert RangeSet.shift_overlapping([1..5, 10..20, 25..30], 4..26, 5) == [9..10, 15..25, 30..31, 1..3, 27..30]
   end
+
+  test "Rangeset min" do
+    assert RangeSet.min([100..200, 12..20, 25..30]) == 12
+  end
 end

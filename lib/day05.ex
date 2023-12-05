@@ -57,6 +57,12 @@ defmodule AdventOfCode2023.RangeSet do
     shifted = shift(overlapping, amount)
     Enum.concat(shifted, non_overlapping)
   end
+
+  def min(range_set) do
+    range_set
+    |> Enum.map(&Enum.min/1)
+    |> Enum.min()
+  end
 end
 
 defmodule AdventOfCode2023.OneMapping do
