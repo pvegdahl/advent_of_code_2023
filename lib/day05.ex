@@ -40,11 +40,24 @@ end
 defmodule AdventOfCode2023.SeedMapping do
   alias AdventOfCode2023.OneMapping
 
-  def new([]), do: nil
-  def new([mapping]), do: mapping
+  def new(mappings) do
+    mappings
+    |> Enum.map(fn %OneMapping{source: source} = mapping -> {source, mapping} end)
+    |> Enum.into(%{})
+  end
 
-  def seed_to_location(nil, seed_num), do: {:seed, seed_num}
-  def seed_to_location(mapping, seed_num), do: OneMapping.next(mapping, :seed, seed_num)
+  def seed_to_location(mappings, seed_num) do
+    seed_to_location_helper(mappings, :seed, seed_num)
+  end
+
+  defp seed_to_location_helper(%{} = mappings, source, source_num) do
+    case Map.get(mappings, source) do
+      nil -> {source, source_num}
+      one_mapping ->
+        {destination, destination_num} = OneMapping.next(one_mapping, source, source_num)
+        seed_to_location_helper(mappings, destination, destination_num)
+    end
+  end
 end
 
 defmodule AdventOfCode2023.Day05 do

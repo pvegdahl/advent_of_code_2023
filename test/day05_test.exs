@@ -24,6 +24,15 @@ defmodule AdventOfCode2023.SeedMappingTest do
 
     assert SeedMapping.seed_to_location(seed_mapping, 8) == {:soil, 13}
   end
+
+  test "Map a seed through multiple mappings" do
+    seed_mapping = SeedMapping.new([
+      OneMapping.new(:seed, :soil, [{11, 6, 4}]),
+      OneMapping.new(:soil, :fertilizer, [{40, 11, 4}]),
+    ])
+
+    assert SeedMapping.seed_to_location(seed_mapping, 8) == {:fertilizer, 42}
+  end
 end
 
 defmodule AdventOfCode2023.OneMappingTest do
