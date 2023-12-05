@@ -54,4 +54,13 @@ defmodule AdventOfCode2023.OneMappingTest do
 
     assert OneMapping.next(mapping, :seed, 44) == {:soil, 44}
   end
+
+  test "Map multiple ranges" do
+    mapping = OneMapping.new(:seed, :soil, [{86, 99, 10}, {47, 42, 3}])
+
+    assert OneMapping.next(mapping, :seed, 43) == {:soil, 48}
+  end
+
+  # TODO boundary conditions / off by one
 end
+
