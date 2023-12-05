@@ -172,4 +172,8 @@ defmodule AdventOfCode2023.RangeSetTest do
   test "Multiple input ranges" do
     assert RangeSet.split_overlapping([1..5, 10..20, 25..30], 4..26) == {[4..5, 10..20, 25..26], [1..3, 27..30]}
   end
+
+  test "Splits with single element result ranges" do
+    assert RangeSet.split_overlapping([1..2], 0..1) == {[1..1], [2..2]}
+  end
 end
