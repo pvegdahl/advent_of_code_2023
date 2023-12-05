@@ -61,6 +61,17 @@ defmodule AdventOfCode2023.OneMappingTest do
     assert OneMapping.next(mapping, :seed, 43) == {:soil, 48}
   end
 
-  # TODO boundary conditions / off by one
+  test "Just inside range" do
+    mapping = OneMapping.new(:seed, :soil, [{44, 33, 3}])
+
+    assert OneMapping.next(mapping, :seed, 35) == {:soil, 46}
+  end
+
+  test "Just outside range" do
+    mapping = OneMapping.new(:seed, :soil, [{44, 33, 3}])
+
+    assert OneMapping.next(mapping, :seed, 36) == {:soil, 36}
+  end
+
 end
 
