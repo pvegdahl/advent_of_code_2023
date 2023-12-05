@@ -176,4 +176,8 @@ defmodule AdventOfCode2023.RangeSetTest do
   test "Splits with single element result ranges" do
     assert RangeSet.split_overlapping([1..2], 0..1) == {[1..1], [2..2]}
   end
+
+  test "Shift a whole RangeSet" do
+    assert RangeSet.shift([1..5, 10..20, 25..30], 13) == [14..18, 23..33, 38..43]
+  end
 end

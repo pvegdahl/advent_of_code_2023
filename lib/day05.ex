@@ -1,6 +1,6 @@
 defmodule AdventOfCode2023.RangeSet do
-  def split_overlapping(ranges, comparison) do
-    range_pairs = Enum.map(ranges, &split_one_overlapping(&1, comparison))
+  def split_overlapping(range_set, comparison) do
+    range_pairs = Enum.map(range_set, &split_one_overlapping(&1, comparison))
 
     overlaps = Enum.flat_map(range_pairs, fn {overlaps, _non_overlaps} -> overlaps end)
     non_overlaps = Enum.flat_map(range_pairs, fn {_overlaps, non_overlaps} -> non_overlaps end)
@@ -49,6 +49,8 @@ defmodule AdventOfCode2023.RangeSet do
       true -> :middle
     end
   end
+
+  def shift(range_set, amount), do: Enum.map(range_set, &Range.shift(&1, amount))
 end
 
 defmodule AdventOfCode2023.OneMapping do
