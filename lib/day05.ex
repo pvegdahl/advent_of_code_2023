@@ -13,6 +13,8 @@ defmodule AdventOfCode2023.RangeSet do
       start_location == :after or end_location == :before -> {[], [range]}
       start_location == :before and end_location == :after -> {[range], []}
       range_start == comparison_start and range_end == comparison_end -> {[range], []}
+      start_location == :before and end_location == :in -> {[range_start..comparison_end], [(comparison_end+1)..range_end]}
+      start_location == :in and end_location == :after -> {[comparison_start..range_end], [range_start..(comparison_start-1)]}
 
       true -> :wat
     end
