@@ -66,6 +66,8 @@ defmodule AdventOfCode2023.RangeSet do
 end
 
 defmodule AdventOfCode2023.OneMapping do
+  alias AdventOfCode2023.RangeSet
+
   defstruct [:source, :destination, :mapping]
 
   def new(source, destination, mappings) do
@@ -88,6 +90,11 @@ defmodule AdventOfCode2023.OneMapping do
     {destination, source_num}
   end
 
+  def next(%__MODULE__{source: source, destination: destination, mapping: mappings}, source, _.._ = source_range_set) do
+    {updated, no_updates} = Enum.reduce(mappings, {[], source_range_set}, &shift_overlapping/2)
+    {destination, Enum.concat(updated, no_updates)}
+  end
+
   def next(%__MODULE__{source: source, destination: destination, mapping: mappings}, source, source_num) do
     destination_num = Enum.reduce_while(mappings, source_num, &try_range/2)
     {destination, destination_num}
@@ -101,6 +108,11 @@ defmodule AdventOfCode2023.OneMapping do
     else
       {:cont, source_num}
     end
+  end
+
+  defp shift_overlapping({source_range, diff}, {overlapping, non_overlapping}) do
+  {new_overlapping, still_non_overlapping} = RangeSet.shift_overlapping(non_overlapping, source_range, diff)
+  {Enum.concat(overlapping, new_overlapping), still_non_overlapping}
   end
 end
 
