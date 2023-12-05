@@ -71,15 +71,19 @@ defmodule AdventOfCode2023.Day05 do
   alias AdventOfCode2023.{Helpers, OneMapping, SeedMapping}
 
   def part_a(lines) do
-    {seeds, seed_mapping} = parse_input(lines)
+    {seeds, seed_mapping} = parse_input_a(lines)
 
+    find_min_location(seeds, seed_mapping)
+  end
+
+  defp find_min_location(seeds, seed_mapping) do
     seeds
-    |> Enum.map(fn seed -> SeedMapping.seed_to_location(seed_mapping, seed) end)
-    |> Enum.map(fn {:location, location_number} -> location_number end)
+    |> Stream.map(fn seed -> SeedMapping.seed_to_location(seed_mapping, seed) end)
+    |> Stream.map(fn {:location, location_number} -> location_number end)
     |> Enum.min()
   end
 
-  defp parse_input(lines) do
+  defp parse_input_a(lines) do
     {seeds_line, mapping_groups} = split_input(lines)
 
     seeds = parse_seeds_line(seeds_line)
