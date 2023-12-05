@@ -1,3 +1,9 @@
+defmodule AdventOfCode2023.SeedMapping do
+  def new(), do: nil
+
+  def seed_to_location(_seed_mapping, seed), do: seed
+end
+
 defmodule AdventOfCode2023.Day05 do
   alias AdventOfCode2023.Helpers
 
