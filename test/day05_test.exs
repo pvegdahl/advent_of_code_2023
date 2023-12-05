@@ -14,7 +14,7 @@ defmodule AdventOfCode2023.SeedMappingTest do
   alias AdventOfCode2023.SeedMapping
 
   test "A seed maps to the same number in the absense of any mappings" do
-    seed_mapping = SeedMapping.new()
+    seed_mapping = SeedMapping.new([])
 
     assert SeedMapping.seed_to_location(seed_mapping, 6) == 6
   end

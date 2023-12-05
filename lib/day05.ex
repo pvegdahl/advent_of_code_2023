@@ -38,7 +38,7 @@ defmodule AdventOfCode2023.OneMapping do
 end
 
 defmodule AdventOfCode2023.SeedMapping do
-  def new(), do: nil
+  def new([]), do: nil
 
   def seed_to_location(_seed_mapping, seed), do: seed
 end
