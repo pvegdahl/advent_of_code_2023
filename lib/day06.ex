@@ -8,7 +8,7 @@ defmodule AdventOfCode2023.SearchRange do
 end
 
 defmodule AdventOfCode2023.Day06 do
-  alias AdventOfCode2023.Helpers
+  alias AdventOfCode2023.{Helpers, SearchRange}
 
   def part_a(_lines) do
   end
@@ -21,8 +21,15 @@ defmodule AdventOfCode2023.Day06 do
     Enum.zip(times, distances)
   end
 
-  def create_test_func(_time, _record_distance) do
-    fn _ -> false end
+  def create_test_func(time, record_distance) do
+    fn n -> n * (time - n) > record_distance end
+  end
+
+  def count_win_options(time, record_distance) do
+    is_true? = create_test_func(time, record_distance)
+    win_range = SearchRange.range_of_true(1..(time-1), is_true?)
+
+    Enum.count(win_range)
   end
 
   def part_b(_lines) do

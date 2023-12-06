@@ -40,6 +40,24 @@ defmodule AdventOfCode2023.Day06Test do
     assert not Day06.create_test_func(7, 9).(1)
   end
 
+  test "Create our test function passes at the lower boundary" do
+    assert Day06.create_test_func(7, 9).(2)
+  end
+
+  test "Create our test function passes at the upper boundary" do
+    assert Day06.create_test_func(7, 9).(5)
+  end
+
+  test "Create our test function fails at the upper boundary" do
+    assert not Day06.create_test_func(7, 9).(6)
+  end
+
+  test "Count success times" do
+    assert Day06.count_win_options(7, 9) == 4
+    assert Day06.count_win_options(15, 40) == 8
+    assert Day06.count_win_options(30, 200) == 9
+  end
+
   test "Example part A" do
     # TODO
   end
