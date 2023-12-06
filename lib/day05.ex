@@ -1,15 +1,15 @@
 defmodule AdventOfCode2023.RangeSet do
   defstruct ranges: []
 
-  def new(ranges), do: ranges
+  def new(ranges), do: %__MODULE__{ranges: ranges}
 
-  def split_overlapping(range_set, comparison) do
-    range_pairs = Enum.map(range_set, &split_one_overlapping(&1, comparison))
+  def split_overlapping(%__MODULE__{ranges: ranges}, comparison) do
+    range_pairs = Enum.map(ranges, &split_one_overlapping(&1, comparison))
 
     overlaps = Enum.flat_map(range_pairs, fn {overlaps, _non_overlaps} -> overlaps end)
     non_overlaps = Enum.flat_map(range_pairs, fn {_overlaps, non_overlaps} -> non_overlaps end)
 
-    {overlaps, non_overlaps}
+    {new(overlaps), new(non_overlaps)}
   end
 
   defp split_one_overlapping(range_start..range_end = range, comparison_start..comparison_end = comparison_range) do
@@ -54,16 +54,16 @@ defmodule AdventOfCode2023.RangeSet do
     end
   end
 
-  def shift(range_set, amount), do: Enum.map(range_set, &Range.shift(&1, amount))
+  def shift(%__MODULE__{ranges: ranges}, amount), do: Enum.map(ranges, &Range.shift(&1, amount)) |> new()
 
   def shift_overlapping(range_set, comparison, amount) do
     {overlapping, non_overlapping} = split_overlapping(range_set, comparison)
     shifted = shift(overlapping, amount)
-    Enum.concat(shifted, non_overlapping)
+    Enum.concat(shifted.ranges, non_overlapping.ranges) |> new()
   end
 
-  def min(range_set) do
-    range_set
+  def min(%__MODULE__{ranges: ranges}) do
+    ranges
     |> Enum.map(&Enum.min/1)
     |> Enum.min()
   end
@@ -234,6 +234,7 @@ defmodule AdventOfCode2023.Day05 do
     |> Enum.map(&String.to_integer/1)
     |> Enum.chunk_every(2)
     |> Enum.map(fn [start, length] -> start..(start + length - 1) end)
+    |> RangeSet.new()
   end
 
   def a() do
