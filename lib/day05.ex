@@ -1,4 +1,8 @@
 defmodule AdventOfCode2023.RangeSet do
+  defstruct ranges: []
+
+  def new(ranges), do: ranges
+
   def split_overlapping(range_set, comparison) do
     range_pairs = Enum.map(range_set, &split_one_overlapping(&1, comparison))
 
