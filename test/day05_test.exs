@@ -146,43 +146,46 @@ defmodule AdventOfCode2023.RangeSetTest do
   end
 
   test "Split overlapping with a comparison larger than target" do
-    assert RangeSet.split_overlapping(RangeSet.new([5..10]), 1..15) == {[5..10], []}
+    assert RangeSet.split_overlapping(RangeSet.new([5..10]), 1..15) == {RangeSet.new([5..10]), RangeSet.new([])}
   end
 
   test "Split overlapping half match at start" do
-    assert RangeSet.split_overlapping(RangeSet.new([1..10]), 0..5) == {[1..5], [6..10]}
+    assert RangeSet.split_overlapping(RangeSet.new([1..10]), 0..5) == {RangeSet.new([1..5]), RangeSet.new([6..10])}
   end
 
   test "Split overlapping half match at end" do
-    assert RangeSet.split_overlapping(RangeSet.new([1..10]), 5..11) == {[5..10], [1..4]}
+    assert RangeSet.split_overlapping(RangeSet.new([1..10]), 5..11) == {RangeSet.new([5..10]), RangeSet.new([1..4])}
   end
 
   test "Split overlapping half match at start -- exact start match" do
-    assert RangeSet.split_overlapping(RangeSet.new([1..10]), 1..5) == {[1..5], [6..10]}
+    assert RangeSet.split_overlapping(RangeSet.new([1..10]), 1..5) == {RangeSet.new([1..5]), RangeSet.new([6..10])}
   end
 
   test "Split overlapping half match at end -- exact end match" do
-    assert RangeSet.split_overlapping(RangeSet.new([1..10]), 5..10) == {[5..10], [1..4]}
+    assert RangeSet.split_overlapping(RangeSet.new([1..10]), 5..10) == {RangeSet.new([5..10]), RangeSet.new([1..4])}
   end
 
   test "Split overlapping middle split" do
-    assert RangeSet.split_overlapping(RangeSet.new([17..34]), 20..30) == {[20..30], [17..19, 31..34]}
+    assert RangeSet.split_overlapping(RangeSet.new([17..34]), 20..30) ==
+             {RangeSet.new([20..30]), RangeSet.new([17..19, 31..34])}
   end
 
   test "Multiple input ranges" do
-    assert RangeSet.split_overlapping(RangeSet.new([1..5, 10..20, 25..30]), 4..26) == {[4..5, 10..20, 25..26], [1..3, 27..30]}
+    assert RangeSet.split_overlapping(RangeSet.new([1..5, 10..20, 25..30]), 4..26) ==
+             {RangeSet.new([4..5, 10..20, 25..26]), RangeSet.new([1..3, 27..30])}
   end
 
   test "Splits with single element result ranges" do
-    assert RangeSet.split_overlapping(RangeSet.new([1..2]), 0..1) == {[1..1], [2..2]}
+    assert RangeSet.split_overlapping(RangeSet.new([1..2]), 0..1) == {RangeSet.new([1..1]), RangeSet.new([2..2])}
   end
 
   test "Shift a whole RangeSet" do
-    assert RangeSet.shift(RangeSet.new([1..5, 10..20, 25..30]), 13) == [14..18, 23..33, 38..43]
+    assert RangeSet.shift(RangeSet.new([1..5, 10..20, 25..30]), 13) == RangeSet.new([14..18, 23..33, 38..43])
   end
 
   test "Shift overlapping" do
-    assert RangeSet.shift_overlapping(RangeSet.new([1..5, 10..20, 25..30]), 4..26, 5) == [9..10, 15..25, 30..31, 1..3, 27..30]
+    assert RangeSet.shift_overlapping(RangeSet.new([1..5, 10..20, 25..30]), 4..26, 5) ==
+             RangeSet.new([9..10, 15..25, 30..31, 1..3, 27..30])
   end
 
   test "Rangeset min" do
