@@ -31,12 +31,14 @@ defmodule AdventOfCode2023.Day06 do
 
   def count_win_options(time, record_distance) do
     is_true? = create_test_func(time, record_distance)
-    win_range = SearchRange.range_of_true(1..(time-1), is_true?)
+    win_range = SearchRange.range_of_true(1..(time - 1), is_true?)
 
     Enum.count(win_range)
   end
 
-  def part_b(_lines) do
+  def part_b(lines) do
+    {time, record_distance} = parse_input_b(lines)
+    count_win_options(time, record_distance)
   end
 
   def parse_input_b(lines) do
@@ -58,6 +60,7 @@ defmodule AdventOfCode2023.Day06 do
 
   def b() do
     Helpers.file_to_lines!("inputs/day06.txt")
+    |> Enum.to_list()
     |> part_b()
   end
 end
