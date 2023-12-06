@@ -37,9 +37,7 @@ defmodule AdventOfCode2023.Day06Test do
   end
 
   test "Create our test function fails at the lower boundary" do
-    test_func = Day06.create_test_func(7, 9)
-
-    assert not test_func.(1)
+    assert not Day06.create_test_func(7, 9).(1)
   end
 
   test "Example part A" do
