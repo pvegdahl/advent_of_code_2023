@@ -1,3 +1,7 @@
+defmodule AdventOfCode2023.SearchRange do
+  def range_of_true(range, _), do: range
+end
+
 defmodule AdventOfCode2023.Day06 do
   alias AdventOfCode2023.Helpers
 
