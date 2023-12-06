@@ -25,11 +25,7 @@ defmodule AdventOfCode2023.Day06Test do
 
   alias AdventOfCode2023.Day06
 
-  test "Placeholder" do
-    assert Day06.part_a("") == nil
-  end
-
-  test "parse_input" do
+  test "parse day 06 input" do
     assert Day06.parse_input(example_input()) == [{7, 9}, {15, 40}, {30, 200}]
   end
 
@@ -38,5 +34,15 @@ defmodule AdventOfCode2023.Day06Test do
       "Time:      7  15   30",
       "Distance:  9  40  200"
     ]
+  end
+
+  test "Create our test function fails at the lower boundary" do
+    test_func = Day06.create_test_func(7, 9)
+
+    assert not test_func.(1)
+  end
+
+  test "Example part A" do
+    # TODO
   end
 end

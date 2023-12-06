@@ -21,6 +21,10 @@ defmodule AdventOfCode2023.Day06 do
     Enum.zip(times, distances)
   end
 
+  def create_test_func(_time, _record_distance) do
+    fn _ -> false end
+  end
+
   def part_b(_lines) do
   end
 
