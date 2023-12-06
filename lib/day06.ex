@@ -39,6 +39,17 @@ defmodule AdventOfCode2023.Day06 do
   def part_b(_lines) do
   end
 
+  def parse_input_b(lines) do
+    ["Time:" <> time_string, "Distance:" <> distance_string] = lines
+    {string_with_spaces_to_single_integer(time_string), string_with_spaces_to_single_integer(distance_string)}
+  end
+
+  defp string_with_spaces_to_single_integer(integer_string) do
+    integer_string
+    |> String.replace(" ", "")
+    |> String.to_integer()
+  end
+
   def a() do
     Helpers.file_to_lines!("inputs/day06.txt")
     |> Enum.to_list()
