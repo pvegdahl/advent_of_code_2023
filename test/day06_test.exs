@@ -25,8 +25,8 @@ defmodule AdventOfCode2023.Day06Test do
 
   alias AdventOfCode2023.Day06
 
-  test "parse day 06 input" do
-    assert Day06.parse_input(example_input()) == [{7, 9}, {15, 40}, {30, 200}]
+  test "parse day 06A input" do
+    assert Day06.parse_input_a(example_input()) == [{7, 9}, {15, 40}, {30, 200}]
   end
 
   defp example_input() do
@@ -59,6 +59,6 @@ defmodule AdventOfCode2023.Day06Test do
   end
 
   test "Example part A" do
-    # TODO
+    assert Day06.part_a(example_input()) == 288
   end
 end

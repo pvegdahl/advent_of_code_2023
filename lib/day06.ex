@@ -10,10 +10,14 @@ end
 defmodule AdventOfCode2023.Day06 do
   alias AdventOfCode2023.{Helpers, SearchRange}
 
-  def part_a(_lines) do
+  def part_a(lines) do
+    lines
+    |> parse_input_a()
+    |> Enum.map(fn {time, record_distance} -> count_win_options(time, record_distance) end)
+    |> Enum.product()
   end
 
-  def parse_input(lines) do
+  def parse_input_a(lines) do
     ["Time:" <> times_string, "Distance:" <> distances_string] = lines
     times = Helpers.string_to_int_list(times_string)
     distances = Helpers.string_to_int_list(distances_string)
@@ -37,6 +41,7 @@ defmodule AdventOfCode2023.Day06 do
 
   def a() do
     Helpers.file_to_lines!("inputs/day06.txt")
+    |> Enum.to_list()
     |> part_a()
   end
 
