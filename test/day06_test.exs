@@ -61,4 +61,9 @@ defmodule AdventOfCode2023.Day06Test do
   test "Example part A" do
     assert Day06.part_a(example_input()) == 288
   end
+
+  @tag :skip
+  test "Example part B" do
+    assert Day06.part_b(example_input()) == 71503
+  end
 end
