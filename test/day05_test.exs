@@ -81,7 +81,7 @@ end
 defmodule AdventOfCode2023.OneMappingTest do
   use ExUnit.Case, async: true
 
-  alias AdventOfCode2023.OneMapping
+  alias AdventOfCode2023.{OneMapping, RangeSet}
 
   test "A number maps to the same number in the absense of any mappings" do
     mapping = OneMapping.new(:seed, :soil, [])
@@ -129,6 +129,17 @@ defmodule AdventOfCode2023.OneMappingTest do
     mapping = OneMapping.new(:seed, :soil, [{44, 33, 3}])
 
     assert OneMapping.next(mapping, :seed, 36) == {:soil, 36}
+  end
+
+  test "OneMapping.shift_overlapping" do
+    assert OneMapping.shift_overlapping({5..10, 3}, {RangeSet.new([]), RangeSet.new([1..10])}) ==
+             {RangeSet.new([8..13]), RangeSet.new([1..4])}
+  end
+
+  test "Map a RangeSet" do
+    mapping = OneMapping.new(:seed, :soil, [{44, 33, 3}])
+
+    assert OneMapping.next_range_set(mapping, :seed, RangeSet.new([33..40])) == {:soil, RangeSet.new([44..46, 36..40])}
   end
 end
 
@@ -185,7 +196,7 @@ defmodule AdventOfCode2023.RangeSetTest do
 
   test "Shift overlapping" do
     assert RangeSet.shift_overlapping(RangeSet.new([1..5, 10..20, 25..30]), 4..26, 5) ==
-             RangeSet.new([9..10, 15..25, 30..31, 1..3, 27..30])
+             {RangeSet.new([9..10, 15..25, 30..31]), RangeSet.new([1..3, 27..30])}
   end
 
   test "Rangeset min" do

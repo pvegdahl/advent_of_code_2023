@@ -59,7 +59,7 @@ defmodule AdventOfCode2023.RangeSet do
   def shift_overlapping(range_set, comparison, amount) do
     {overlapping, non_overlapping} = split_overlapping(range_set, comparison)
     shifted = shift(overlapping, amount)
-    Enum.concat(shifted.ranges, non_overlapping.ranges) |> new()
+    {shifted, non_overlapping}
   end
 
   def min(%__MODULE__{ranges: ranges}) do
@@ -67,6 +67,8 @@ defmodule AdventOfCode2023.RangeSet do
     |> Enum.map(&Enum.min/1)
     |> Enum.min()
   end
+
+  def concat(%__MODULE__{ranges: ranges1}, %__MODULE__{ranges: ranges2}), do: Enum.concat(ranges1, ranges2) |> new()
 end
 
 defmodule AdventOfCode2023.OneMapping do
@@ -94,9 +96,13 @@ defmodule AdventOfCode2023.OneMapping do
     {destination, source_num}
   end
 
-  def next(%__MODULE__{source: source, destination: destination, mapping: mappings}, source, _.._ = source_range_set) do
-    {updated, no_updates} = Enum.reduce(mappings, {[], source_range_set}, &shift_overlapping/2)
-    {destination, Enum.concat(updated, no_updates)}
+  def next(
+        %__MODULE__{source: source, destination: destination, mapping: mappings},
+        source,
+        %RangeSet{} = source_range_set
+      ) do
+    {updated, no_updates} = Enum.reduce(mappings, {RangeSet.new([]), source_range_set}, &shift_overlapping/2)
+    {destination, RangeSet.concat(updated, no_updates)}
   end
 
   def next(%__MODULE__{source: source, destination: destination, mapping: mappings}, source, source_num) do
@@ -106,6 +112,15 @@ defmodule AdventOfCode2023.OneMapping do
 
   def next(_one_mapping, _source, _source_num), do: :error
 
+  def next_range_set(
+        %__MODULE__{source: source, destination: destination, mapping: mappings},
+        source,
+        %RangeSet{} = source_range_set
+      ) do
+    {updated, no_updates} = Enum.reduce(mappings, {RangeSet.new([]), source_range_set}, &shift_overlapping/2)
+    {destination, RangeSet.concat(updated, no_updates)}
+  end
+
   defp try_range({source_range, diff}, source_num) do
     if source_num in source_range do
       {:halt, source_num + diff}
@@ -114,9 +129,9 @@ defmodule AdventOfCode2023.OneMapping do
     end
   end
 
-  defp shift_overlapping({source_range, diff}, {overlapping, non_overlapping}) do
+  def shift_overlapping({source_range, diff}, {overlapping, non_overlapping}) do
     {new_overlapping, still_non_overlapping} = RangeSet.shift_overlapping(non_overlapping, source_range, diff)
-    {Enum.concat(overlapping, new_overlapping), still_non_overlapping}
+    {RangeSet.concat(overlapping, new_overlapping), still_non_overlapping}
   end
 end
 
