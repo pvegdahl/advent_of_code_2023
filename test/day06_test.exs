@@ -28,4 +28,15 @@ defmodule AdventOfCode2023.Day06Test do
   test "Placeholder" do
     assert Day06.part_a("") == nil
   end
+
+  test "parse_input" do
+    assert Day06.parse_input(example_input()) == [{7, 9}, {15, 40}, {30, 200}]
+  end
+
+  defp example_input() do
+    [
+      "Time:      7  15   30",
+      "Distance:  9  40  200"
+    ]
+  end
 end

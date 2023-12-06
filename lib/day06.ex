@@ -13,6 +13,14 @@ defmodule AdventOfCode2023.Day06 do
   def part_a(_lines) do
   end
 
+  def parse_input(lines) do
+    ["Time:" <> times_string, "Distance:" <> distances_string] = lines
+    times = Helpers.string_to_int_list(times_string)
+    distances = Helpers.string_to_int_list(distances_string)
+
+    Enum.zip(times, distances)
+  end
+
   def part_b(_lines) do
   end
 
