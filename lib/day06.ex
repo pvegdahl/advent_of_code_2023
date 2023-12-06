@@ -1,5 +1,10 @@
 defmodule AdventOfCode2023.SearchRange do
-  def range_of_true(range, _), do: range
+  def range_of_true(first..last = range, is_true?) do
+    new_first = Enum.find(range, is_true?)
+    new_last = Enum.find(last..first, is_true?)
+
+    new_first..new_last
+  end
 end
 
 defmodule AdventOfCode2023.Day06 do
