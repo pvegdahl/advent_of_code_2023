@@ -19,7 +19,7 @@ defmodule AdventOfCode2023.Day07Test do
 
   @tag :skip
   test "Day07 part B example" do
-    assert Day07.part_b(example_input()) == :something_else
+    assert Day07.part_b(example_input()) == 5905
   end
 
   test "Detect five of a kind" do
