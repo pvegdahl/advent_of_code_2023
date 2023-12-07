@@ -26,4 +26,8 @@ defmodule AdventOfCode2023.Day07Test do
   test "Detect a hand with five of a kind" do
     assert Day07.hand_type("QQQQQ") == :five_of_a_kind
   end
+
+  test "Detect a hand with four of a kind" do
+    assert Day07.hand_type("4444Q") == :four_of_a_kind
+  end
 end
