@@ -12,6 +12,7 @@ defmodule AdventOfCode2023.Day07 do
   }
 
   @card_rank_order %{
+    "W" => 0,  # Wildcards are transformed to W when in use
     "2" => 2,
     "3" => 3,
     "4" => 4,
