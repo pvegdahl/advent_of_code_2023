@@ -17,7 +17,6 @@ defmodule AdventOfCode2023.Day07Test do
     ]
   end
 
-  @tag :skip
   test "Day07 part B example" do
     assert Day07.part_b(example_input()) == 5905
   end
@@ -104,30 +103,6 @@ defmodule AdventOfCode2023.Day07Test do
       {"JJJAK", 3},
       {"AAA23", 2},
       {"22222", 1}
-    ]
-
-    assert Day07.sort_hands(hands) == expected
-  end
-
-  test "Sort five-of-a-kind hands with different numbers of wildcards" do
-    hands = [
-      {"22222", 1},
-      {"AWWWW", 2},
-      {"JJJWW", 3},
-      {"WWW33", 4},
-      {"66W66", 5},
-      {"WWWWW", 6},
-      {"WWWWA", 7},
-    ]
-
-    expected = [
-      {"WWWWW", 6},
-      {"WWWWA", 7},
-      {"AWWWW", 2},
-      {"WWW33", 4},
-      {"JJJWW", 3},
-      {"66W66", 5},
-      {"22222", 1},
     ]
 
     assert Day07.sort_hands(hands) == expected

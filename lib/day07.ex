@@ -29,8 +29,13 @@ defmodule AdventOfCode2023.Day07 do
   }
 
   def part_a(lines) do
+    do_it_all(lines, "X")
+  end
+
+  def do_it_all(lines, wildcard_character) do
     lines
     |> parse_input()
+    |> Enum.map(fn {hand, bid} -> {replace_wildcards(hand, wildcard_character), bid} end)
     |> sort_hands()
     |> Enum.map(&elem(&1, 1))
     |> Enum.with_index(1)
@@ -44,7 +49,10 @@ defmodule AdventOfCode2023.Day07 do
     |> Enum.map(fn [hand, bid] -> {hand, String.to_integer(bid)} end)
   end
 
-  def part_b(_lines) do
+  defp replace_wildcards(hand, wildcard_character), do: String.replace(hand, wildcard_character, "W")
+
+  def part_b(lines) do
+    do_it_all(lines, "J")
   end
 
   def a() do
@@ -97,7 +105,7 @@ defmodule AdventOfCode2023.Day07 do
   end
 
   defp first_hand_precedes_second(hand_a, hand_b) do
-    comparison_helper(hand_a, hand_b, [&compare_by_hand_type/2, &compare_by_wildcard_count/2, &compare_by_card_order/2])
+    comparison_helper(hand_a, hand_b, [&compare_by_hand_type/2, &compare_by_card_order/2])
   end
 
   defp comparison_helper(hand_a, hand_b, [comparison_func_head | comparison_func_tail]) do
@@ -122,13 +130,6 @@ defmodule AdventOfCode2023.Day07 do
   defp hand_rank(hand) do
     hand_type = hand_type(hand)
     Map.get(@hand_type_order, hand_type)
-  end
-
-  defp compare_by_wildcard_count(hand_a, hand_b) do
-    count_a = count_wildcards(hand_a)
-    count_b = count_wildcards(hand_b)
-
-    rank_comparison(count_b, count_a)
   end
 
   defp count_wildcards(hand) do
