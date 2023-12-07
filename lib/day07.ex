@@ -97,10 +97,25 @@ defmodule AdventOfCode2023.Day07 do
   end
 
   defp first_hand_precedes_second(hand_a, hand_b) do
-    case compare_by_hand_type(hand_a, hand_b) do
+    comparison_helper(hand_a, hand_b, [&compare_by_hand_type/2, &compare_by_card_order/2])
+  end
+
+  defp comparison_helper(hand_a, hand_b, [comparison_func_head | comparison_func_tail]) do
+    case comparison_func_head.(hand_a, hand_b) do
       :lt -> true
       :gt -> false
-      :eq -> precedes_by_card_order(hand_a, hand_b)
+      :eq -> comparison_helper(hand_a, hand_b, comparison_func_tail)
+    end
+  end
+
+  defp comparison_helper(hand_a, hand_b, [rank_func_head | rank_func_tail]) do
+    rank_a = rank_func_head.(hand_a)
+    rank_b = rank_func_head.(hand_b)
+
+    cond do
+      rank_a < rank_b -> :lt
+      rank_a > rank_b -> :gt
+      rank_a == rank_b -> :eq
     end
   end
 
@@ -118,15 +133,6 @@ defmodule AdventOfCode2023.Day07 do
   defp hand_rank(hand) do
     hand_type = hand_type(hand)
     Map.get(@hand_type_order, hand_type)
-  end
-
-  defp precedes_by_card_order([head | a_tail], [head | b_tail]), do: precedes_by_card_order(a_tail, b_tail)
-
-  defp precedes_by_card_order(hand_a, hand_b) do
-    case compare_by_card_order(hand_a, hand_b) do
-      :lt -> true
-      :gt -> false
-    end
   end
 
   defp compare_by_card_order([head | a_tail], [head | b_tail]), do: compare_by_card_order(a_tail, b_tail)
