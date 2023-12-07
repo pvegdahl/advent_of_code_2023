@@ -97,7 +97,7 @@ defmodule AdventOfCode2023.Day07 do
   end
 
   defp first_hand_precedes_second(hand_a, hand_b) do
-    comparison_helper(hand_a, hand_b, [&compare_by_hand_type/2, &compare_by_card_order/2])
+    comparison_helper(hand_a, hand_b, [&compare_by_hand_type/2, &compare_by_wildcard_count/2, &compare_by_card_order/2])
   end
 
   defp comparison_helper(hand_a, hand_b, [comparison_func_head | comparison_func_tail]) do
@@ -122,6 +122,19 @@ defmodule AdventOfCode2023.Day07 do
   defp hand_rank(hand) do
     hand_type = hand_type(hand)
     Map.get(@hand_type_order, hand_type)
+  end
+
+  defp compare_by_wildcard_count(hand_a, hand_b) do
+    count_a = count_wildcards(hand_a)
+    count_b = count_wildcards(hand_b)
+
+    rank_comparison(count_b, count_a)
+  end
+
+  defp count_wildcards(hand) do
+    hand
+    |> String.graphemes()
+    |> Enum.count(&(&1 == "W"))
   end
 
   defp compare_by_card_order([head | a_tail], [head | b_tail]), do: compare_by_card_order(a_tail, b_tail)
