@@ -16,4 +16,6 @@ defmodule AdventOfCode2023.Day07 do
     Helpers.file_to_lines!("inputs/day07.txt")
     |> part_b()
   end
+
+  def hand_type(hand), do: :five_of_a_kind
 end
