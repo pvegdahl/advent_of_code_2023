@@ -108,27 +108,16 @@ defmodule AdventOfCode2023.Day07 do
     end
   end
 
-  defp comparison_helper(hand_a, hand_b, [rank_func_head | rank_func_tail]) do
-    rank_a = rank_func_head.(hand_a)
-    rank_b = rank_func_head.(hand_b)
-
-    cond do
-      rank_a < rank_b -> :lt
-      rank_a > rank_b -> :gt
-      rank_a == rank_b -> :eq
-    end
-  end
-
   defp compare_by_hand_type(hand_a, hand_b) do
     rank_a = hand_rank(hand_a)
     rank_b = hand_rank(hand_b)
 
-    cond do
-      rank_a < rank_b -> :lt
-      rank_a > rank_b -> :gt
-      rank_a == rank_b -> :eq
-    end
+    rank_comparison(rank_a, rank_b)
   end
+
+  defp rank_comparison(rank, rank), do: :eq
+  defp rank_comparison(rank_a, rank_b) when rank_a < rank_b, do: :lt
+  defp rank_comparison(rank_a, rank_b) when rank_a > rank_b, do: :gt
 
   defp hand_rank(hand) do
     hand_type = hand_type(hand)
@@ -141,11 +130,7 @@ defmodule AdventOfCode2023.Day07 do
     rank_a = Map.get(@card_rank_order, a_head)
     rank_b = Map.get(@card_rank_order, b_head)
 
-    cond do
-      rank_a < rank_b -> :lt
-      rank_a > rank_b -> :gt
-      rank_a == rank_b -> :eq
-    end
+    rank_comparison(rank_a, rank_b)
   end
 
   defp compare_by_card_order(hand_a, hand_b) when is_binary(hand_a) and is_binary(hand_b) do
