@@ -75,18 +75,26 @@ defmodule AdventOfCode2023.Day07 do
     end
   end
 
-  def sort_hands(hands) do
+  def sort_hands(hands, sort_functions \\ nil) do
     Enum.sort_by(hands, &elem(&1, 0), &first_hand_precedes_second/2)
   end
 
   defp first_hand_precedes_second(hand_a, hand_b) do
+    case compare_by_hand_type(hand_a, hand_b) do
+      :lt -> true
+      :gt -> false
+      :eq -> precedes_by_card_order(hand_a, hand_b)
+    end
+  end
+
+  defp compare_by_hand_type(hand_a, hand_b) do
     rank_a = hand_rank(hand_a)
     rank_b = hand_rank(hand_b)
 
-    if rank_a == rank_b do
-      precedes_by_card_order(hand_a, hand_b)
-    else
-      rank_a < rank_b
+    cond do
+      rank_a < rank_b -> :lt
+      rank_a > rank_b -> :gt
+      rank_a == rank_b -> :eq
     end
   end
 
