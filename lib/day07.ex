@@ -12,7 +12,8 @@ defmodule AdventOfCode2023.Day07 do
   }
 
   @card_rank_order %{
-    "W" => 0,  # Wildcards are transformed to W when in use
+    # Wildcards are transformed to W when in use
+    "W" => 0,
     "2" => 2,
     "3" => 3,
     "4" => 4,
@@ -97,7 +98,7 @@ defmodule AdventOfCode2023.Day07 do
       |> Enum.max_by(&elem(&1, 1))
       |> elem(0)
 
-      Map.update!(no_wildcards, most_frequent_card, &(&1 + wildcard_count))
+    Map.update!(no_wildcards, most_frequent_card, &(&1 + wildcard_count))
   end
 
   def sort_hands(hands) do

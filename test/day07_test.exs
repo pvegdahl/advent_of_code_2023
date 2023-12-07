@@ -57,7 +57,6 @@ defmodule AdventOfCode2023.Day07Test do
     assert Day07.hand_type("234WW") == :three_of_a_kind
   end
 
-
   test "Sort hands of distinct types" do
     hands = [
       {"22333", 1},
@@ -114,7 +113,7 @@ defmodule AdventOfCode2023.Day07Test do
       {"23W45", 2},
       {"W2345", 3},
       {"2W345", 4},
-      {"234W5", 5},
+      {"234W5", 5}
     ]
 
     expected = [
@@ -122,7 +121,7 @@ defmodule AdventOfCode2023.Day07Test do
       {"2W345", 4},
       {"23W45", 2},
       {"234W5", 5},
-      {"2345W", 1},
+      {"2345W", 1}
     ]
 
     assert Day07.sort_hands(hands) == expected
