@@ -56,4 +56,19 @@ defmodule AdventOfCode2023.Day07Test do
     expected = [ "23456", "22AKQ", "22JJT", "33356", "22333", "4444T", "55555" ]
     assert Day07.sort_hands(hands) == expected
   end
+
+  test "Sort hands of the overlapping types" do
+    hands = ["22222", "AAA23", "JJJAK", "92223", "65432", "23465", "23456", "TJJJ2"]
+    expected = [
+      "23456",
+      "23465",
+      "65432",
+      "92223",
+      "TJJJ2",
+      "JJJAK",
+      "AAA23",
+      "22222",
+    ]
+    assert Day07.sort_hands(hands) == expected
+  end
 end

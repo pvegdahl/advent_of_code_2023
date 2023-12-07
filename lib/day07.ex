@@ -11,6 +11,22 @@ defmodule AdventOfCode2023.Day07 do
     :five_of_a_kind => 6
   }
 
+  @card_rank_order %{
+    "2" => 2,
+    "3" => 3,
+    "4" => 4,
+    "5" => 5,
+    "6" => 6,
+    "7" => 7,
+    "8" => 8,
+    "9" => 9,
+    "T" => 10,
+    "J" => 11,
+    "Q" => 12,
+    "K" => 13,
+    "A" => 14
+  }
+
   def part_a(_lines) do
   end
 
@@ -50,10 +66,28 @@ defmodule AdventOfCode2023.Day07 do
     Enum.sort(hands, &first_hand_precedes_second/2)
   end
 
-  defp first_hand_precedes_second(hand_a, hand_b), do: hand_rank(hand_a) <= hand_rank(hand_b)
+  defp first_hand_precedes_second(hand_a, hand_b) do
+    rank_a = hand_rank(hand_a)
+    rank_b = hand_rank(hand_b)
+
+    if rank_a == rank_b do
+      precedes_by_card_order(hand_a, hand_b)
+    else
+      rank_a < rank_b
+    end
+  end
 
   defp hand_rank(hand) do
     hand_type = hand_type(hand)
     Map.get(@hand_type_order, hand_type)
+  end
+
+  defp precedes_by_card_order([head | a_tail], [head | b_tail]), do: precedes_by_card_order(a_tail, b_tail)
+  defp precedes_by_card_order([a_head | _a_tail], [b_head | _b_tail]) do
+    Map.get(@card_rank_order, a_head) < Map.get(@card_rank_order, b_head)
+  end
+
+  defp precedes_by_card_order(hand_a, hand_b) when is_binary(hand_a) and is_binary(hand_b) do
+    precedes_by_card_order(String.graphemes(hand_a), String.graphemes(hand_b))
   end
 end
