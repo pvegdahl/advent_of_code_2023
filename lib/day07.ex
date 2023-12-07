@@ -27,8 +27,18 @@ defmodule AdventOfCode2023.Day07 do
     "A" => 14
   }
 
-  def part_a(_lines) do
+  def part_a(lines) do
+    lines
+    |> parse_input()
+    |> sort_hands()
   end
+
+  defp parse_input(lines) do
+    lines
+    |> Enum.map(&String.split/1)
+    |> Enum.map(fn [hand, bid] -> {hand, String.to_integer(bid)} end)
+  end
+
 
   def part_b(_lines) do
   end
@@ -63,7 +73,7 @@ defmodule AdventOfCode2023.Day07 do
   end
 
   def sort_hands(hands) do
-    Enum.sort(hands, &first_hand_precedes_second/2)
+    Enum.sort_by(hands, &elem(&1, 0), &first_hand_precedes_second/2)
   end
 
   defp first_hand_precedes_second(hand_a, hand_b) do

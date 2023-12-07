@@ -52,22 +52,48 @@ defmodule AdventOfCode2023.Day07Test do
   end
 
   test "Sort hands of distinct types" do
-    hands = [ "22333", "55555", "22AKQ", "33356", "22JJT", "23456", "4444T"]
-    expected = [ "23456", "22AKQ", "22JJT", "33356", "22333", "4444T", "55555" ]
+    hands = [
+      {"22333", 1},
+      {"55555", 2},
+      {"22AKQ", 3},
+      {"33356", 4},
+      {"22JJT", 5},
+      {"23456", 6},
+      {"4444T", 7}
+    ]
+    expected = [
+      {"23456", 6},
+      {"22AKQ", 3},
+      {"22JJT", 5},
+      {"33356", 4},
+      {"22333", 1},
+      {"4444T", 7},
+      {"55555", 2}
+    ]
     assert Day07.sort_hands(hands) == expected
   end
 
   test "Sort hands of the overlapping types" do
-    hands = ["22222", "AAA23", "JJJAK", "92223", "65432", "23465", "23456", "TJJJ2"]
+    hands = [
+      {"22222", 1},
+      {"AAA23", 2},
+      {"JJJAK", 3},
+      {"92223", 4},
+      {"65432", 5},
+      {"23465", 6},
+      {"23456", 7},
+      {"TJJJ2", 8}
+    ]
+
     expected = [
-      "23456",
-      "23465",
-      "65432",
-      "92223",
-      "TJJJ2",
-      "JJJAK",
-      "AAA23",
-      "22222",
+      {"23456", 7},
+      {"23465", 6},
+      {"65432", 5},
+      {"92223", 4},
+      {"TJJJ2", 8},
+      {"JJJAK", 3},
+      {"AAA23", 2},
+      {"22222", 1},
     ]
     assert Day07.sort_hands(hands) == expected
   end
