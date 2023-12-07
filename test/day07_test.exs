@@ -50,6 +50,15 @@ defmodule AdventOfCode2023.Day07Test do
     assert Day07.hand_type("AKQJT") == :high_card
   end
 
+  test "Detect five of a kind with wildcards" do
+    assert Day07.hand_type("2W2WW") == :five_of_a_kind
+  end
+
+  test "Detect three of a kind with wildcards" do
+    assert Day07.hand_type("234WW") == :three_of_a_kind
+  end
+
+
   test "Sort hands of distinct types" do
     hands = [
       {"22333", 1},

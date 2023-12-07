@@ -57,11 +57,14 @@ defmodule AdventOfCode2023.Day07 do
     |> part_b()
   end
 
+  def hand_type("WWWWW"), do: :five_of_a_kind
+
   def hand_type(hand) do
     card_counts =
       hand
       |> String.graphemes()
       |> Enum.frequencies()
+      |> use_wildcards()
       |> Map.values()
       |> Enum.sort(:desc)
 
@@ -76,7 +79,20 @@ defmodule AdventOfCode2023.Day07 do
     end
   end
 
-  def sort_hands(hands, sort_functions \\ nil) do
+  defp use_wildcards(hand_frequencies) do
+    wildcard_count = Map.get(hand_frequencies, "W", 0)
+    no_wildcards = Map.delete(hand_frequencies, "W")
+
+    most_frequent_card =
+      no_wildcards
+      |> Map.to_list()
+      |> Enum.max_by(&elem(&1, 1))
+      |> elem(0)
+
+      Map.update!(no_wildcards, most_frequent_card, &(&1 + wildcard_count))
+  end
+
+  def sort_hands(hands) do
     Enum.sort_by(hands, &elem(&1, 0), &first_hand_precedes_second/2)
   end
 
