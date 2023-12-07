@@ -31,6 +31,10 @@ defmodule AdventOfCode2023.Day07 do
     lines
     |> parse_input()
     |> sort_hands()
+    |> Enum.map(&elem(&1, 1))
+    |> Enum.with_index(1)
+    |> Enum.map(fn {bid, index} -> bid * index end)
+    |> Enum.sum()
   end
 
   defp parse_input(lines) do
