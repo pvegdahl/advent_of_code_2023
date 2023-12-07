@@ -61,6 +61,7 @@ defmodule AdventOfCode2023.Day07Test do
       {"23456", 6},
       {"4444T", 7}
     ]
+
     expected = [
       {"23456", 6},
       {"22AKQ", 3},
@@ -70,6 +71,7 @@ defmodule AdventOfCode2023.Day07Test do
       {"4444T", 7},
       {"55555", 2}
     ]
+
     assert Day07.sort_hands(hands) == expected
   end
 
@@ -93,8 +95,9 @@ defmodule AdventOfCode2023.Day07Test do
       {"TJJJ2", 8},
       {"JJJAK", 3},
       {"AAA23", 2},
-      {"22222", 1},
+      {"22222", 1}
     ]
+
     assert Day07.sort_hands(hands) == expected
   end
 end

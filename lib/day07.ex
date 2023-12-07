@@ -39,7 +39,6 @@ defmodule AdventOfCode2023.Day07 do
     |> Enum.map(fn [hand, bid] -> {hand, String.to_integer(bid)} end)
   end
 
-
   def part_b(_lines) do
   end
 
@@ -93,6 +92,7 @@ defmodule AdventOfCode2023.Day07 do
   end
 
   defp precedes_by_card_order([head | a_tail], [head | b_tail]), do: precedes_by_card_order(a_tail, b_tail)
+
   defp precedes_by_card_order([a_head | _a_tail], [b_head | _b_tail]) do
     Map.get(@card_rank_order, a_head) < Map.get(@card_rank_order, b_head)
   end
