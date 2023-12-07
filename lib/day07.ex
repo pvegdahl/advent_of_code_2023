@@ -30,6 +30,7 @@ defmodule AdventOfCode2023.Day07 do
       [4, 1] -> :four_of_a_kind
       [3, 2] -> :full_house
       [3, 1, 1] -> :three_of_a_kind
+      [2, 2, 1] -> :two_pair
     end
   end
 end

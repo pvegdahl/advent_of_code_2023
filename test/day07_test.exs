@@ -38,4 +38,8 @@ defmodule AdventOfCode2023.Day07Test do
   test "Detect three of a kind" do
     assert Day07.hand_type("JJAJK") == :three_of_a_kind
   end
+
+  test "Detect two pair" do
+    assert Day07.hand_type("34543") == :two_pair
+  end
 end
