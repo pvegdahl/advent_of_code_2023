@@ -46,4 +46,8 @@ defmodule AdventOfCode2023.Day07Test do
   test "Detect a single pair" do
     assert Day07.hand_type("67898") == :pair
   end
+
+  test "Detect a high card" do
+    assert Day07.hand_type("AKQJT") == :high_card
+  end
 end

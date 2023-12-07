@@ -32,6 +32,7 @@ defmodule AdventOfCode2023.Day07 do
       [3, 1, 1] -> :three_of_a_kind
       [2, 2, 1] -> :two_pair
       [2, 1, 1, 1] -> :pair
+      _ -> :high_card
     end
   end
 end
