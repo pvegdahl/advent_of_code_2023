@@ -34,4 +34,8 @@ defmodule AdventOfCode2023.Day07Test do
   test "Detect a full house" do
     assert Day07.hand_type("A2A2A") == :full_house
   end
+
+  test "Detect three of a kind" do
+    assert Day07.hand_type("JJAJK") == :three_of_a_kind
+  end
 end

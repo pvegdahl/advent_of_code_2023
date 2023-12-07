@@ -18,17 +18,18 @@ defmodule AdventOfCode2023.Day07 do
   end
 
   def hand_type(hand) do
-    most_common_card_count =
+    card_counts =
       hand
       |> String.graphemes()
       |> Enum.frequencies()
       |> Map.values()
-      |> Enum.max()
+      |> Enum.sort(:desc)
 
-    case most_common_card_count do
-      5 -> :five_of_a_kind
-      4 -> :four_of_a_kind
-      3 -> :full_house
+    case card_counts do
+      [5] -> :five_of_a_kind
+      [4, 1] -> :four_of_a_kind
+      [3, 2] -> :full_house
+      [3, 1, 1] -> :three_of_a_kind
     end
   end
 end
