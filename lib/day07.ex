@@ -28,6 +28,7 @@ defmodule AdventOfCode2023.Day07 do
     case most_common_card_count do
       5 -> :five_of_a_kind
       4 -> :four_of_a_kind
+      3 -> :full_house
     end
   end
 end
