@@ -42,4 +42,8 @@ defmodule AdventOfCode2023.Day07Test do
   test "Detect two pair" do
     assert Day07.hand_type("34543") == :two_pair
   end
+
+  test "Detect a single pair" do
+    assert Day07.hand_type("67898") == :pair
+  end
 end
