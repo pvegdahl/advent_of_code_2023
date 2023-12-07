@@ -105,11 +105,27 @@ defmodule AdventOfCode2023.Day07 do
 
   defp precedes_by_card_order([head | a_tail], [head | b_tail]), do: precedes_by_card_order(a_tail, b_tail)
 
-  defp precedes_by_card_order([a_head | _a_tail], [b_head | _b_tail]) do
-    Map.get(@card_rank_order, a_head) < Map.get(@card_rank_order, b_head)
+  defp precedes_by_card_order(hand_a, hand_b) do
+    case compare_by_card_order(hand_a, hand_b) do
+      :lt -> true
+      :gt -> false
+    end
   end
 
-  defp precedes_by_card_order(hand_a, hand_b) when is_binary(hand_a) and is_binary(hand_b) do
-    precedes_by_card_order(String.graphemes(hand_a), String.graphemes(hand_b))
+  defp compare_by_card_order([head | a_tail], [head | b_tail]), do: compare_by_card_order(a_tail, b_tail)
+
+  defp compare_by_card_order([a_head | _a_tail], [b_head | _b_tail]) do
+    rank_a = Map.get(@card_rank_order, a_head)
+    rank_b = Map.get(@card_rank_order, b_head)
+
+    cond do
+      rank_a < rank_b -> :lt
+      rank_a > rank_b -> :gt
+      rank_a == rank_b -> :eq
+    end
+  end
+
+  defp compare_by_card_order(hand_a, hand_b) when is_binary(hand_a) and is_binary(hand_b) do
+    compare_by_card_order(String.graphemes(hand_a), String.graphemes(hand_b))
   end
 end
