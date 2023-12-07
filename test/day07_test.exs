@@ -132,4 +132,24 @@ defmodule AdventOfCode2023.Day07Test do
 
     assert Day07.sort_hands(hands) == expected
   end
+
+  test "Wildcards sort lowest in card order" do
+    hands = [
+      {"2345W", 1},
+      {"23W45", 2},
+      {"W2345", 3},
+      {"2W345", 4},
+      {"234W5", 5},
+    ]
+
+    expected = [
+      {"W2345", 3},
+      {"2W345", 4},
+      {"23W45", 2},
+      {"234W5", 5},
+      {"2345W", 1},
+    ]
+
+    assert Day07.sort_hands(hands) == expected
+  end
 end
