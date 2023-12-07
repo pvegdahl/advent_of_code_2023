@@ -30,6 +30,7 @@ defmodule AdventOfCode2023.TemplateGenerator do
 
       alias AdventOfCode2023.Day#{day}
 
+      @tag :skip
       test "Day#{day} part A example" do
         assert Day#{day}.part_a(example_input()) == :something
       end
@@ -40,6 +41,7 @@ defmodule AdventOfCode2023.TemplateGenerator do
         ]
       end
 
+      @tag :skip
       test "Day#{day} part B example" do
         assert Day#{day}.part_b(example_input()) == :something_else
       end
