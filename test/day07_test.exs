@@ -50,4 +50,10 @@ defmodule AdventOfCode2023.Day07Test do
   test "Detect a high card" do
     assert Day07.hand_type("AKQJT") == :high_card
   end
+
+  test "Sort hands of distinct types" do
+    hands = [ "22333", "55555", "22AKQ", "33356", "22JJT", "23456", "4444T"]
+    expected = [ "23456", "22AKQ", "22JJT", "33356", "22333", "4444T", "55555" ]
+    assert Day07.sort_hands(hands) == expected
+  end
 end
