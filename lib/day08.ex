@@ -50,31 +50,25 @@ defmodule AdventOfCode2023.Day08 do
     {node, {left, right}}
   end
 
-  defp count_steps(map, instruction_stream, current \\ "AAA", target \\ "ZZZ", step_count \\ 0)
-  defp count_steps(_map, _instruction_stream, target, target, step_count), do: step_count
+  defp count_steps(map, instruction_stream) do
+    reduce_func = reduce_while_function(map)
 
-  defp count_steps(map, instruction_stream, current, target, step_count) do
-    next_node = get_next(map, instruction_stream, current)
-    new_stream = Stream.drop(instruction_stream, 1)
-
-    count_steps(map, new_stream, next_node, target, step_count + 1)
+    Enum.reduce_while(instruction_stream, {"AAA", 0}, reduce_func)
+    |> elem(1)
   end
 
-  defp get_next(map, instruction_stream, current) do
-    next_instruction = Enum.at(instruction_stream, 0)
+  defp reduce_while_function(map) do
+    fn instruction, {node, count} = acc ->
+      if node == "ZZZ" do
+        {:halt, acc}
+      else
+        next_node =
+          map
+          |> Map.get(node)
+          |> elem(instruction)
 
-    map
-    |> Map.get(current)
-    |> elem(next_instruction)
+        {:cont, {next_node, count + 1}}
+      end
+    end
   end
-
-  #  defp one_iteration(direction_index, {node, count} = acc) do
-  #    if node == "ZZZ" do
-  #      {:halt, acc}
-  #    else
-  #
-  #    end
-  #
-  #    next_node =
-  #  end
 end
