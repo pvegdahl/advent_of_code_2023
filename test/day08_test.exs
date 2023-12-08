@@ -3,12 +3,10 @@ defmodule AdventOfCode2023.Day08Test do
 
   alias AdventOfCode2023.Day08
 
-  @tag :skip
   test "Day08 part A example 1" do
     assert Day08.part_a(example_input_1()) == 2
   end
 
-  @tag :skip
   test "Day08 part A example 2" do
     assert Day08.part_a(example_input_2()) == 6
   end
@@ -48,10 +46,12 @@ defmodule AdventOfCode2023.Day08Test do
   end
 
   test "Parse input" do
-    assert Day08.parse_input(example_input_2()) == {["L", "L", "R"], %{
-             "AAA" => {"BBB", "BBB"},
-             "BBB" => {"AAA", "ZZZ"},
-             "ZZZ" => {"ZZZ", "ZZZ"}
-           }}
+    assert Day08.parse_input(example_input_2()) ==
+             {["L", "L", "R"],
+              %{
+                "AAA" => {"BBB", "BBB"},
+                "BBB" => {"AAA", "ZZZ"},
+                "ZZZ" => {"ZZZ", "ZZZ"}
+              }}
   end
 end
