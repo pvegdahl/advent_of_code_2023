@@ -51,24 +51,19 @@ defmodule AdventOfCode2023.Day08 do
   end
 
   defp count_steps(map, instruction_stream, starting_node, target_func) do
-    reduce_func = reduce_while_function(map, target_func)
-
-    Enum.reduce_while(instruction_stream, {starting_node, 0}, reduce_func)
+    build_path_stream(map, instruction_stream, starting_node)
+    |> Enum.find(fn {node, _index} -> target_func.(node) end)
     |> elem(1)
   end
 
-  defp reduce_while_function(map, target_func) do
-    fn instruction, {node, count} = acc ->
-      if target_func.(node) do
-        {:halt, acc}
-      else
-        next_node =
-          map
-          |> Map.get(node)
-          |> elem(instruction)
+  defp build_path_stream(map, instruction_stream, starting_node) do
+    Stream.scan(instruction_stream, starting_node, fn instruction, node -> next(map, node, instruction) end)
+    |> Stream.with_index(1)
+  end
 
-        {:cont, {next_node, count + 1}}
-      end
-    end
+  defp next(map, node, instruction) do
+    map
+    |> Map.get(node)
+    |> elem(instruction)
   end
 end
