@@ -133,12 +133,6 @@ defmodule AdventOfCode2023.Day07 do
     Map.get(@hand_type_order, hand_type)
   end
 
-  defp count_wildcards(hand) do
-    hand
-    |> String.graphemes()
-    |> Enum.count(&(&1 == "W"))
-  end
-
   defp compare_by_card_order([head | a_tail], [head | b_tail]), do: compare_by_card_order(a_tail, b_tail)
 
   defp compare_by_card_order([a_head | _a_tail], [b_head | _b_tail]) do
