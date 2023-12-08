@@ -46,4 +46,12 @@ defmodule AdventOfCode2023.Day08Test do
   test "Day08 part B example 2" do
     assert Day08.part_b(example_input_2()) == :something_else
   end
+
+  test "Parse input" do
+    assert Day08.parse_input(example_input_2()) == {["L", "L", "R"], %{
+             "AAA" => {"BBB", "BBB"},
+             "BBB" => {"AAA", "ZZZ"},
+             "ZZZ" => {"ZZZ", "ZZZ"}
+           }}
+  end
 end
