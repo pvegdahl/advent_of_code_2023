@@ -5,7 +5,7 @@ defmodule AdventOfCode2023.Day08 do
     {instructions, map} = parse_input(lines)
     instruction_stream = Stream.cycle(instructions)
 
-    count_steps(map, instruction_stream)
+    count_steps(map, instruction_stream, &(&1 == "ZZZ"))
   end
 
   def part_b(_lines) do
@@ -50,16 +50,16 @@ defmodule AdventOfCode2023.Day08 do
     {node, {left, right}}
   end
 
-  defp count_steps(map, instruction_stream) do
-    reduce_func = reduce_while_function(map)
+  defp count_steps(map, instruction_stream, target_func) do
+    reduce_func = reduce_while_function(map, target_func)
 
     Enum.reduce_while(instruction_stream, {"AAA", 0}, reduce_func)
     |> elem(1)
   end
 
-  defp reduce_while_function(map) do
+  defp reduce_while_function(map, target_func) do
     fn instruction, {node, count} = acc ->
-      if node == "ZZZ" do
+      if target_func.(node) do
         {:halt, acc}
       else
         next_node =
