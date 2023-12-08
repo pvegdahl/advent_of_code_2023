@@ -64,4 +64,17 @@ defmodule AdventOfCode2023.Day08Test do
                 "ZZZ" => {"ZZZ", "ZZZ"}
               }}
   end
+
+  test "find starting nodes for part B" do
+    map = %{
+      "AAA" => {"ZZZ", "ZZZ"},
+      "AAB" => {"ZZZ", "ZZZ"},
+      "ZAA" => {"ZZZ", "ZZZ"},
+      "ZZA" => {"ZZZ", "ZZZ"},
+      "QAQ" => {"ZZZ", "ZZZ"},
+      "CBA" => {"ZZZ", "ZZZ"}
+    }
+
+    assert Day08.find_starting_nodes(map) == ["AAA", "CBA", "ZAA", "ZZA"]
+  end
 end

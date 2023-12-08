@@ -66,4 +66,11 @@ defmodule AdventOfCode2023.Day08 do
     |> Map.get(node)
     |> elem(instruction)
   end
+
+  def find_starting_nodes(map) do
+    map
+    |> Map.keys()
+    |> Enum.filter(&String.ends_with?(&1, "A"))
+    |> Enum.sort()
+  end
 end
