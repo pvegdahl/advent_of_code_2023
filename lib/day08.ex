@@ -22,7 +22,7 @@ defmodule AdventOfCode2023.Day08 do
   end
 
   def parse_input(lines) do
-    [instruction_line, "" | map_lines] = lines
+    [instruction_line, "" | map_lines] = Enum.to_list(lines)
 
     {String.graphemes(instruction_line), parse_map(map_lines)}
   end
