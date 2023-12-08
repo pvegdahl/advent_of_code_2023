@@ -8,7 +8,12 @@ defmodule AdventOfCode2023.Day08 do
     count_steps(map, instruction_stream, "AAA", &(&1 == "ZZZ"))
   end
 
-  def part_b(_lines) do
+  def part_b(lines) do
+    {instructions, map} = parse_input(lines)
+    instruction_stream = Stream.cycle(instructions)
+    starting_nodes = find_starting_nodes(map)
+
+    first_n_terminal_nodes_indices(map, instruction_stream, starting_nodes, 5)
   end
 
   def a() do
@@ -73,4 +78,17 @@ defmodule AdventOfCode2023.Day08 do
     |> Enum.filter(&String.ends_with?(&1, "A"))
     |> Enum.sort()
   end
+
+  defp stream_terminal_node_indices(map, instruction_stream, starting_node) do
+    build_path_stream(map, instruction_stream, starting_node)
+    |> Stream.filter(fn {node, _index} -> String.ends_with?(node, "Z") end)
+    |> Stream.map(&elem(&1, 1))
+  end
+
+  defp first_n_terminal_nodes_indices(map, instruction_stream, starting_nodes, n) do
+    starting_nodes
+    |> Enum.map(&stream_terminal_node_indices(map, instruction_stream, &1))
+    |> Enum.map(&Enum.take(&1, n))
+  end
+
 end
