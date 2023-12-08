@@ -13,7 +13,10 @@ defmodule AdventOfCode2023.Day08 do
     instruction_stream = Stream.cycle(instructions)
     starting_nodes = find_starting_nodes(map)
 
-    first_n_terminal_nodes_indices(map, instruction_stream, starting_nodes, 5)
+    fast_streams(map, instruction_stream, starting_nodes, 1000)
+    |> Enum.map(&MapSet.new/1)
+    |> Enum.reduce(&MapSet.intersection/2)
+    |> Enum.min()
   end
 
   def a() do
@@ -85,10 +88,26 @@ defmodule AdventOfCode2023.Day08 do
     |> Stream.map(&elem(&1, 1))
   end
 
-  defp first_n_terminal_nodes_indices(map, instruction_stream, starting_nodes, n) do
+  defp fast_streams(map, instruction_stream, starting_nodes, n) do
     starting_nodes
-    |> Enum.map(&stream_terminal_node_indices(map, instruction_stream, &1))
+    |> Enum.map(fn node -> stream_terminal_node_indices(map, instruction_stream, node) end)
+    |> Enum.map(&slow_to_fast_stream/1)
     |> Enum.map(&Enum.take(&1, n))
   end
 
+  defp slow_to_fast_stream(slow_stream) do
+    {start, interval} = stream_spec(slow_stream)
+    Stream.iterate(start, &(&1 + interval))
+  end
+
+  defp stream_spec(slow_stream) do
+    [a, b, c] = Enum.take(slow_stream, 3)
+
+    ba = b - a
+    cb = c - b
+
+    cond do
+      ba == cb -> {a, ba}
+    end
+  end
 end
