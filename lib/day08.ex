@@ -24,8 +24,17 @@ defmodule AdventOfCode2023.Day08 do
   def parse_input(lines) do
     [instruction_line, "" | map_lines] = Enum.to_list(lines)
 
-    {String.graphemes(instruction_line), parse_map(map_lines)}
+    {parse_instructions(instruction_line), parse_map(map_lines)}
   end
+
+  defp parse_instructions(instructions_line) do
+    instructions_line
+    |> String.graphemes()
+    |> Enum.map(&left_or_right_to_zero_or_one/1)
+  end
+
+  defp left_or_right_to_zero_or_one("L"), do: 0
+  defp left_or_right_to_zero_or_one("R"), do: 1
 
   defp parse_map(lines) do
     lines
@@ -52,17 +61,20 @@ defmodule AdventOfCode2023.Day08 do
   end
 
   defp get_next(map, instruction_stream, current) do
-    next_instruction = get_instruction_index(instruction_stream)
+    next_instruction = Enum.at(instruction_stream, 0)
 
     map
     |> Map.get(current)
     |> elem(next_instruction)
   end
 
-  defp get_instruction_index(instruction_stream) do
-    case Enum.at(instruction_stream, 0) do
-      "L" -> 0
-      "R" -> 1
-    end
-  end
+  #  defp one_iteration(direction_index, {node, count} = acc) do
+  #    if node == "ZZZ" do
+  #      {:halt, acc}
+  #    else
+  #
+  #    end
+  #
+  #    next_node =
+  #  end
 end

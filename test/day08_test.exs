@@ -47,7 +47,7 @@ defmodule AdventOfCode2023.Day08Test do
 
   test "Parse input" do
     assert Day08.parse_input(example_input_2()) ==
-             {["L", "L", "R"],
+             {[0, 0, 1],
               %{
                 "AAA" => {"BBB", "BBB"},
                 "BBB" => {"AAA", "ZZZ"},
