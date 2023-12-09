@@ -29,10 +29,17 @@ defmodule AdventOfCode2023.Day09 do
 
   def difference_chain(nums) do
     if Enum.all?(nums, &(&1 == 0)) do
-      []
+      [nums]
     else
       next_nums = list_differences(nums)
-      [next_nums | difference_chain(next_nums)]
+      [nums | difference_chain(next_nums)]
     end
+  end
+
+  def next_value(nums) do
+    nums
+    |> difference_chain()
+    |> Enum.map(&List.last/1)
+    |> Enum.sum()
   end
 end

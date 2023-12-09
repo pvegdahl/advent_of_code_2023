@@ -37,10 +37,15 @@ defmodule AdventOfCode2023.Day09Test do
 
   test "Calculate chain of differences" do
     assert Day09.difference_chain(@example_nums) == [
+             @example_nums,
              [3, 3, 5, 9, 15],
              [0, 2, 4, 6],
              [2, 2, 2],
              [0, 0]
            ]
+  end
+
+  test "Calculate next value" do
+    assert Day09.next_value(@example_nums) == 68
   end
 end
