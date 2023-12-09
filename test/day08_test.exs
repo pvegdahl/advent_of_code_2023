@@ -76,4 +76,16 @@ defmodule AdventOfCode2023.Day08Test do
 
     assert Day08.find_starting_nodes(map) == ["AAA", "CBA", "ZAA", "ZZA"]
   end
+
+  test "merge two stream specs with simple offsets and no common factors" do
+    assert Day08.merge_stream_specs({11, 11}, {13, 13}) == {11*13, 11*13}
+  end
+
+  test "merge two stream specs with simple offsets and a common factor" do
+    assert Day08.merge_stream_specs({15, 15}, {10, 10}) == {30, 30}
+  end
+
+  test "merge two stream specs with misaligned offsets and intervals" do
+    assert Day08.merge_stream_specs({1, 4}, {2, 5}) == {17, 20}
+  end
 end

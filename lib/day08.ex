@@ -13,10 +13,9 @@ defmodule AdventOfCode2023.Day08 do
     instruction_stream = Stream.cycle(instructions)
     starting_nodes = find_starting_nodes(map)
 
-    fast_streams(map, instruction_stream, starting_nodes, 1000)
-    |> Enum.map(&MapSet.new/1)
-    |> Enum.reduce(&MapSet.intersection/2)
-    |> Enum.min()
+    stream_specs(map, instruction_stream, starting_nodes)
+    |> Enum.reduce(&merge_stream_specs/2)
+    |> elem(0)
   end
 
   def a() do
@@ -88,16 +87,10 @@ defmodule AdventOfCode2023.Day08 do
     |> Stream.map(&elem(&1, 1))
   end
 
-  defp fast_streams(map, instruction_stream, starting_nodes, n) do
+  defp stream_specs(map, instruction_stream, starting_nodes) do
     starting_nodes
     |> Enum.map(fn node -> stream_terminal_node_indices(map, instruction_stream, node) end)
-    |> Enum.map(&slow_to_fast_stream/1)
-    |> Enum.map(&Enum.take(&1, n))
-  end
-
-  defp slow_to_fast_stream(slow_stream) do
-    {start, interval} = stream_spec(slow_stream)
-    Stream.iterate(start, &(&1 + interval))
+    |> Enum.map(&stream_spec/1)
   end
 
   defp stream_spec(slow_stream) do
@@ -109,5 +102,31 @@ defmodule AdventOfCode2023.Day08 do
     cond do
       ba == cb -> {a, ba}
     end
+  end
+
+  def merge_stream_specs({interval_a, interval_a}, {interval_b, interval_b}) do
+    lcm = least_common_multiple(interval_a, interval_b)
+    {lcm, lcm}
+  end
+
+  def merge_stream_specs({_, interval_a} = stream_spec_a, {_, interval_b} = stream_spec_b) do
+    interval = least_common_multiple(interval_a, interval_b)
+    offset = least_common_offset(stream_spec_a, stream_spec_b)
+    {offset, interval}
+  end
+
+  defp least_common_offset({offset, _interval_a}, {offset, _interval_b}), do: offset
+
+  defp least_common_offset({offset_a, interval_a}, {offset_b, _} = stream_spec_b) when offset_a < offset_b do
+    least_common_offset({offset_a + interval_a, interval_a}, stream_spec_b)
+  end
+
+  defp least_common_offset({offset_a, _} = stream_spec_a, {offset_b, interval_b}) when offset_a > offset_b do
+    least_common_offset(stream_spec_a, {offset_b + interval_b, interval_b})
+  end
+
+  defp least_common_multiple(a, b) do
+    gcd = Integer.gcd(a, b)
+    div(a * b, gcd)
   end
 end
