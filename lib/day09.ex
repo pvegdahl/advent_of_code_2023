@@ -1,7 +1,11 @@
 defmodule AdventOfCode2023.Day09 do
   alias AdventOfCode2023.Helpers
 
-  def part_a(_lines) do
+  def part_a(lines) do
+    lines
+    |> parse_input()
+    |> Enum.map(&next_value/1)
+    |> Enum.sum()
   end
 
   def part_b(_lines) do

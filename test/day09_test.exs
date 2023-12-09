@@ -3,7 +3,6 @@ defmodule AdventOfCode2023.Day09Test do
 
   alias AdventOfCode2023.Day09
 
-  @tag :skip
   test "Day09 part A example" do
     assert Day09.part_a(example_input()) == 114
   end
