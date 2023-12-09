@@ -29,12 +29,14 @@ defmodule AdventOfCode2023.Day09Test do
            ]
   end
 
+  @example_nums [10, 13, 16, 21, 30, 45]
+
   test "Calculate list differences" do
-    assert Day09.list_differences([10, 13, 16, 21, 30, 45]) == [3, 3, 5, 9, 15]
+    assert Day09.list_differences(@example_nums) == [3, 3, 5, 9, 15]
   end
 
   test "Calculate chain of differences" do
-    assert Day09.difference_chain([10, 13, 16, 21, 30, 45]) == [
+    assert Day09.difference_chain(@example_nums) == [
              [3, 3, 5, 9, 15],
              [0, 2, 4, 6],
              [2, 2, 2],
