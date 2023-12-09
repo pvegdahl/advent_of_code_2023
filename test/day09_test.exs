@@ -47,4 +47,8 @@ defmodule AdventOfCode2023.Day09Test do
   test "Calculate next value" do
     assert Day09.next_value(@example_nums) == 68
   end
+
+  test "Calculate previous value" do
+    assert Day09.previous_value(@example_nums) == 5
+  end
 end

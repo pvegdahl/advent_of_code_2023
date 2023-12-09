@@ -46,4 +46,12 @@ defmodule AdventOfCode2023.Day09 do
     |> Enum.map(&List.last/1)
     |> Enum.sum()
   end
+
+  def previous_value(nums) do
+    nums
+    |> difference_chain()
+    |> Enum.map(&List.first/1)
+    |> Enum.reverse()
+    |> Enum.reduce(fn x, acc -> x - acc end)
+  end
 end
