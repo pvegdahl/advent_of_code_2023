@@ -5,12 +5,14 @@ defmodule AdventOfCode2023.Day09Test do
 
   @tag :skip
   test "Day09 part A example" do
-    assert Day09.part_a(example_input()) == :something
+    assert Day09.part_a(example_input()) == 114
   end
 
   defp example_input() do
     [
-      "TODO"
+      "0 3 6 9 12 15",
+      "1 3 6 10 15 21",
+      "10 13 16 21 30 45"
     ]
   end
 
