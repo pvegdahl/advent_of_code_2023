@@ -26,4 +26,13 @@ defmodule AdventOfCode2023.Day09 do
     Enum.scan(tail, {0, head}, fn x, {_result, prev_x} -> {x - prev_x, x} end)
     |> Enum.map(&elem(&1, 0))
   end
+
+  def difference_chain(nums) do
+    if Enum.all?(nums, &(&1 == 0)) do
+      []
+    else
+      next_nums = list_differences(nums)
+      [next_nums | difference_chain(next_nums)]
+    end
+  end
 end
