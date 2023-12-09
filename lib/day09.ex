@@ -5,7 +5,8 @@ defmodule AdventOfCode2023.Day09 do
     do_it_all(lines, &next_value/1)
   end
 
-  def part_b(_lines) do
+  def part_b(lines) do
+    do_it_all(lines, &previous_value/1)
   end
 
   defp do_it_all(lines, processing_func) do
