@@ -17,7 +17,7 @@ defmodule AdventOfCode2023.Day09Test do
 
   @tag :skip
   test "Day09 part B example" do
-    assert Day09.part_b(example_input()) == :something_else
+    assert Day09.part_b(example_input()) == 2
   end
 
   test "Parse example input" do
