@@ -21,4 +21,9 @@ defmodule AdventOfCode2023.Day09 do
     lines
     |> Enum.map(&Helpers.string_to_int_list/1)
   end
+
+  def list_differences([head | tail]) do
+    Enum.scan(tail, {0, head}, fn x, {_result, prev_x} -> {x - prev_x, x} end)
+    |> Enum.map(&elem(&1, 0))
+  end
 end

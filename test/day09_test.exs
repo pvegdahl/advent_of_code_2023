@@ -28,4 +28,8 @@ defmodule AdventOfCode2023.Day09Test do
              [10, 13, 16, 21, 30, 45]
            ]
   end
+
+  test "Calculate list differences" do
+    assert Day09.list_differences([10, 13, 16, 21, 30, 45]) == [3, 3, 5, 9, 15]
+  end
 end
