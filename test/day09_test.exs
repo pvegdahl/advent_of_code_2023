@@ -20,4 +20,12 @@ defmodule AdventOfCode2023.Day09Test do
   test "Day09 part B example" do
     assert Day09.part_b(example_input()) == :something_else
   end
+
+  test "Parse example input" do
+    assert Day09.parse_input(example_input()) == [
+             [0, 3, 6, 9, 12, 15],
+             [1, 3, 6, 10, 15, 21],
+             [10, 13, 16, 21, 30, 45]
+           ]
+  end
 end
