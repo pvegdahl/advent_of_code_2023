@@ -27,7 +27,7 @@ defmodule AdventOfCode2023.Day10 do
   def find_start(pipe_map) do
     {x_size, y_size} = get_size(pipe_map)
 
-    for x <- 0..(x_size-1), y <- 0..(y_size-1), get(pipe_map, {x, y}) == "S" do
+    for x <- 0..(x_size - 1), y <- 0..(y_size - 1), get(pipe_map, {x, y}) == "S" do
       {x, y}
     end
     |> List.first()
@@ -46,7 +46,10 @@ defmodule AdventOfCode2023.Day10 do
     |> elem(y)
   end
 
-  def find_neighbors(_pipe_map, {x, y} = _point) do
-    [{x-1, y}, {x+1, y}]
+  def find_neighbors(pipe_map, {x, y} = point) do
+    case get(pipe_map, point) do
+      "|" -> [{x - 1, y}, {x + 1, y}]
+      "-" -> [{x, y - 1}, {x, y + 1}]
+    end
   end
 end

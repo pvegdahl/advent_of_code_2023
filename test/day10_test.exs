@@ -59,4 +59,8 @@ defmodule AdventOfCode2023.Day10Test do
   test "Find neighbors of a |" do
     assert Day10.find_neighbors(pipe_map_1(), {2, 3}) == [{1, 3}, {3, 3}]
   end
+
+  test "Find neighbors of a -" do
+    assert Day10.find_neighbors(pipe_map_1(), {3, 2}) == [{3, 1}, {3, 3}]
+  end
 end
