@@ -50,6 +50,10 @@ defmodule AdventOfCode2023.Day10 do
     case get(pipe_map, point) do
       "|" -> [{x, y - 1}, {x, y + 1}]
       "-" -> [{x - 1, y}, {x + 1, y}]
+      "L" -> [{x, y - 1}, {x + 1, y}]
+      "J" -> [{x, y - 1}, {x - 1, y}]
+      "7" -> [{x - 1, y}, {x, y + 1}]
+      "F" -> [{x + 1, y}, {x, y + 1}]
     end
   end
 end

@@ -63,4 +63,20 @@ defmodule AdventOfCode2023.Day10Test do
   test "Find neighbors of a -" do
     assert Day10.find_neighbors(pipe_map_1(), {2, 3}) == [{1, 3}, {3, 3}]
   end
+
+  test "Find neighbors of an L" do
+    assert Day10.find_neighbors(pipe_map_1(), {1, 3}) == [{1, 2}, {2, 3}]
+  end
+
+  test "Find neighbors of a J" do
+    assert Day10.find_neighbors(pipe_map_1(), {3, 3}) == [{3, 2}, {2, 3}]
+  end
+
+  test "Find neighbors of an 7" do
+    assert Day10.find_neighbors(pipe_map_1(), {3, 1}) == [{2, 1}, {3, 2}]
+  end
+
+  test "Find neighbors of a F" do
+    assert Day10.find_neighbors(pipe_map_2(), {1, 3}) == [{2, 3}, {1, 4}]
+  end
 end
