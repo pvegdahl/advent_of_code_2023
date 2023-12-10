@@ -11,6 +11,8 @@ defmodule AdventOfCode2023.Day10Test do
     "....."
   ]
 
+  defp pipe_map_1(), do: Day10.parse_input(@example_input_1)
+
   @example_input_2 [
     "..F7.",
     ".FJ|.",
@@ -18,6 +20,8 @@ defmodule AdventOfCode2023.Day10Test do
     "|F--J",
     "LJ..."
   ]
+
+  defp pipe_map_2(), do: Day10.parse_input(@example_input_2)
 
   @tag :skip
   test "Day10 part A example 1" do
@@ -45,12 +49,10 @@ defmodule AdventOfCode2023.Day10Test do
   end
 
   test "Find the starting point of example input 1" do
-    pipe_map = Day10.parse_input(@example_input_1)
-    assert Day10.find_start(pipe_map) == {1, 1}
+    assert Day10.find_start(pipe_map_1()) == {1, 1}
   end
 
   test "Find the starting point of example input 2" do
-    pipe_map = Day10.parse_input(@example_input_2)
-    assert Day10.find_start(pipe_map) == {2, 0}
+    assert Day10.find_start(pipe_map_2()) == {2, 0}
   end
 end
