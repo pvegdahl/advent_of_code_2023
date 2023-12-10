@@ -46,14 +46,19 @@ defmodule AdventOfCode2023.Day10 do
     |> elem(x)
   end
 
-  def find_neighbors(pipe_map, {x, y} = point) do
+  def find_neighbors(pipe_map, point) do
     case get(pipe_map, point) do
-      "|" -> [{x, y - 1}, {x, y + 1}]
-      "-" -> [{x - 1, y}, {x + 1, y}]
-      "L" -> [{x, y - 1}, {x + 1, y}]
-      "J" -> [{x, y - 1}, {x - 1, y}]
-      "7" -> [{x - 1, y}, {x, y + 1}]
-      "F" -> [{x + 1, y}, {x, y + 1}]
+      "|" -> [up(point), down(point)]
+      "-" -> [left(point), right(point)]
+      "L" -> [up(point), right(point)]
+      "J" -> [up(point), left(point)]
+      "7" -> [left(point), down(point)]
+      "F" -> [right(point), down(point)]
     end
   end
+
+  defp up({x, y}), do: {x, y - 1}
+  defp down({x, y}), do: {x, y + 1}
+  defp left({x, y}), do: {x - 1, y}
+  defp right({x, y}), do: {x + 1, y}
 end
