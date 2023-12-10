@@ -37,4 +37,14 @@ defmodule AdventOfCode2023.Day10Test do
   test "Day10 part B example" do
     assert Day10.part_b(example_input_1()) == :something_else
   end
+
+  test "parse example 1 input" do
+    assert Day10.parse_input(example_input_1()) == {
+             {".", ".", ".", ".", "."},
+             {".", "S", "-", "7", "."},
+             {".", "|", ".", "|", "."},
+             {".", "L", "-", "J", "."},
+             {".", ".", ".", ".", "."},
+           }
+  end
 end
