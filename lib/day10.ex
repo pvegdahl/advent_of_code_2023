@@ -34,22 +34,22 @@ defmodule AdventOfCode2023.Day10 do
   end
 
   defp get_size(pipe_map) do
-    x_size = tuple_size(pipe_map)
-    y_size = tuple_size(elem(pipe_map, 0))
+    y_size = tuple_size(pipe_map)
+    x_size = tuple_size(elem(pipe_map, 0))
 
     {x_size, y_size}
   end
 
   defp get(pipe_map, {x, y}) do
     pipe_map
-    |> elem(x)
     |> elem(y)
+    |> elem(x)
   end
 
   def find_neighbors(pipe_map, {x, y} = point) do
     case get(pipe_map, point) do
-      "|" -> [{x - 1, y}, {x + 1, y}]
-      "-" -> [{x, y - 1}, {x, y + 1}]
+      "|" -> [{x, y - 1}, {x, y + 1}]
+      "-" -> [{x - 1, y}, {x + 1, y}]
     end
   end
 end

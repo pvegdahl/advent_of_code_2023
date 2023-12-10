@@ -53,14 +53,14 @@ defmodule AdventOfCode2023.Day10Test do
   end
 
   test "Find the starting point of example input 2" do
-    assert Day10.find_start(pipe_map_2()) == {2, 0}
+    assert Day10.find_start(pipe_map_2()) == {0, 2}
   end
 
   test "Find neighbors of a |" do
-    assert Day10.find_neighbors(pipe_map_1(), {2, 3}) == [{1, 3}, {3, 3}]
+    assert Day10.find_neighbors(pipe_map_1(), {3, 2}) == [{3, 1}, {3, 3}]
   end
 
   test "Find neighbors of a -" do
-    assert Day10.find_neighbors(pipe_map_1(), {3, 2}) == [{3, 1}, {3, 3}]
+    assert Day10.find_neighbors(pipe_map_1(), {2, 3}) == [{1, 3}, {3, 3}]
   end
 end
