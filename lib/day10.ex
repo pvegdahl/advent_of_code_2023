@@ -55,6 +55,7 @@ defmodule AdventOfCode2023.Day10 do
       "7" -> [left(point), down(point)]
       "F" -> [right(point), down(point)]
       "." -> []
+      "S" -> [point, point]
     end
   end
 

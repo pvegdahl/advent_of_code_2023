@@ -83,4 +83,12 @@ defmodule AdventOfCode2023.Day10Test do
   test "A . has no neighbors" do
     assert Day10.find_neighbors(pipe_map_2(), {4, 4}) == []
   end
+
+  test "Find neighbors of an S in example 1" do
+    assert Day10.find_neighbors(pipe_map_1(), {1, 1}) == [{2, 1}, {1, 2}]
+  end
+
+  test "Find neighbors of an S in example 2" do
+    assert Day10.find_neighbors(pipe_map_2(), {0, 2}) == [{1, 2}, {0, 3}]
+  end
 end
