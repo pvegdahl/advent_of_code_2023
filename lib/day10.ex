@@ -23,4 +23,26 @@ defmodule AdventOfCode2023.Day10 do
     |> Enum.map(&List.to_tuple/1)
     |> List.to_tuple()
   end
+
+  def find_start(pipe_map) do
+    {x_size, y_size} = get_size(pipe_map)
+
+    for x <- 0..(x_size-1), y <- 0..(y_size-1), get(pipe_map, {x, y}) == "S" do
+      {x, y}
+    end
+    |> List.first()
+  end
+
+  defp get_size(pipe_map) do
+    x_size = tuple_size(pipe_map)
+    y_size = tuple_size(elem(pipe_map, 0))
+
+    {x_size, y_size}
+  end
+
+  defp get(pipe_map, {x, y}) do
+    pipe_map
+    |> elem(x)
+    |> elem(y)
+  end
 end

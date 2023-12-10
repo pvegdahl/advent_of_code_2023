@@ -43,4 +43,14 @@ defmodule AdventOfCode2023.Day10Test do
              {".", ".", ".", ".", "."}
            }
   end
+
+  test "Find the starting point of example input 1" do
+    pipe_map = Day10.parse_input(@example_input_1)
+    assert Day10.find_start(pipe_map) == {1, 1}
+  end
+
+  test "Find the starting point of example input 2" do
+    pipe_map = Day10.parse_input(@example_input_2)
+    assert Day10.find_start(pipe_map) == {2, 0}
+  end
 end
