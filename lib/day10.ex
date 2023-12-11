@@ -40,6 +40,8 @@ defmodule AdventOfCode2023.Day10 do
     {x_size, y_size}
   end
 
+  defp get(_pipe_map, {-1, _y}), do: "."
+  defp get(_pipe_map, {_x, -1}), do: "."
   defp get(pipe_map, {x, y}) do
     pipe_map
     |> elem(y)
@@ -55,8 +57,16 @@ defmodule AdventOfCode2023.Day10 do
       "7" -> [left(point), down(point)]
       "F" -> [right(point), down(point)]
       "." -> []
-      "S" -> [point, point]
+      "S" -> s_neighbors(pipe_map, point)
     end
+  end
+
+  defp s_neighbors(pipe_map, point) do
+    [up(point), down(point), left(point), right(point)]
+    |> Enum.map(&{&1, find_neighbors(pipe_map, &1)})
+    |> Enum.filter(fn {_neighbor, neighbors_neighbors} -> Enum.member?(neighbors_neighbors, point) end)
+    |> Enum.map(fn {neighbor, _neighbors_neighbors} -> neighbor end)
+    |> Enum.sort()
   end
 
   defp up({x, y}), do: {x, y - 1}
