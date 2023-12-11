@@ -142,4 +142,8 @@ defmodule AdventOfCode2023.Day10Test do
   test "Find neighbors of an S in example 2" do
     assert Day10.find_neighbors(pipe_map_2(), {0, 2}) == [{0, 3}, {1, 2}]
   end
+
+  test "Calculate enclosed area of a line with no enclosed area" do
+    assert Day10.enclosed_area_of_line([[".", ".", ".", "."]], MapSet.new(), 0) == 0
+  end
 end

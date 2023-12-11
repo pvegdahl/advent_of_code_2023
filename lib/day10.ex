@@ -97,4 +97,8 @@ defmodule AdventOfCode2023.Day10 do
       find_loop_helper(pipe_map, Enum.at(new_neighbors, 0), MapSet.union(so_far, new_neighbors))
     end
   end
+
+  def enclosed_area_of_line(_pipe_map, _loop, _line_num) do
+    0
+  end
 end
