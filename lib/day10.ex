@@ -132,7 +132,7 @@ defmodule AdventOfCode2023.Day10 do
       {"7", "|"} -> {count + inside_count(last_relevant_point, point), point, :outside}
       {"F", "7"} -> {count, point, :inside}
       {"F", "-"} -> {count, last_relevant_point, :inside}
-      {"|", "F"} -> {count + inside_count(last_relevant_point, point), point, :inside}
+      {_, "F"} -> {count + inside_count(last_relevant_point, point), point, :inside}
     end
   end
 

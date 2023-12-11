@@ -178,4 +178,12 @@ defmodule AdventOfCode2023.Day10Test do
              0
            ) == 2
   end
+
+  test "Calculate enclosed area of a simple enclosed area with multiple F7 in a row" do
+    assert Day10.enclosed_area_of_line(
+             {{".", "|", ".", "F", "7", ".", "F", "7", ".", "|"}},
+             MapSet.new([{1, 0}, {3, 0}, {4, 0}, {6, 0}, {7, 0}, {9, 0}]),
+             0
+           ) == 3
+  end
 end
