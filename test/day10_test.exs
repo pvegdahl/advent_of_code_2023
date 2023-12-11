@@ -186,4 +186,20 @@ defmodule AdventOfCode2023.Day10Test do
              0
            ) == 3
   end
+
+  test "F7 on the outside works too" do
+    assert Day10.enclosed_area_of_line(
+             {{".", "F", "-", "7", "."}},
+             MapSet.new([{1, 0}, {3, 0}]),
+             0
+           ) == 0
+  end
+
+#  test "LJ and L-J should work the same as F7" do
+#    assert Day10.enclosed_area_of_line(
+#             {{".", "|", ".", "L", "J", ".", "L", "-", "J", ".", "|"}},
+#             MapSet.new([{1, 0}, {3, 0}, {4, 0}, {6, 0}, {7, 0}, {8, 0}, {10, 0}]),
+#             0
+#           ) == 3
+#  end
 end
