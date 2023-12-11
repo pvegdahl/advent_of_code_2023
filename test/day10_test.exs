@@ -203,11 +203,19 @@ defmodule AdventOfCode2023.Day10Test do
              ) == 3
     end
 
-  test "FJ can enclose area" do
+  test "FJ transitions out to in" do
     assert Day10.enclosed_area_of_line(
              {{".", "F", "J", ".", ".", ".", "|", "."}},
              MapSet.new([{1, 0}, {2, 0}, {6, 0}]),
              0
            ) == 3
+  end
+
+  test "FJ transitions in to out too" do
+    assert Day10.enclosed_area_of_line(
+             {{".", "F", "J", ".", ".", "F", "J", "."}},
+             MapSet.new([{1, 0}, {2, 0}, {5, 0}, {6, 0}]),
+             0
+           ) == 2
   end
 end
