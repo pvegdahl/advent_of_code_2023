@@ -98,18 +98,43 @@ defmodule AdventOfCode2023.Day10 do
     end
   end
 
-  def enclosed_area_of_line(_pipe_map, loop, line_num) do
+  def enclosed_area_of_line(pipe_map, loop, line_num) do
     loop_points_on_this_line = Enum.filter(loop, fn {_x, y} -> y == line_num end)
 
-    case Enum.sort(loop_points_on_this_line) do
-      [] ->
-        0
+    Enum.reduce(loop_points_on_this_line, {0, nil, :outside}, fn point, acc -> enclosed_area_reduce_helper(pipe_map, point, acc) end)
+    |> elem(0)
+  end
 
-      enclosing_pairs ->
-        enclosing_pairs
-        |> Enum.chunk_every(2)
-        |> Enum.map(fn [{x0, _}, {x1, _}] -> x1 - x0 - 1 end)
-        |> Enum.sum()
+  defp enclosed_area_reduce_helper(pipe_map, point, {0, nil, :outside}) do
+    case get(pipe_map, point) do
+      "|" -> {0, point, :inside}
+      "F" -> {0, point, :outside}
     end
   end
+
+  defp enclosed_area_reduce_helper(pipe_map, point, {count, last_relevant_point, :outside}) do
+    last_type = get(pipe_map, last_relevant_point)
+    this_type =  get(pipe_map, point)
+    case {last_type, this_type} do
+      {"|", "|"} -> {count, point, :inside}
+      {"7", "|"} -> {count, point, :inside}
+      {"F", "7"} -> {count, point, :outside}
+      {"F", "-"} -> {count, last_relevant_point, :outside}
+      {_, "F"} -> {count, point, :outside}
+    end
+  end
+
+  defp enclosed_area_reduce_helper(pipe_map, point, {count, last_relevant_point, :inside}) do
+    last_type = get(pipe_map, last_relevant_point)
+    this_type =  get(pipe_map, point)
+    case {last_type, this_type} do
+      {"|", "|"} -> {count + inside_count(last_relevant_point, point), point, :outside}
+      {"7", "|"} -> {count + inside_count(last_relevant_point, point), point, :outside}
+      {"F", "7"} -> {count, point, :inside}
+      {"F", "-"} -> {count, last_relevant_point, :inside}
+      {"|", "F"} -> {count + inside_count(last_relevant_point, point), point, :inside}
+    end
+  end
+
+  defp inside_count({x0, _y0}, {x1, _y1}), do: x1 - x0 - 1
 end
