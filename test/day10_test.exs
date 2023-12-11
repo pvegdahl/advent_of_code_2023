@@ -43,8 +43,6 @@ defmodule AdventOfCode2023.Day10Test do
     "..........."
   ]
 
-  defp pipe_map_3(), do: Day10.parse_input(@example_input_3)
-
   @example_input_4 [
     "..........",
     ".S------7.",
@@ -56,8 +54,6 @@ defmodule AdventOfCode2023.Day10Test do
     ".L--JL--J.",
     ".........."
   ]
-
-  defp pipe_map_4(), do: Day10.parse_input(@example_input_4)
 
   @example_input_5 [
     ".F----7F7F7F7F-7....",
@@ -71,8 +67,6 @@ defmodule AdventOfCode2023.Day10Test do
     "....FJL-7.||.||||...",
     "....L---J.LJ.LJLJ..."
   ]
-
-  defp pipe_map_5(), do: Day10.parse_input(@example_input_5)
 
   test "Day10 part B example 3" do
     assert Day10.part_b(@example_input_3) == 4
