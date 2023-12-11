@@ -98,8 +98,9 @@ defmodule AdventOfCode2023.Day10 do
     end
   end
 
-  def enclosed_area_of_line(_pipe_map, loop, _line_num) do
-    case Enum.sort(loop) do
+  def enclosed_area_of_line(_pipe_map, loop, line_num) do
+    loop_points_on_this_line = Enum.filter(loop, fn {_x, y} -> y == line_num end)
+    case Enum.sort(loop_points_on_this_line) do
       [] -> 0
       enclosing_pairs ->
         enclosing_pairs
