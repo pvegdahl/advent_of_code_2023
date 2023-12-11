@@ -31,9 +31,62 @@ defmodule AdventOfCode2023.Day10Test do
     assert Day10.part_a(@example_input_2) == 8
   end
 
+  @example_input_3 [
+    "...........",
+    ".S-------7.",
+    ".|F-----7|.",
+    ".||.....||.",
+    ".||.....||.",
+    ".|L-7.F-J|.",
+    ".|..|.|..|.",
+    ".L--J.L--J.",
+    "..........."
+  ]
+
+  defp pipe_map_3(), do: Day10.parse_input(@example_input_3)
+
+  @example_input_4 [
+    "..........",
+    ".S------7.",
+    ".|F----7|.",
+    ".||....||.",
+    ".||....||.",
+    ".|L-7F-J|.",
+    ".|..||..|.",
+    ".L--JL--J.",
+    ".........."
+  ]
+
+  defp pipe_map_4(), do: Day10.parse_input(@example_input_4)
+
+  @example_input_5 [
+    ".F----7F7F7F7F-7....",
+    ".|F--7||||||||FJ....",
+    ".||.FJ||||||||L7....",
+    "FJL7L7LJLJ||LJ.L-7..",
+    "L--J.L7...LJS7F-7L7.",
+    "....F-J..F7FJ|L7L7L7",
+    "....L7.F7||L7|.L7L7|",
+    ".....|FJLJ|FJ|F7|.LJ",
+    "....FJL-7.||.||||...",
+    "....L---J.LJ.LJLJ..."
+  ]
+
+  defp pipe_map_5(), do: Day10.parse_input(@example_input_5)
+
   @tag :skip
-  test "Day10 part B example" do
-    assert Day10.part_b(@example_input_1) == :something_else
+  test "Day10 part B example 3" do
+    assert Day10.part_b(@example_input_3) == 8
+  end
+
+  @tag :skip
+  test "Day10 part B example 4" do
+    assert Day10.part_b(@example_input_4) == 4
+  end
+
+  @tag :skip
+  test "Day10 part B example 5" do
+    assert Day10.part_b(@example_input_5) == 8
   end
 
   test "parse example 1 input" do
