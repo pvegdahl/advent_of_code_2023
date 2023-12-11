@@ -9,7 +9,16 @@ defmodule AdventOfCode2023.Day10 do
     |> div(2)
   end
 
-  def part_b(_lines) do
+  def part_b(lines) do
+    pipe_map = parse_input(lines)
+    loop = find_loop(pipe_map)
+    pipe_map_without_start = replace_start(pipe_map)
+
+    {_, y_size} = get_size(pipe_map_without_start)
+
+    0..(y_size-1)
+    |> Enum.map(&enclosed_area_of_line(pipe_map_without_start, loop, &1))
+    |> Enum.sum()
   end
 
   def a() do
@@ -49,9 +58,15 @@ defmodule AdventOfCode2023.Day10 do
   defp get(_pipe_map, {_x, -1}), do: "."
 
   defp get(pipe_map, {x, y}) do
-    pipe_map
-    |> elem(y)
-    |> elem(x)
+    {x_size, y_size} = get_size(pipe_map)
+
+    if x >= x_size or y >= y_size do
+      "."
+    else
+      pipe_map
+      |> elem(y)
+      |> elem(x)
+    end
   end
 
   def find_neighbors(pipe_map, point) do
@@ -154,4 +169,37 @@ defmodule AdventOfCode2023.Day10 do
   end
 
   defp inside_count({x0, _y0}, {x1, _y1}), do: x1 - x0 - 1
+
+  def replace(pipe_map, {x, y}, new_value) do
+    new_row =
+      pipe_map
+      |> elem(y)
+      |> put_elem(x, new_value)
+
+    put_elem(pipe_map, y, new_row)
+  end
+
+  def replace_start(pipe_map) do
+    start = find_start(pipe_map)
+    start_type = detect_start_type(pipe_map, start)
+    replace(pipe_map, start, start_type)
+  end
+
+  defp detect_start_type(pipe_map, start) do
+    s_up = up(start)
+    s_down = down(start)
+    s_left = left(start)
+    s_right = right(start)
+
+    s_neighbors = s_neighbors(pipe_map, start)
+
+    cond do
+      s_neighbors == [s_up, s_down] -> "|"
+      s_neighbors == [s_left, s_up] -> "J"
+      s_neighbors == [s_up, s_right] -> "L"
+      s_neighbors == [s_left, s_right] -> "-"
+      s_neighbors == [s_left, s_down] -> "7"
+      s_neighbors == [s_down, s_right] -> "F"
+    end
+  end
 end

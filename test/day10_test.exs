@@ -74,17 +74,14 @@ defmodule AdventOfCode2023.Day10Test do
 
   defp pipe_map_5(), do: Day10.parse_input(@example_input_5)
 
-  @tag :skip
   test "Day10 part B example 3" do
     assert Day10.part_b(@example_input_3) == 8
   end
 
-  @tag :skip
   test "Day10 part B example 4" do
     assert Day10.part_b(@example_input_4) == 4
   end
 
-  @tag :skip
   test "Day10 part B example 5" do
     assert Day10.part_b(@example_input_5) == 8
   end
@@ -233,5 +230,15 @@ defmodule AdventOfCode2023.Day10Test do
              MapSet.new([{1, 0}, {2, 0}, {3, 0}, {4, 0}, {9, 0}, {10, 0}, {11, 0}, {12, 0}]),
              0
            ) == 4
+  end
+
+  test "Replace an element in the nested tuple" do
+    pipe_map = {{"F", "-", "S"}, {"L", "-", "J"}}
+    assert Day10.replace(pipe_map, {2, 0}, "7") == {{"F", "-", "7"}, {"L", "-", "J"}}
+  end
+
+  test "Replace the start" do
+    pipe_map = {{"F", "-", "S"}, {"L", "-", "J"}}
+    assert Day10.replace_start(pipe_map) == {{"F", "-", "7"}, {"L", "-", "J"}}
   end
 end
