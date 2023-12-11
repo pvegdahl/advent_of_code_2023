@@ -2,12 +2,11 @@ defmodule AdventOfCode2023.Day10 do
   alias AdventOfCode2023.Helpers
 
   def part_a(lines) do
-    pipe_map = parse_input(lines)
-    start = find_start(pipe_map)
-
-    loop_size = find_loop(pipe_map, start) |> MapSet.size()
-
-    div(loop_size, 2)
+    lines
+    |> parse_input()
+    |> find_loop()
+    |> MapSet.size()
+    |> div(2)
   end
 
   def part_b(_lines) do
@@ -81,7 +80,10 @@ defmodule AdventOfCode2023.Day10 do
   defp left({x, y}), do: {x - 1, y}
   defp right({x, y}), do: {x + 1, y}
 
-  defp find_loop(pipe_map, start), do: find_loop_helper(pipe_map, start, MapSet.new([start]))
+  def find_loop(pipe_map) do
+    start = find_start(pipe_map)
+    find_loop_helper(pipe_map, start, MapSet.new([start]))
+  end
 
   defp find_loop_helper(pipe_map, next_point, so_far) do
     new_neighbors =
