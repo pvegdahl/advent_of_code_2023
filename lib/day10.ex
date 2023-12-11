@@ -1,7 +1,13 @@
 defmodule AdventOfCode2023.Day10 do
   alias AdventOfCode2023.Helpers
 
-  def part_a(_lines) do
+  def part_a(lines) do
+    pipe_map = parse_input(lines)
+    start = find_start(pipe_map)
+
+    loop_size = find_loop(pipe_map, start) |> MapSet.size()
+
+    div(loop_size, 2)
   end
 
   def part_b(_lines) do
@@ -42,6 +48,7 @@ defmodule AdventOfCode2023.Day10 do
 
   defp get(_pipe_map, {-1, _y}), do: "."
   defp get(_pipe_map, {_x, -1}), do: "."
+
   defp get(pipe_map, {x, y}) do
     pipe_map
     |> elem(y)
@@ -73,4 +80,19 @@ defmodule AdventOfCode2023.Day10 do
   defp down({x, y}), do: {x, y + 1}
   defp left({x, y}), do: {x - 1, y}
   defp right({x, y}), do: {x + 1, y}
+
+  defp find_loop(pipe_map, start), do: find_loop_helper(pipe_map, start, MapSet.new([start]))
+
+  defp find_loop_helper(pipe_map, next_point, so_far) do
+    new_neighbors =
+      find_neighbors(pipe_map, next_point)
+      |> MapSet.new()
+      |> MapSet.difference(so_far)
+
+    if MapSet.size(new_neighbors) == 0 do
+      so_far
+    else
+      find_loop_helper(pipe_map, Enum.at(new_neighbors, 0), MapSet.union(so_far, new_neighbors))
+    end
+  end
 end

@@ -23,12 +23,10 @@ defmodule AdventOfCode2023.Day10Test do
 
   defp pipe_map_2(), do: Day10.parse_input(@example_input_2)
 
-  @tag :skip
   test "Day10 part A example 1" do
     assert Day10.part_a(@example_input_1) == 4
   end
 
-  @tag :skip
   test "Day10 part A example 2" do
     assert Day10.part_a(@example_input_2) == 8
   end
