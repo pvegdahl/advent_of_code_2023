@@ -150,4 +150,12 @@ defmodule AdventOfCode2023.Day10Test do
   test "Calculate enclosed area of a line with simple enclosed area" do
     assert Day10.enclosed_area_of_line({{".", "|", ".", ".", "|"}}, MapSet.new([{1, 0}, {4, 0}]), 0) == 2
   end
+
+  test "Calculate enclosed area of a line with multiple enclosed areas" do
+    assert Day10.enclosed_area_of_line(
+             {{".", "|", ".", ".", "|", ".", "|", ".", "|", "."}},
+             MapSet.new([{1, 0}, {4, 0}, {6, 0}, {8, 0}]),
+             0
+           ) == 3
+  end
 end

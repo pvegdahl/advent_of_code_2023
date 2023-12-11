@@ -100,8 +100,12 @@ defmodule AdventOfCode2023.Day10 do
 
   def enclosed_area_of_line(_pipe_map, loop, _line_num) do
     case Enum.sort(loop) do
-      [{x0, _}, {x1, _}] -> x1 - x0 - 1
-      _ -> 0
+      [] -> 0
+      enclosing_pairs ->
+        enclosing_pairs
+        |> Enum.chunk_every(2)
+        |> Enum.map(fn [{x0, _}, {x1, _}] -> x1 - x0 - 1 end)
+        |> Enum.sum()
     end
   end
 end
