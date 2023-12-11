@@ -16,7 +16,7 @@ defmodule AdventOfCode2023.Day10 do
 
     {_, y_size} = get_size(pipe_map_without_start)
 
-    0..(y_size-1)
+    0..(y_size - 1)
     |> Enum.map(&enclosed_area_of_line(pipe_map_without_start, loop, &1))
     |> Enum.sum()
   end
