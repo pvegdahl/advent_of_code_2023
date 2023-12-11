@@ -98,7 +98,10 @@ defmodule AdventOfCode2023.Day10 do
     end
   end
 
-  def enclosed_area_of_line(_pipe_map, _loop, _line_num) do
-    0
+  def enclosed_area_of_line(_pipe_map, loop, _line_num) do
+    case Enum.sort(loop) do
+      [{x0, _}, {x1, _}] -> x1 - x0 - 1
+      _ -> 0
+    end
   end
 end
