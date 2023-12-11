@@ -111,6 +111,7 @@ defmodule AdventOfCode2023.Day10 do
     case get(pipe_map, point) do
       "|" -> {0, point, :inside}
       "F" -> {0, point, :outside}
+      "L" -> {0, point, :outside}
     end
   end
 
@@ -127,6 +128,7 @@ defmodule AdventOfCode2023.Day10 do
       {_, "F"} -> {count, point, :outside}
       {"J", "|"} -> {count, point, :inside}
       {"L", "J"} -> {count, point, :outside}
+      {"L", "7"} -> {count, point, :inside}
       {"L", "-"} -> {count, last_relevant_point, :outside}
       {_, "L"} -> {count, point, :outside}
     end
@@ -145,6 +147,7 @@ defmodule AdventOfCode2023.Day10 do
       {_, "F"} -> {count + inside_count(last_relevant_point, point), point, :inside}
       {"J", "|"} -> {count + inside_count(last_relevant_point, point), point, :outside}
       {"L", "J"} -> {count, point, :inside}
+      {"L", "7"} -> {count, point, :outside}
       {"L", "-"} -> {count, last_relevant_point, :inside}
       {_, "L"} -> {count + inside_count(last_relevant_point, point), point, :inside}
     end

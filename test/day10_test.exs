@@ -218,4 +218,12 @@ defmodule AdventOfCode2023.Day10Test do
              0
            ) == 2
   end
+
+  test "L7 works like FJ" do
+    assert Day10.enclosed_area_of_line(
+             {{".", "L", "7", ".", ".", "L", "7", "."}},
+             MapSet.new([{1, 0}, {2, 0}, {5, 0}, {6, 0}]),
+             0
+           ) == 2
+  end
 end
