@@ -124,6 +124,10 @@ defmodule AdventOfCode2023.Day10 do
       {"F", "7"} -> {count, point, :outside}
       {"F", "-"} -> {count, last_relevant_point, :outside}
       {_, "F"} -> {count, point, :outside}
+      {"J", "|"} -> {count, point, :inside}
+      {"L", "J"} -> {count, point, :outside}
+      {"L", "-"} -> {count, last_relevant_point, :outside}
+      {_, "L"} -> {count, point, :outside}
     end
   end
 
@@ -137,6 +141,10 @@ defmodule AdventOfCode2023.Day10 do
       {"F", "7"} -> {count, point, :inside}
       {"F", "-"} -> {count, last_relevant_point, :inside}
       {_, "F"} -> {count + inside_count(last_relevant_point, point), point, :inside}
+      {"J", "|"} -> {count + inside_count(last_relevant_point, point), point, :outside}
+      {"L", "J"} -> {count, point, :inside}
+      {"L", "-"} -> {count, last_relevant_point, :inside}
+      {_, "L"} -> {count + inside_count(last_relevant_point, point), point, :inside}
     end
   end
 
