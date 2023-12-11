@@ -162,4 +162,12 @@ defmodule AdventOfCode2023.Day10Test do
   test "Calculate enclosed area of a simple enclosed area when the loop has points on other lines" do
     assert Day10.enclosed_area_of_line({{".", "|", ".", ".", "|"}}, MapSet.new([{1, 0}, {4, 0}, {0, 2}]), 0) == 2
   end
+
+  test "Calculate enclosed area of a simple enclosed area with ignorable F7 on line" do
+    assert Day10.enclosed_area_of_line(
+             {{".", "|", ".", "F", "7", ".", "|"}},
+             MapSet.new([{1, 0}, {3, 0}, {4, 0}, {6, 0}]),
+             0
+           ) == 2
+  end
 end
