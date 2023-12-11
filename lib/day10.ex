@@ -114,7 +114,10 @@ defmodule AdventOfCode2023.Day10 do
   end
 
   def enclosed_area_of_line(pipe_map, loop, line_num) do
-    loop_points_on_this_line = Enum.filter(loop, fn {_x, y} -> y == line_num end)
+    loop_points_on_this_line =
+      loop
+      |> Enum.filter(fn {_x, y} -> y == line_num end)
+      |> Enum.sort()
 
     Enum.reduce(loop_points_on_this_line, {0, nil, :outside}, fn point, acc ->
       enclosed_area_reduce_helper(pipe_map, point, acc)

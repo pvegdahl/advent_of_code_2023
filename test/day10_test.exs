@@ -75,7 +75,7 @@ defmodule AdventOfCode2023.Day10Test do
   defp pipe_map_5(), do: Day10.parse_input(@example_input_5)
 
   test "Day10 part B example 3" do
-    assert Day10.part_b(@example_input_3) == 8
+    assert Day10.part_b(@example_input_3) == 4
   end
 
   test "Day10 part B example 4" do
