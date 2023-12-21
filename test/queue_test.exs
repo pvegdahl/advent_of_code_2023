@@ -31,12 +31,23 @@ defmodule AdventOfCode2023.QueueTest do
       |> Queue.push(2)
       |> Queue.push(3)
 
-    assert {queue_pop1, 1} = Queue.pop(queue)
-    assert {queue_pop2, 2} = Queue.pop(queue_pop1)
-    assert {_queue_pop3, 3} = Queue.pop(queue_pop2)
+    assert_pop(queue, [1, 2, 3])
+  end
+
+  defp assert_pop(_queue, []), do: nil
+
+  defp assert_pop(queue, [head | tail]) do
+    assert {new_queue, head} = Queue.pop(queue)
+    assert_pop(new_queue, tail)
   end
 
   test "Attempting to pop an empty queue returns :empty" do
     assert Queue.pop(Queue.new()) == :empty
+  end
+
+  test "Push many puts the elements on the queue with the first one in the enum popping first" do
+    queue =
+      Queue.new()
+      |> Queue.push_many(1..5)
   end
 end

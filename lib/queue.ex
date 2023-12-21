@@ -8,6 +8,8 @@ defmodule AdventOfCode2023.Queue do
 
   def push(%__MODULE__{back: back} = queue, element), do: %__MODULE__{queue | back: [element | back]}
 
+  def push_many(queue, _elements), do: queue
+
   def pop(%__MODULE__{front: [], back: []}), do: :empty
 
   def pop(%__MODULE__{front: [], back: back}), do: pop(%__MODULE__{front: Enum.reverse(back), back: []})
