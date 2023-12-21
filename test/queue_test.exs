@@ -23,4 +23,16 @@ defmodule AdventOfCode2023.QueueTest do
 
     assert {%Queue{}, 47} = Queue.pop(queue)
   end
+
+  test "Pop elements in FIFO order" do
+    queue =
+      Queue.new()
+      |> Queue.push(1)
+      |> Queue.push(2)
+      |> Queue.push(3)
+
+    assert {queue_pop1, 1} = Queue.pop(queue)
+    assert {queue_pop2, 2} = Queue.pop(queue_pop1)
+    assert {_queue_pop3, 3} = Queue.pop(queue_pop2)
+  end
 end
