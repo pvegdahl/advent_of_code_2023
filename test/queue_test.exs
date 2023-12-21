@@ -15,4 +15,12 @@ defmodule AdventOfCode2023.QueueTest do
 
     assert not Queue.empty?(queue)
   end
+
+  test "Pop the same element that was added to a queue" do
+    queue =
+      Queue.new()
+      |> Queue.push(47)
+
+    assert {%Queue{}, 47} = Queue.pop(queue)
+  end
 end
