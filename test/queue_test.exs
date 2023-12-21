@@ -31,14 +31,14 @@ defmodule AdventOfCode2023.QueueTest do
       |> Queue.push(2)
       |> Queue.push(3)
 
-    assert_pop(queue, [1, 2, 3])
+    assert_pops(queue, [1, 2, 3])
   end
 
-  defp assert_pop(queue, []), do: assert Queue.pop(queue) == :empty
+  defp assert_pops(queue, []), do: assert Queue.pop(queue) == :empty
 
-  defp assert_pop(queue, [head | tail]) do
+  defp assert_pops(queue, [head | tail]) do
     assert {new_queue, head} = Queue.pop(queue)
-    assert_pop(new_queue, tail)
+    assert_pops(new_queue, tail)
   end
 
   test "Attempting to pop an empty queue returns :empty" do
