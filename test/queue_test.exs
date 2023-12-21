@@ -35,4 +35,8 @@ defmodule AdventOfCode2023.QueueTest do
     assert {queue_pop2, 2} = Queue.pop(queue_pop1)
     assert {_queue_pop3, 3} = Queue.pop(queue_pop2)
   end
+
+  test "Attempting to pop an empty queue returns :empty" do
+    assert Queue.pop(Queue.new()) == :empty
+  end
 end
