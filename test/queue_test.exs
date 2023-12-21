@@ -7,4 +7,12 @@ defmodule AdventOfCode2023.QueueTest do
     queue = Queue.new()
     assert Queue.empty?(queue)
   end
+
+  test "A non empty queue is not empty" do
+    queue =
+      Queue.new()
+      |> Queue.push(6)
+
+    assert not Queue.empty?(queue)
+  end
 end
