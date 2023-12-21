@@ -34,7 +34,7 @@ defmodule AdventOfCode2023.QueueTest do
     assert_pop(queue, [1, 2, 3])
   end
 
-  defp assert_pop(_queue, []), do: nil
+  defp assert_pop(queue, []), do: assert Queue.pop(queue) == :empty
 
   defp assert_pop(queue, [head | tail]) do
     assert {new_queue, head} = Queue.pop(queue)
