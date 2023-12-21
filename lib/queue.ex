@@ -1,17 +1,18 @@
 defmodule AdventOfCode2023.Queue do
-  defstruct elements: []
+  defstruct front: [], back: []
 
   def new(), do: %__MODULE__{}
 
-  def empty?(%__MODULE__{elements: []}), do: true
-  def empty?(%__MODULE__{elements: _}), do: false
+  def empty?(%__MODULE__{front: [], back: []}), do: true
+  def empty?(%__MODULE__{}), do: false
 
-  def push(%__MODULE__{elements: elements}, element), do: %__MODULE__{elements: [element | elements]}
+  def push(%__MODULE__{back: back} = queue, element), do: %__MODULE__{queue | back: [element | back]}
 
-  def pop(%__MODULE__{elements: []}), do: :empty
+  def pop(%__MODULE__{front: [], back: []}), do: :empty
 
-  def pop(%__MODULE__{elements: elements}) do
-    {remaining_elements, [front]} = Enum.split(elements, -1)
-    {%__MODULE__{elements: remaining_elements}, front}
+  def pop(%__MODULE__{front: [], back: back}), do: pop(%__MODULE__{front: Enum.reverse(back), back: []})
+
+  def pop(%__MODULE__{front: [front_head | front_tail]} = queue) do
+    {%__MODULE__{queue | front: front_tail}, front_head}
   end
 end
