@@ -17,3 +17,17 @@ defmodule AdventOfCode2023.Day20 do
     |> part_b()
   end
 end
+
+defmodule AdventOfCode2023.Day20.Node do
+  defstruct type: :broadcaster, destinations: []
+
+  def new_broadcaster(destinations), do: %__MODULE__{destinations: destinations}
+
+  def send(%__MODULE__{destinations: destinations} = node, {_source, pulse, self_name}) do
+    new_pulses =
+      destinations
+      |> Enum.map(fn destination -> {self_name, pulse, destination} end)
+
+    {node, new_pulses}
+  end
+end

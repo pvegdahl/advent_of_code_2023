@@ -2,6 +2,7 @@ defmodule AdventOfCode2023.Day20Test do
   use ExUnit.Case, async: true
 
   alias AdventOfCode2023.Day20
+  alias AdventOfCode2023.Day20.Node
 
   @example_input_1 [
     "broadcaster -> a, b, c",
@@ -32,5 +33,17 @@ defmodule AdventOfCode2023.Day20Test do
   @tag :skip
   test "Day20 part B example" do
     assert Day20.part_b(@example_input_1) == :something_else
+  end
+
+  test "A broadcaster sends the same plus to all destinations" do
+    broadcaster = Node.new_broadcaster(~w(a b c))
+
+    assert Node.send(broadcaster, {"button", :high, "broadcaster"}) ==
+             {broadcaster,
+              [
+                {"broadcaster", :high, "a"},
+                {"broadcaster", :high, "b"},
+                {"broadcaster", :high, "c"}
+              ]}
   end
 end
