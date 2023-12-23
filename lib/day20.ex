@@ -33,9 +33,15 @@ defmodule AdventOfCode2023.Day20.Node do
     {node, []}
   end
 
-  def send(%__MODULE__{type: :flip_flop, destinations: destinations} = node, {:low, _source, self_name}) do
-    {node, multiplex(:high, self_name, destinations)}
+  def send(%__MODULE__{type: :flip_flop, destinations: destinations, state: state} = node, {:low, _source, self_name}) do
+    {%__MODULE__{node | state: toggle_ff_state(state)}, multiplex(ff_state_to_pulse(state), self_name, destinations)}
   end
+
+  defp toggle_ff_state(:off), do: :on
+  defp toggle_ff_state(:on), do: :off
+
+  defp ff_state_to_pulse(:off), do: :high
+  defp ff_state_to_pulse(:on), do: :low
 
   defp multiplex(pulse, source, destinations) do
     Enum.map(destinations, fn destination -> {pulse, source, destination} end)

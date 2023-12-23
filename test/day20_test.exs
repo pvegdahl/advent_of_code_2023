@@ -59,4 +59,11 @@ defmodule AdventOfCode2023.Day20Test do
     assert {%Node{type: :flip_flop}, [{:high, "self", "a"}, {:high, "self", "z"}]} =
              Node.send(flip_flop, {:low, "source", "self"})
   end
+
+  test "On low pulses, a flip flop will alternate pulses" do
+    ff0 = Node.new_flip_flop(["q"])
+
+    assert {ff1, [{:high, "ff", "q"}]} = Node.send(ff0, {:low, "source", "ff"})
+    assert {ff2, [{:low, "ff", "q"}]} = Node.send(ff1, {:low, "source", "ff"})
+  end
 end
