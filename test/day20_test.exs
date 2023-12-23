@@ -38,18 +38,18 @@ defmodule AdventOfCode2023.Day20Test do
   test "A broadcaster sends the same plus to all destinations" do
     broadcaster = Node.new_broadcaster(~w(a b c))
 
-    assert Node.send(broadcaster, {"button", :high, "broadcaster"}) ==
+    assert Node.send(broadcaster, {:high, "button", "broadcaster"}) ==
              {broadcaster,
               [
-                {"broadcaster", :high, "a"},
-                {"broadcaster", :high, "b"},
-                {"broadcaster", :high, "c"}
+                {:high, "broadcaster", "a"},
+                {:high, "broadcaster", "b"},
+                {:high, "broadcaster", "c"}
               ]}
   end
 
   test "A flip flop sends nothing when it receives a high pulse" do
     flip_flop = Node.new_flip_flop(~w(a z))
 
-    assert {flip_flop, []} == Node.send(flip_flop, {"source", :high, "self"})
+    assert {flip_flop, []} == Node.send(flip_flop, {:high, "source", "self"})
   end
 end

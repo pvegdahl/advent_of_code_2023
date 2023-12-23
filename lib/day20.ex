@@ -25,15 +25,15 @@ defmodule AdventOfCode2023.Day20.Node do
 
   def new_flip_flop(destinations), do: %__MODULE__{type: :flip_flop, destinations: destinations, state: :off}
 
-  def send(%__MODULE__{type: :broadcaster, destinations: destinations} = node, {_source, pulse, self_name}) do
+  def send(%__MODULE__{type: :broadcaster, destinations: destinations} = node, {pulse, _source, self_name}) do
     {node, multiplex(pulse, self_name, destinations)}
   end
 
-  def send(%__MODULE__{type: :flip_flop, state: :off} = node, {_source, :high, _self_name}) do
+  def send(%__MODULE__{type: :flip_flop, state: :off} = node, {:high, _source, _self_name}) do
     {node, []}
   end
 
   defp multiplex(pulse, source, destinations) do
-    Enum.map(destinations, fn destination -> {source, pulse, destination} end)
+    Enum.map(destinations, fn destination -> {pulse, source, destination} end)
   end
 end
