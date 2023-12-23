@@ -29,8 +29,12 @@ defmodule AdventOfCode2023.Day20.Node do
     {node, multiplex(pulse, self_name, destinations)}
   end
 
-  def send(%__MODULE__{type: :flip_flop, state: :off} = node, {:high, _source, _self_name}) do
+  def send(%__MODULE__{type: :flip_flop} = node, {:high, _source, _self_name}) do
     {node, []}
+  end
+
+  def send(%__MODULE__{type: :flip_flop, destinations: destinations} = node, {:low, _source, self_name}) do
+    {node, multiplex(:high, self_name, destinations)}
   end
 
   defp multiplex(pulse, source, destinations) do
