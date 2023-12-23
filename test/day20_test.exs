@@ -65,5 +65,7 @@ defmodule AdventOfCode2023.Day20Test do
 
     assert {ff1, [{:high, "ff", "q"}]} = Node.send(ff0, {:low, "source", "ff"})
     assert {ff2, [{:low, "ff", "q"}]} = Node.send(ff1, {:low, "source", "ff"})
+    assert {ff3, [{:high, "ff", "q"}]} = Node.send(ff2, {:low, "source", "ff"})
+    assert {ff4, [{:low, "ff", "q"}]} = Node.send(ff3, {:low, "source", "ff"})
   end
 end
