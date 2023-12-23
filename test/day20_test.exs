@@ -46,4 +46,10 @@ defmodule AdventOfCode2023.Day20Test do
                 {"broadcaster", :high, "c"}
               ]}
   end
+
+  test "A flip flop sends nothing when it receives a high pulse" do
+    flip_flop = Node.new_flip_flop(~w(a z))
+
+    assert {flip_flop, []} == Node.send(flip_flop, {"source", :high, "self"})
+  end
 end

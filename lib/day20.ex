@@ -19,15 +19,21 @@ defmodule AdventOfCode2023.Day20 do
 end
 
 defmodule AdventOfCode2023.Day20.Node do
-  defstruct type: :broadcaster, destinations: []
+  defstruct [:type, :destinations, :state]
 
-  def new_broadcaster(destinations), do: %__MODULE__{destinations: destinations}
+  def new_broadcaster(destinations), do: %__MODULE__{type: :broadcaster, destinations: destinations}
 
-  def send(%__MODULE__{destinations: destinations} = node, {_source, pulse, self_name}) do
-    new_pulses =
-      destinations
-      |> Enum.map(fn destination -> {self_name, pulse, destination} end)
+  def new_flip_flop(destinations), do: %__MODULE__{type: :flip_flop, destinations: destinations, state: :off}
 
-    {node, new_pulses}
+  def send(%__MODULE__{type: :broadcaster, destinations: destinations} = node, {_source, pulse, self_name}) do
+    {node, multiplex(pulse, self_name, destinations)}
+  end
+
+  def send(%__MODULE__{type: :flip_flop, state: :off} = node, {_source, :high, _self_name}) do
+    {node, []}
+  end
+
+  defp multiplex(pulse, source, destinations) do
+    Enum.map(destinations, fn destination -> {source, pulse, destination} end)
   end
 end
