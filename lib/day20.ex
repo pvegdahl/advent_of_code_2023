@@ -25,7 +25,9 @@ defmodule AdventOfCode2023.Day20.Node do
 
   def new_flip_flop(destinations), do: %__MODULE__{type: :flip_flop, destinations: destinations, state: :off}
 
-  def new_nand(destinations, _sources), do: %__MODULE__{type: :nand, destinations: destinations}
+  def new_nand(destinations, sources) do
+    %__MODULE__{type: :nand, destinations: destinations, state: sources}
+  end
 
   def send(%__MODULE__{type: :broadcaster} = node, {pulse, _source, self_name}) do
     {node, multiplex(pulse, self_name, node)}
@@ -40,7 +42,7 @@ defmodule AdventOfCode2023.Day20.Node do
   end
 
   def send(%__MODULE__{type: :nand} = node, {pulse, _source, self_name}) do
-    {node, multiplex(opposite_pulse(pulse), self_name, node)}
+    {node, multiplex(nand_pulse(node, pulse), self_name, node)}
   end
 
   defp toggle_ff_state(:off), do: :on
@@ -53,6 +55,12 @@ defmodule AdventOfCode2023.Day20.Node do
     Enum.map(destinations, fn destination -> {pulse, source, destination} end)
   end
 
-  defp opposite_pulse(:high), do: :low
-  defp opposite_pulse(:low), do: :high
+  defp nand_pulse(_node, :low), do: :high
+
+  defp nand_pulse(%__MODULE__{state: sources}, :high) do
+    case Enum.count(sources) do
+      1 -> :low
+      _ -> :high
+    end
+  end
 end
