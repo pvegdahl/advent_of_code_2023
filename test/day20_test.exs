@@ -97,4 +97,9 @@ defmodule AdventOfCode2023.Day20Test do
     {nand2, _} = Node.send(nand1, {:high, "b", "nand"})
     assert {_nand3, [{:high, "nand", "z"}]} = Node.send(nand2, {:low, "b", "nand"})
   end
+
+  test "Count high and low pulses of one push in the simplest network" do
+    network = Day20.parse_input(["broadcaster -> a"])
+    assert {_new_network, [low: 2, high: 0]} = Day20.push_button(network)
+  end
 end

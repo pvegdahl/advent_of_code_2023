@@ -4,6 +4,14 @@ defmodule AdventOfCode2023.Day20 do
   def part_a(_lines) do
   end
 
+  def parse_input(_lines) do
+    # TODO!
+  end
+
+  def push_button(network) do
+    {network, [low: Enum.count(network), high: 0]}
+  end
+
   def part_b(_lines) do
   end
 
