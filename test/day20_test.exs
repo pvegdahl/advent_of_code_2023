@@ -82,4 +82,11 @@ defmodule AdventOfCode2023.Day20Test do
     assert {%Node{type: :nand}, [{:high, "nand", "z"}]} = Node.send(nand, {:high, "a", "nand"})
     assert {%Node{type: :nand}, [{:high, "nand", "z"}]} = Node.send(nand, {:high, "b", "nand"})
   end
+
+  test "A nand with two inputs will send low pulses when both inputs go high" do
+    nand0 = Node.new_nand(["z"], ["a", "b"])
+
+    assert {nand1, [{:high, "nand", "z"}]} = Node.send(nand0, {:high, "a", "nand"})
+    assert {_nand2, [{:low, "nand", "z"}]} = Node.send(nand1, {:high, "b", "nand"})
+  end
 end

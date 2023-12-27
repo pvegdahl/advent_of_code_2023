@@ -26,7 +26,12 @@ defmodule AdventOfCode2023.Day20.Node do
   def new_flip_flop(destinations), do: %__MODULE__{type: :flip_flop, destinations: destinations, state: :off}
 
   def new_nand(destinations, sources) do
-    %__MODULE__{type: :nand, destinations: destinations, state: sources}
+    last_source_pulses =
+      sources
+      |> Enum.map(&{&1, :low})
+      |> Map.new()
+
+    %__MODULE__{type: :nand, destinations: destinations, state: last_source_pulses}
   end
 
   def send(%__MODULE__{type: :broadcaster} = node, {pulse, _source, self_name}) do
@@ -41,8 +46,11 @@ defmodule AdventOfCode2023.Day20.Node do
     {%__MODULE__{node | state: toggle_ff_state(state)}, multiplex(ff_state_to_pulse(state), self_name, node)}
   end
 
-  def send(%__MODULE__{type: :nand} = node, {pulse, _source, self_name}) do
-    {node, multiplex(nand_pulse(node, pulse), self_name, node)}
+  def send(%__MODULE__{type: :nand, state: last_source_pulses} = node, {pulse, source, self_name}) do
+    updated_node = %__MODULE__{node | state: Map.put(last_source_pulses, source, pulse)}
+    next_pulse = nand_pulse(updated_node)
+
+    {updated_node, multiplex(next_pulse, self_name, node)}
   end
 
   defp toggle_ff_state(:off), do: :on
@@ -55,12 +63,11 @@ defmodule AdventOfCode2023.Day20.Node do
     Enum.map(destinations, fn destination -> {pulse, source, destination} end)
   end
 
-  defp nand_pulse(_node, :low), do: :high
-
-  defp nand_pulse(%__MODULE__{state: sources}, :high) do
-    case Enum.count(sources) do
-      1 -> :low
-      _ -> :high
+  defp nand_pulse(%__MODULE__{state: last_source_pulses}) do
+    if Enum.all?(last_source_pulses, fn {_, pulse} -> pulse == :high end) do
+      :low
+    else
+      :high
     end
   end
 end
