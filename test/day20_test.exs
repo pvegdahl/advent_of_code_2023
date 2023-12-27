@@ -66,6 +66,13 @@ defmodule AdventOfCode2023.Day20Test do
     assert {ff1, [{:high, "ff", "q"}]} = Node.send(ff0, {:low, "source", "ff"})
     assert {ff2, [{:low, "ff", "q"}]} = Node.send(ff1, {:low, "source", "ff"})
     assert {ff3, [{:high, "ff", "q"}]} = Node.send(ff2, {:low, "source", "ff"})
-    assert {ff4, [{:low, "ff", "q"}]} = Node.send(ff3, {:low, "source", "ff"})
+    assert {_ff4, [{:low, "ff", "q"}]} = Node.send(ff3, {:low, "source", "ff"})
+  end
+
+  test "A simple nand (conjunction) node with just one input will invert the input pulse" do
+    nand = Node.new_nand(~w(y z), ["a"])
+
+    assert {%Node{type: :nand}, [{:high, "nand", "y"}, {:high, "nand", "z"}]} = Node.send(nand, {:low, "input", "nand"})
+    assert {%Node{type: :nand}, [{:low, "nand", "y"}, {:low, "nand", "z"}]} = Node.send(nand, {:high, "input", "nand"})
   end
 end
