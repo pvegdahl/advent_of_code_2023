@@ -89,4 +89,12 @@ defmodule AdventOfCode2023.Day20Test do
     assert {nand1, [{:high, "nand", "z"}]} = Node.send(nand0, {:high, "a", "nand"})
     assert {_nand2, [{:low, "nand", "z"}]} = Node.send(nand1, {:high, "b", "nand"})
   end
+
+  test "A nand with two inputs goes back to high when one input goes low again" do
+    nand0 = Node.new_nand(["z"], ["a", "b"])
+
+    {nand1, _} = Node.send(nand0, {:high, "a", "nand"})
+    {nand2, _} = Node.send(nand1, {:high, "b", "nand"})
+    assert {_nand3, [{:high, "nand", "z"}]} = Node.send(nand2, {:low, "b", "nand"})
+  end
 end
