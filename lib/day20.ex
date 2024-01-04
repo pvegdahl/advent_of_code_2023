@@ -14,14 +14,19 @@ defmodule AdventOfCode2023.Day20 do
   defp line_to_node(line) do
     [this_node | destination_nodes] =
       line
-      |> String.split("->")
+      |> String.split(["->", ","])
       |> Enum.map(&String.trim/1)
 
     {this_node, Node.new_broadcaster(destination_nodes)}
   end
 
   def push_button(network) do
-    {network, [low: Enum.count(network) + 1, high: 0]}
+    broadcaster_destinations =
+      network
+      |> Map.get("broadcaster")
+      |> Map.get(:destinations)
+      |> Enum.count()
+    {network, [low: broadcaster_destinations + 1, high: 0]}
   end
 
   def part_b(_lines) do
