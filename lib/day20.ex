@@ -1,5 +1,6 @@
 defmodule AdventOfCode2023.Day20 do
   alias AdventOfCode2023.Helpers
+  alias AdventOfCode2023.Queue
   alias AdventOfCode2023.Day20.Node
 
   def part_a(_lines) do
@@ -12,22 +13,60 @@ defmodule AdventOfCode2023.Day20 do
   end
 
   defp line_to_node(line) do
-    [this_node | destination_nodes] =
+    [node_name | destination_nodes] =
       line
       |> String.split(["->", ","])
       |> Enum.map(&String.trim/1)
 
-    {this_node, Node.new_broadcaster(destination_nodes)}
+    new_node(node_name, destination_nodes)
   end
 
+  defp new_node(name, destination_nodes)
+  defp new_node("broadcaster", destination_nodes), do: {"broadcaster", Node.new_broadcaster(destination_nodes)}
+
+  defp new_node(<<"&"::binary, name::binary>>, destination_nodes),
+    do: {name, Node.new_nand(destination_nodes, ["broadcaster"])}
+
   def push_button(network) do
-    broadcaster_destinations =
-      network
-      |> Map.get("broadcaster")
-      |> Map.get(:destinations)
-      |> Enum.count()
-    {network, [low: broadcaster_destinations + 1, high: 0]}
+    queue = Queue.new() |> Queue.push({:low, "button", "broadcaster"})
+    process_pulses(network, queue)
   end
+
+  defp process_pulses(network, queue, low \\ 0, high \\ 0) do
+    case Queue.pop(queue) do
+      :empty -> {network, [low: low, high: high]}
+      {popped_queue, pulse_spec} -> process_one_pulse(network, popped_queue, pulse_spec, low, high)
+    end
+  end
+
+  defp process_one_pulse(network, queue, {pulse, _source, destination} = pulse_spec, low, high) do
+    new_low = update_low(low, pulse)
+    new_high = update_high(high, pulse)
+
+    case Map.get(network, destination, nil) do
+      nil ->
+        process_pulses(network, queue, new_low, new_high)
+
+      node ->
+        {updated_node, new_pulses} = Node.send(node, pulse_spec)
+
+        process_pulses(
+          Map.put(network, destination, updated_node),
+          Queue.push_many(queue, new_pulses),
+          new_low,
+          new_high
+        )
+    end
+  end
+
+  defp update_low_high(low, high, :low), do: {low + 1, high}
+  defp update_low_high(low, high, :high), do: {low, high + 1}
+
+  defp update_low(low, :low), do: low + 1
+  defp update_low(low, :high), do: low
+
+  defp update_high(high, :low), do: high
+  defp update_high(high, :high), do: high + 1
 
   def part_b(_lines) do
   end

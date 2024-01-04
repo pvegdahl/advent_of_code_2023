@@ -107,4 +107,9 @@ defmodule AdventOfCode2023.Day20Test do
     network = Day20.parse_input(["broadcaster -> a, b"])
     assert {_new_network, [low: 3, high: 0]} = Day20.push_button(network)
   end
+
+  test "push_button of broadcaster to nand to other is 2 low plus one high" do
+    network = Day20.parse_input(["broadcaster -> nand", "&nand -> a"])
+    assert {_new_network, [low: 2, high: 1]} = Day20.push_button(network)
+  end
 end
