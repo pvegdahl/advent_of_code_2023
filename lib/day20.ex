@@ -3,7 +3,11 @@ defmodule AdventOfCode2023.Day20 do
   alias AdventOfCode2023.Queue
   alias AdventOfCode2023.Day20.Node
 
-  def part_a(_lines) do
+  def part_a(lines) do
+    network = parse_input(lines)
+    {_final_network, [low: low, high: high]} = push_button_n_times(network, 1000)
+
+    low * high
   end
 
   def parse_input(lines) do
@@ -32,7 +36,7 @@ defmodule AdventOfCode2023.Day20 do
 
   defp remove_prefix(<<"&"::binary, name::binary>>), do: name
   defp remove_prefix(<<"%"::binary, name::binary>>), do: name
-  defp remove_prefix(name), do: name
+  defp remove_prefix("broadcaster"), do: "broadcaster"
 
   defp line_to_node(line, reverse_map) do
     [node_name | destination_nodes] =
@@ -55,6 +59,16 @@ defmodule AdventOfCode2023.Day20 do
 
   defp new_node(<<"%"::binary, name::binary>>, destination_nodes, _reverse_map) do
     {name, Node.new_flip_flop(destination_nodes)}
+  end
+
+  def push_button_n_times(network, n) do
+    Enum.reduce(1..n, {network, [low: 0, high: 0]}, &push_button_reduce_func/2)
+  end
+
+  defp push_button_reduce_func(_x, {network, [low: low, high: high]} = _acc) do
+    {new_network, [low: additional_low, high: additional_high]} = push_button(network)
+
+    {new_network, [low: low + additional_low, high: high + additional_high]}
   end
 
   def push_button(network) do

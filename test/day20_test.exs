@@ -12,7 +12,6 @@ defmodule AdventOfCode2023.Day20Test do
     "&inv -> a"
   ]
 
-  @tag :skip
   test "Day20 part A example 1" do
     assert Day20.part_a(@example_input_1) == 32_000_000
   end
@@ -25,7 +24,6 @@ defmodule AdventOfCode2023.Day20Test do
     "&con -> output"
   ]
 
-  @tag :skip
   test "Day20 part A example 2" do
     assert Day20.part_a(@example_input_2) == 11_687_500
   end
