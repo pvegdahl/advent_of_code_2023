@@ -1,15 +1,27 @@
 defmodule AdventOfCode2023.Day20 do
   alias AdventOfCode2023.Helpers
+  alias AdventOfCode2023.Day20.Node
 
   def part_a(_lines) do
   end
 
-  def parse_input(_lines) do
-    # TODO!
+  def parse_input(lines) do
+    lines
+    |> Enum.map(&line_to_node/1)
+    |> Map.new()
+  end
+
+  defp line_to_node(line) do
+    [this_node | destination_nodes] =
+      line
+      |> String.split("->")
+      |> Enum.map(&String.trim/1)
+
+    {this_node, Node.new_broadcaster(destination_nodes)}
   end
 
   def push_button(network) do
-    {network, [low: Enum.count(network), high: 0]}
+    {network, [low: Enum.count(network) + 1, high: 0]}
   end
 
   def part_b(_lines) do
