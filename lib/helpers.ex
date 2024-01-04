@@ -9,4 +9,9 @@ defmodule AdventOfCode2023.Helpers do
     |> String.split(" ", trim: true)
     |> Enum.map(&String.to_integer/1)
   end
+
+  def reverse_map_of_lists(map_of_lists) do
+    [{key, [value]}] = Map.to_list(map_of_lists)
+    %{value => [key]}
+  end
 end
