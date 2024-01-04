@@ -11,7 +11,9 @@ defmodule AdventOfCode2023.Helpers do
   end
 
   def reverse_map_of_lists(map_of_lists) do
-    [{key, [value]}] = Map.to_list(map_of_lists)
-    %{value => [key]}
+    Map.to_list(map_of_lists)
+    |> Enum.flat_map(fn {key, values} -> Enum.map(values, &{&1, key}) end)
+    |> Enum.group_by(&elem(&1, 0), &elem(&1, 1))
+    |> Map.new()
   end
 end
