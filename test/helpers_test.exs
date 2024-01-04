@@ -15,7 +15,8 @@ defmodule AdventOfCode2023.HelpersTest do
     assert Helpers.reverse_map_of_lists(%{1 => [2, 3, 4], 0 => [4, 5, 6]}) == %{
              2 => [1],
              3 => [1],
-             4 => [0, 1],  # Note: This ordering is only guaranteed by the current Erlang implementation of small maps.
+             # Note: This ordering is only guaranteed by the current Erlang implementation of small maps.
+             4 => [0, 1],
              5 => [0],
              6 => [0]
            }

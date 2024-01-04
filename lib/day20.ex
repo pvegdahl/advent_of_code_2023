@@ -7,25 +7,55 @@ defmodule AdventOfCode2023.Day20 do
   end
 
   def parse_input(lines) do
+    reverve_map = lines_to_reverse_map(lines)
+
     lines
-    |> Enum.map(&line_to_node/1)
+    |> Enum.map(&line_to_node(&1, reverve_map))
     |> Map.new()
   end
 
-  defp line_to_node(line) do
+  defp lines_to_reverse_map(lines) do
+    lines
+    |> Enum.map(&line_to_tuple/1)
+    |> Map.new()
+    |> Helpers.reverse_map_of_lists()
+  end
+
+  defp line_to_tuple(line) do
     [node_name | destination_nodes] =
       line
       |> String.split(["->", ","])
       |> Enum.map(&String.trim/1)
 
-    new_node(node_name, destination_nodes)
+    {remove_prefix(node_name), destination_nodes}
   end
 
-  defp new_node(name, destination_nodes)
-  defp new_node("broadcaster", destination_nodes), do: {"broadcaster", Node.new_broadcaster(destination_nodes)}
+  defp remove_prefix(<<"&"::binary, name::binary>>), do: name
+  defp remove_prefix(<<"%"::binary, name::binary>>), do: name
+  defp remove_prefix(name), do: name
 
-  defp new_node(<<"&"::binary, name::binary>>, destination_nodes),
-    do: {name, Node.new_nand(destination_nodes, ["broadcaster"])}
+  defp line_to_node(line, reverse_map) do
+    [node_name | destination_nodes] =
+      line
+      |> String.split(["->", ","])
+      |> Enum.map(&String.trim/1)
+
+    new_node(node_name, destination_nodes, reverse_map)
+  end
+
+  defp new_node(name, destination_nodes, reverse_map)
+
+  defp new_node("broadcaster", destination_nodes, _reverse_map) do
+    {"broadcaster", Node.new_broadcaster(destination_nodes)}
+  end
+
+  defp new_node(<<"&"::binary, name::binary>>, destination_nodes, reverse_map) do
+    {name, Node.new_nand(destination_nodes, Map.get(reverse_map, name, []))}
+  end
+
+  defp new_node(<<"%"::binary, name::binary>>, destination_nodes, _reverse_map) do
+    {name, Node.new_flip_flop(destination_nodes)}
+  end
 
   def push_button(network) do
     queue = Queue.new() |> Queue.push({:low, "button", "broadcaster"})
@@ -40,8 +70,7 @@ defmodule AdventOfCode2023.Day20 do
   end
 
   defp process_one_pulse(network, queue, {pulse, _source, destination} = pulse_spec, low, high) do
-    new_low = update_low(low, pulse)
-    new_high = update_high(high, pulse)
+    {new_low, new_high} = update_low_high(low, high, pulse)
 
     case Map.get(network, destination, nil) do
       nil ->
@@ -61,12 +90,6 @@ defmodule AdventOfCode2023.Day20 do
 
   defp update_low_high(low, high, :low), do: {low + 1, high}
   defp update_low_high(low, high, :high), do: {low, high + 1}
-
-  defp update_low(low, :low), do: low + 1
-  defp update_low(low, :high), do: low
-
-  defp update_high(high, :low), do: high
-  defp update_high(high, :high), do: high + 1
 
   def part_b(_lines) do
   end
